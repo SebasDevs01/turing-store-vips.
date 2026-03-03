@@ -153,13 +153,18 @@
         </div>
 
 
-    <button id="mobile-menu-toggle" class="p-2 rounded-lg bg-premium-border text-premium-primary hover:bg-premium-primary hover:text-premium-background transition-all">
-
-      <i class="fas fa-bars"></i>
-
-    </button>
-
+    
+    <div class="flex items-center gap-2">
+        <button id="theme-toggle-mobile" class="w-10 h-10 flex items-center justify-center rounded-lg bg-premium-background border border-premium-border text-premium-textMuted hover:text-[#E63946] transition-all">
+            <i class="fa-solid fa-moon dark:hidden"></i>
+            <i class="fa-solid fa-sun hidden dark:block text-yellow-500"></i>
+        </button>
+        <button id="mobile-menu-toggle" class="w-10 h-10 flex items-center justify-center rounded-lg bg-premium-border text-premium-primary hover:bg-premium-primary hover:text-premium-background transition-all">
+          <i class="fas fa-bars"></i>
+        </button>
+    </div>
   </header>
+
 
 
 
@@ -179,7 +184,7 @@
       <!-- Header del sidebar -->
       <div class="p-5 border-b border-premium-border bg-premium-card flex flex-col gap-4">
         <div class="flex items-center justify-between w-full">
-            <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.location.href='dashboard.html'">
+            <div class="hidden lg:flex items-center space-x-3 cursor-pointer group" onclick="window.location.href='dashboard.html'">
                 
                 
                 <img src="assets/image.png" alt="Turing Logo" class="h-10 w-10 object-contain dark:hidden filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
@@ -191,7 +196,7 @@
                 </div>
             </div>
             
-            <button id="close-sidebar" class="lg:hidden p-2 text-premium-textMuted hover:text-[#E63946] rounded-lg transition-colors">
+            <button id="close-sidebar" class="lg:hidden p-2 text-premium-textMuted ml-auto hover:text-[#E63946] rounded-lg transition-colors">
               <i class="fas fa-times text-xl"></i>
             </button>
         </div>
