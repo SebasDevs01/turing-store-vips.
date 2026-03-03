@@ -191,9 +191,11 @@
                     <option value="OTRO">Otro país</option>
                 </select>
             </div>
-            <div>
-                <input id="password" name="password" type="password" required class="ts-input"
+            <div class="relative">
+                <input id="password" name="password" type="password" required class="ts-input pr-10"
                     placeholder="Contraseña (Mín. 6 letras)">
+                <i class="fa-solid fa-eye-slash absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-turingRed transition-colors"
+                    onclick="togglePasswordVisibility('password', this)"></i>
             </div>
 
             <div class="pt-2">
@@ -319,6 +321,74 @@
         });
         document.addEventListener('dragstart', function (e) { e.preventDefault(); });
         document.addEventListener('selectstart', function (e) { e.preventDefault(); });
+    </script>
+    <script>
+        // Animación de Contraseña Estilo Matrix / Scramble
+        function togglePasswordVisibility(inputId, eyeIcon) {
+            const input = document.getElementById(inputId);
+            const password = input.getAttribute("data-original") || input.value;
+
+            // Si el campo está vacío, simplemente cambiamos el icono y tipo sin animar
+            if (!password) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+                } else {
+                    input.type = 'password';
+                    eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+                }
+                return;
+            }
+
+            let iterations = 0;
+            const maxIterations = 10;
+            const intervalTime = 30; // Más rápido para que se vea más fluido
+            const getRandomChar = () => String.fromCharCode(Math.floor(Math.random() * 94) + 33);
+
+            input.disabled = true;
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+
+                const revealInterval = setInterval(() => {
+                    input.value = Array.from(password).map(() =>
+                        iterations < maxIterations ? getRandomChar() : password
+                    ).join('').substring(0, password.length);
+
+                    iterations++;
+
+                    if (iterations > maxIterations) {
+                        clearInterval(revealInterval);
+                        input.value = password;
+                        input.disabled = false;
+                        input.removeAttribute("data-original");
+                    }
+                }, intervalTime);
+
+            } else {
+                input.setAttribute("data-original", password);
+                iterations = 0;
+
+                const hideInterval = setInterval(() => {
+                    input.value = Array.from(password).map(() =>
+                        iterations < maxIterations ? getRandomChar() : '*'
+                    ).join('').substring(0, password.length);
+
+                    iterations++;
+
+                    if (iterations > maxIterations) {
+                        clearInterval(hideInterval);
+                        input.type = 'password';
+                        input.value = password;
+                        input.disabled = false;
+                        input.removeAttribute("data-original");
+                    }
+                }, intervalTime);
+
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        }
     </script>
 </body>
 
