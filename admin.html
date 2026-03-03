@@ -159,17 +159,18 @@
 
 <body class="min-h-screen flex flex-col pt-6">
 
-    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center w-full mb-6">
+    <header
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center w-full mb-6 gap-4 sm:gap-0">
         <div class="flex items-center gap-3">
             <img src="assets/image.png" alt="Turing Logo"
-                class="h-12 w-12 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:hidden"
+                class="h-10 sm:h-12 w-10 sm:w-12 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:hidden"
                 onerror="this.src='https://via.placeholder.com/150?text=Logo'">
             <img src="assets/Logoblanco.png" alt="Turing Logo"
-                class="hidden h-12 w-12 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:block"
+                class="hidden h-10 sm:h-12 w-10 sm:w-12 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:block"
                 onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-            <div>
-                <h1 class="text-2xl font-bold ts-title tracking-wider text-white">TURING ADMIN</h1>
-                <p class="text-xs text-red-400">Panel de Control de Accesos</p>
+            <div class="text-center sm:text-left">
+                <h1 class="text-xl sm:text-2xl font-bold ts-title tracking-wider text-white">TURING ADMIN</h1>
+                <p class="text-[10px] sm:text-xs text-red-400">Panel de Control de Accesos</p>
             </div>
         </div>
         <div class="flex items-center gap-4">
@@ -180,7 +181,8 @@
             </button>
             <button id="logoutBtn"
                 class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-4 py-2 rounded-lg text-sm transition text-white hover:text-red-400 font-bold">
-                <i class="fa-solid fa-power-off mr-2 text-turingRed"></i>Salir
+                <i class="fa-solid fa-power-off mr-0 sm:mr-2 text-turingRed"></i><span
+                    class="hidden sm:inline">Salir</span>
             </button>
         </div>
     </header>
