@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Store | Panel Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Orbitron:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="assets/image.png" type="image/png">
+    <!-- Theme Check before render -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif']
+                    },
+                    colors: {
+                        turingRed: '#E63946',
+                        turingDark: '#0a0a0a',
+                        turingDarkCard: '#1a0a0a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            display: none;
+            background-color: #f9fafb;
+            color: #1f2937;
+            background-image: radial-gradient(circle at 20% 30%, rgba(230, 57, 70, 0.05) 0%, transparent 50%);
+        }
+
+        .dark body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            background-image: radial-gradient(circle at 20% 30%, rgba(230, 57, 70, 0.1) 0%, transparent 50%);
+        }
+
+        .ts-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .ts-card {
+            background: linear-gradient(135deg, rgba(26, 10, 10, 0.95), rgba(42, 10, 10, 0.9));
+            border: 1px solid rgba(230, 57, 70, 0.3);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.1);
+        }
+
+        .ts-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #111827;
+        }
+
+        .dark .ts-title {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+        }
+
+        .ts-table-header {
+            background: #f3f4f6;
+            border-bottom: 2px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .dark .ts-table-header {
+            background: rgba(230, 57, 70, 0.1);
+            border-bottom: 2px solid rgba(230, 57, 70, 0.3);
+            color: #9ca3af;
+        }
+
+        .ts-table-row {
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.3s ease;
+        }
+
+        .dark .ts-table-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ts-table-row:hover {
+            background: #f9fafb;
+        }
+
+        .dark .ts-table-row:hover {
+            background: rgba(230, 57, 70, 0.05);
+        }
+
+        .ts-btn {
+            background: #E63946;
+            transition: all 0.3s ease;
+            color: white !important;
+        }
+
+        .ts-btn:hover {
+            background: #D62828;
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+        }
+
+        .ts-modal-overlay {
+            backdrop-filter: blur(5px);
+        }
+
+        /* Light overrides for Tailwind classes */
+        body:not(.dark) .text-white {
+            color: #111827 !important;
+        }
+
+        body:not(.dark) .text-gray-400 {
+            color: #4b5563 !important;
+        }
+
+        body:not(.dark) .text-gray-300 {
+            color: #374151 !important;
+        }
+
+        body:not(.dark) .border-gray-800 {
+            border-color: #e5e7eb !important;
+        }
+
+        body:not(.dark) .divide-gray-800> :not([hidden])~ :not([hidden]) {
+            border-color: #e5e7eb !important;
+        }
+
+        body:not(.dark) .bg-gray-800 {
+            background-color: #f3f4f6 !important;
+        }
+
+        body:not(.dark) .hover\:bg-gray-700:hover {
+            background-color: #e5e7eb !important;
+        }
+
+        body:not(.dark) .bg-turingDarkCard {
+            background-color: #ffffff !important;
+        }
+
+        body:not(.dark) .bg-black\/30 {
+            background-color: #f9fafb !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col pt-6">
+
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center w-full mb-6">
+        <div class="flex items-center gap-3">
+            <img src="assets/image.png" alt="Turing Logo"
+                class="h-12 w-12 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:hidden"
+                onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+            <img src="assets/Logoblanco.png" alt="Turing Logo"
+                class="hidden h-12 w-12 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:block"
+                onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+            <div>
+                <h1 class="text-2xl font-bold ts-title tracking-wider text-white">TURING ADMIN</h1>
+                <p class="text-xs text-red-400">Panel de Control de Accesos</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button id="themeToggle"
+                class="text-gray-500 hover:text-turingRed transition p-2 bg-gray-200 dark:bg-gray-800 rounded-full shadow-md w-10 h-10 flex items-center justify-center">
+                <i class="fa-solid fa-moon dark:hidden"></i>
+                <i class="fa-solid fa-sun hidden dark:block text-yellow-500"></i>
+            </button>
+            <button id="logoutBtn"
+                class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-4 py-2 rounded-lg text-sm transition text-white hover:text-red-400 font-bold">
+                <i class="fa-solid fa-power-off mr-2 text-turingRed"></i>Salir
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full">
+        <!-- Dashboard Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="ts-card p-6 flex items-center gap-4">
+                <div class="bg-red-500/10 p-4 rounded-xl text-turingRed"><i class="fa-solid fa-users text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm">Usuarios Totales</p>
+                    <p class="text-2xl font-bold" id="totalUsersCount">0</p>
+                </div>
+            </div>
+            <div class="ts-card p-6 flex items-center gap-4">
+                <div class="bg-green-500/10 p-4 rounded-xl text-green-500"><i
+                        class="fa-solid fa-user-check text-2xl"></i></div>
+                <div>
+                    <p class="text-gray-400 text-sm">Usuarios Activos</p>
+                    <p class="text-2xl font-bold" id="activeUsersCount">0</p>
+                </div>
+            </div>
+            <div class="ts-card p-6 flex items-center gap-4">
+                <div class="bg-yellow-500/10 p-4 rounded-xl text-yellow-500"><i
+                        class="fa-solid fa-network-wired text-2xl"></i></div>
+                <div>
+                    <p class="text-gray-400 text-sm">Conexiones IP Registradas</p>
+                    <p class="text-2xl font-bold" id="ipConnectionsCount">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ts-card overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-white ts-title">Control de Usuarios e IP</h3>
+                <button id="refreshBtn"
+                    class="text-red-600 dark:text-red-400 hover:text-red-500 transition px-3 py-1 bg-red-100 dark:bg-red-900/20 rounded border border-red-300 dark:border-red-900/50 flex items-center gap-2 font-bold">
+                    <i id="refreshIcon" class="fa-solid fa-arrows-rotate"></i>Actualizar
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-left text-sm text-gray-300">
+                    <thead class="ts-table-header uppercase text-gray-400 font-bold text-xs">
+                        <tr>
+                            <th scope="col" class="px-6 py-4">Usuario</th>
+                            <th scope="col" class="px-6 py-4">Estado</th>
+                            <th scope="col" class="px-6 py-4">IP / Última Sesión</th>
+                            <th scope="col" class="px-6 py-4">Acesos VIP (Gems)</th>
+                            <th scope="col" class="px-6 py-4 text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody" class="divide-y divide-gray-800">
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                                <i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando base de datos...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Editar Accesos -->
+    <div id="productModal" class="hidden fixed z-50 inset-0 overflow-y-auto ts-modal-overlay"
+        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
+            <div class="fixed inset-0 bg-black bg-opacity-80 transition-opacity" aria-hidden="true"
+                onclick="closeModal()"></div>
+
+            <div
+                class="inline-block align-bottom bg-turingDarkCard rounded-2xl border border-red-900 shadow-[0_0_30px_rgba(230,57,70,0.3)] text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="px-6 pt-6 pb-4 sm:p-6 sm:pb-4 border-b border-gray-800">
+                    <h3 class="text-xl leading-6 font-bold text-white ts-title mb-2" id="modal-title">Gestión de Accesos
+                    </h3>
+                    <p class="text-sm text-gray-400">Activando productos para: <span id="modalUserName"
+                            class="text-turingRed font-bold"></span></p>
+                </div>
+                <div class="px-6 py-4 bg-black/30">
+                    <div id="productsChecklist" class="space-y-3">
+                        <!-- Checkboxes generados dinamicamente -->
+                    </div>
+                </div>
+                <div class="px-6 py-4 sm:flex sm:flex-row-reverse gap-3 border-t border-gray-800">
+                    <button type="button" id="saveProductsBtn"
+                        class="w-full inline-flex justify-center rounded-lg border border-transparent px-4 py-2 ts-btn text-base font-medium text-white sm:w-auto sm:text-sm shadow-lg">
+                        Guardar Cambios
+                    </button>
+                    <button type="button" onclick="closeModal()"
+                        class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-600 px-4 py-2 bg-transparent text-base font-medium text-gray-300 hover:bg-gray-800 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase y Lógica -->
+    <script type="module">
+        import { checkAuth, handleLogout } from './auth-helper.js?v=3';
+        import { db, collection, getDocs, doc, updateDoc } from './firebase-config.js?v=3';
+
+        let currentEditingUserId = null;
+        // Simulamos la lista de Gems de Turing Store
+        const allProducts = [
+            { id: "GEM-001", name: "LandingMaster IA" },
+            { id: "GEM-002", name: "Gems Creador Ads" },
+            { id: "GEM-003", name: "MasterDesigner Digital" },
+            { id: "GEM-004", name: "Cuenta ChatGPT Plus" }
+        ];
+
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        document.getElementById('refreshBtn').addEventListener('click', loadUsers);
+        document.getElementById('saveProductsBtn').addEventListener('click', saveUserProducts);
+
+        async function initAdmin() {
+            try {
+                const sessionData = await checkAuth(true); // requireAuth = true
+                if (!sessionData) return; // Ya fue redirigido
+
+                document.body.style.display = 'flex';
+                await loadUsers();
+            } catch (error) {
+                console.error("Admin init error:", error);
+                // Demo fallback para que puedas ver el admin mientras configuras
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    document.body.style.display = 'flex';
+                    renderDemoUsers();
+                }
+            }
+        }
+
+        async function loadUsers() {
+            const btnIcon = document.getElementById('refreshIcon');
+            if (btnIcon) btnIcon.classList.add('fa-spin');
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "users"));
+                const users = [];
+                querySnapshot.forEach((doc) => {
+                    users.push({ id: doc.id, ...doc.data() });
+                });
+                renderUsersTable(users);
+            } catch (error) {
+                console.error("Error cargando usuarios", error);
+                renderDemoUsers();
+            } finally {
+                if (btnIcon) btnIcon.classList.remove('fa-spin');
+            }
+        }
+
+        function renderUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+
+            // Actualizar Stats
+            document.getElementById('totalUsersCount').innerText = users.length;
+            document.getElementById('activeUsersCount').innerText = users.filter(u => u.status === 'active').length;
+            document.getElementById('ipConnectionsCount').innerText = users.filter(u => u.current_session_token).length;
+
+            users.forEach(u => {
+                const tr = document.createElement('tr');
+                tr.className = "ts-table-row";
+
+                let statusBadge = '';
+                if (u.status === 'active') statusBadge = '<span class="px-3 py-1 text-xs font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">Activo</span>';
+                else if (u.status === 'pending') statusBadge = '<span class="px-3 py-1 text-xs font-bold rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">Pendiente</span>';
+                else statusBadge = '<span class="px-3 py-1 text-xs font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Bloqueado</span>';
+
+                // Usamos sessionToken o un placeholder simulando la IP
+                const sessionIp = u.current_session_token ? `<span class="font-mono bg-gray-900 px-2 py-1 rounded text-red-300 shadow-inner">${u.current_session_token.substring(0, 12)}...</span>` : '<span class="text-gray-600 italic">Sin conexión</span>';
+
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 bg-red-900/40 rounded-full border border-red-500/30 flex items-center justify-center text-turingRed font-bold shadow-sm">
+                                ${u.name ? u.name.charAt(0).toUpperCase() : '?'}
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-bold text-white">${u.name || 'Sin nombre'}</div>
+                                <div class="text-xs text-gray-400">${u.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">${statusBadge}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">${sessionIp}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                        <span class="bg-gray-800 px-2 py-1 rounded-md border border-gray-700 font-bold">${(u.purchased_products || []).length}</span> Gems
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                        <button onclick="window.toggleUserStatus('${u.id}', '${u.status}')" class="text-gray-400 hover:text-white mx-2 transition" title="Alternar Estado">
+                            <i class="fa-solid fa-power-off text-lg ${u.status === 'active' ? 'hover:text-red-500' : 'hover:text-green-500'}"></i>
+                        </button>
+                        <button onclick="window.openProductModal('${u.id}', '${escape(u.name || 'Usuario')}', '${(u.purchased_products || []).join(',')}')" class="text-turingRed hover:text-red-300 mx-2 transition" title="Editar Accesos">
+                            <i class="fa-solid fa-key text-lg"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        window.toggleUserStatus = async (userId, currentStatus) => {
+            const newStatus = currentStatus === 'active' ? 'pending' : 'active';
+            try {
+                await updateDoc(doc(db, "users", userId), { status: newStatus });
+                loadUsers();
+            } catch (e) {
+                alert("Modo DEMO: Cambio de estado de " + userId + " a " + newStatus);
+                loadUsers();
+            }
+        };
+
+        window.openProductModal = (id, name, productsStr) => {
+            currentEditingUserId = id;
+            document.getElementById('modalUserName').textContent = unescape(name);
+            const userProducts = productsStr ? productsStr.split(',') : [];
+
+            const checksDiv = document.getElementById('productsChecklist');
+            checksDiv.innerHTML = '';
+
+            allProducts.forEach(prod => {
+                const isChecked = userProducts.includes(prod.id) ? 'checked' : '';
+                checksDiv.innerHTML += `
+                    <label class="flex items-center p-3 border border-gray-800 rounded-lg hover:bg-gray-800/50 cursor-pointer transition">
+                        <div class="relative flex items-center">
+                            <input type="checkbox" id="chk_${prod.id}" value="${prod.id}" ${isChecked} class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-gray-600 bg-gray-900 checked:bg-turingRed checked:border-turingRed transition-all">
+                            <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 peer-checked:opacity-100">
+                                <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </span>
+                        </div>
+                        <span class="ml-3 text-sm text-gray-300 font-bold">${prod.name} <span class="text-xs text-gray-500 font-normal ml-2">(${prod.id})</span></span>
+                    </label>
+                `;
+            });
+
+            document.getElementById('productModal').classList.remove('hidden');
+        };
+
+        window.closeModal = () => {
+            document.getElementById('productModal').classList.add('hidden');
+            currentEditingUserId = null;
+        };
+
+        async function saveUserProducts() {
+            if (!currentEditingUserId) return;
+
+            const newProducts = [];
+            allProducts.forEach(prod => {
+                if (document.getElementById('chk_' + prod.id).checked) {
+                    newProducts.push(prod.id);
+                }
+            });
+
+            try {
+                await updateDoc(doc(db, "users", currentEditingUserId), { purchased_products: newProducts });
+                closeModal();
+                loadUsers();
+            } catch (e) {
+                alert("Modo DEMO: Guardando " + newProducts.join(', '));
+                closeModal();
+            }
+        }
+
+        function renderDemoUsers() {
+            renderUsersTable([
+                { id: "1", name: "Usuario Demo", email: "user@demo.com", status: "pending", purchased_products: [], current_session_token: "192.168.1.15" },
+                { id: "2", name: "Cliente VIP", email: "vip@demo.com", status: "active", purchased_products: ["GEM-001", "GEM-002"], current_session_token: "201.155.0.24" },
+                { id: "3", name: "Hacker X", email: "hack@demo.com", status: "banned", purchased_products: [], current_session_token: "MULTIPLE_IPS_DETECTED" }
+            ]);
+        }
+
+        initAdmin();
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.theme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Anti-Inspect & Right Click Protection
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', function (e) { e.preventDefault(); });
+        document.addEventListener('selectstart', function (e) { e.preventDefault(); });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Store | El Ecosistema VIP</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Configuración Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif']
+                    },
+                    colors: {
+                        turingRed: '#E63946',
+                        turingDark: '#050505',
+                        turingCard: '#0f0f0f'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Abstract Red Glow Backgrounds */
+        .bg-glow {
+            position: absolute;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .ts-title {
+            font-family: 'Orbitron', 'sans-serif';
+            text-transform: uppercase;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(230, 57, 70, 0.6);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(230, 230, 230, 0.4), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(230, 57, 70, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .dark .glass-card {
+            background: linear-gradient(135deg, rgba(30, 10, 10, 0.6), rgba(15, 15, 15, 0.8));
+            border: 1px solid rgba(230, 57, 70, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(230, 57, 70, 0.4);
+            box-shadow: 0 20px 40px rgba(230, 57, 70, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-card:hover {
+            border-color: rgba(230, 57, 70, 0.6);
+            box-shadow: 0 20px 40px rgba(230, 57, 70, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #E63946, #b02a35);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.7);
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            border: 2px solid #E63946;
+            color: #111827;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            background: rgba(230, 57, 70, 0.05);
+        }
+
+        .dark .btn-outline {
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: #E63946;
+            color: white;
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Navbar Blur */
+        .nav-glass {
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.1);
+        }
+
+        .logo-owl {
+            filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.8));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-owl:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 15px rgba(230, 57, 70, 1));
+        }
+    </style>
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/image.png" type="image/png">
+
+    <!-- Theme Check before render -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+
+<body
+    class="antialiased min-h-screen flex flex-col relative transition-colors duration-300 bg-white text-gray-900 dark:bg-turingDark dark:text-white">
+
+    <!-- Ambient Background Efects -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div class="bg-glow w-[800px] h-[800px] top-[-200px] left-[-200px]"></div>
+        <div class="bg-glow w-[600px] h-[600px] top-[40%] right-[-150px] opacity-70"></div>
+        <div class="bg-glow w-[900px] h-[900px] bottom-[-300px] left-[10%] opacity-50"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="nav-glass bg-white/80 dark:bg-[#050505]/80 fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                <img src="assets/image.png" alt="Turing Logo" class="h-10 w-10 object-contain dark:hidden"
+                    onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+                <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-10 w-10 object-contain hidden dark:block"
+                    onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+                <h1
+                    class="text-2xl font-bold tracking-widest text-gray-900 dark:text-white ts-title group-hover:text-turingRed transition-colors duration-300">
+                    Turing Store</h1>
+            </div>
+            <div class="hidden md:flex gap-6 items-center">
+                <a href="#features"
+                    class="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-turingRed dark:hover:text-white uppercase tracking-wider transition">Características</a>
+                <a href="#how-it-works"
+                    class="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-turingRed dark:hover:text-white uppercase tracking-wider transition">Cómo
+                    Funciona</a>
+                <div class="w-px h-6 bg-gray-300 dark:bg-gray-700 mx-2"></div>
+                <a href="login.html"
+                    class="text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-turingRed dark:hover:text-turingRed uppercase tracking-wider transition">Ingresar</a>
+                <a href="registro.html" class="btn-primary px-6 py-2.5 rounded-md text-sm">Registrarse</a>
+                <button id="themeToggle" class="text-gray-500 dark:text-gray-400 hover:text-turingRed transition">
+                    <i class="fa-solid fa-moon dark:hidden text-xl"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-xl text-yellow-500"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-white hover:text-turingRed transition">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="flex-grow flex flex-col justify-center">
+        <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 flex items-center min-h-[calc(100vh-80px)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+                    <!-- Hero Content -->
+                    <div class="text-center lg:text-left z-10">
+                        <div
+                            class="inline-block px-4 py-1.5 rounded-full border border-turingRed/50 bg-red-900/20 text-turingRed text-xs font-bold tracking-widest uppercase mb-6 shadow-[0_0_15px_rgba(230,57,70,0.3)]">
+                            <i class="fa-solid fa-crown mr-2"></i> Club Exclusivo VIP
+                        </div>
+                        <h2
+                            class="text-5xl md:text-7xl font-black mb-6 text-gray-900 dark:text-white ts-title leading-tight">
+                            Desbloquea el <br>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-turingRed dark:from-red-500 text-glow">Ecosistema</span>
+                            Turing
+                        </h2>
+                        <p
+                            class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                            Acceso restringido a herramientas digitales premium, softwares de gestión "Gems" y recursos
+                            invaluables. Todo centralizado bajo un entorno oscuro y elegante.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-5">
+                            <a href="registro.html"
+                                class="btn-primary px-8 py-4 rounded-lg text-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-user-plus"></i> Solicitar Acceso
+                            </a>
+                            <a href="#how-it-works"
+                                class="btn-outline px-8 py-4 rounded-lg text-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-compass"></i> Explorar
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero GFx (Floating Card) -->
+                    <div class="hidden lg:flex justify-center relative z-10 animate-float">
+                        <div class="relative w-full max-w-md">
+                            <!-- Red back glow -->
+                            <div class="absolute inset-0 bg-turingRed blur-[100px] opacity-30 rounded-full"></div>
+
+                            <div class="glass-card p-2 rounded-2xl relative">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000"
+                                    alt="Ecosistema Digital"
+                                    class="rounded-xl w-full h-[400px] object-cover opacity-80 border border-gray-800">
+
+                                <!-- Floating badges -->
+                                <div
+                                    class="absolute -left-6 top-1/4 glass-card px-4 py-3 rounded-xl flex items-center gap-3">
+                                    <i class="fa-solid fa-gem text-2xl text-turingRed text-glow"></i>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Gems
+                                            Premium</p>
+                                        <p class="text-sm text-gray-900 dark:text-white font-bold">Herramientas Pro</p>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="absolute -right-8 bottom-1/4 glass-card px-4 py-3 rounded-xl flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center text-green-600 dark:text-green-500 border border-green-500/50 shadow-[0_0_15px_rgba(34,197,94,0.4)]">
+                                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase">Compras
+                                            1 on 1</p>
+                                        <p class="text-sm text-gray-900 dark:text-white font-bold">Soporte Directo</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-24 relative z-10 border-t border-red-900/30 bg-gray-50 dark:bg-turingDark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h3 class="text-turingRed ts-title text-sm tracking-widest mb-2 font-bold">Por Qué Turing Store</h3>
+                    <h4 class="text-4xl ts-title text-gray-900 dark:text-white">Privacidad y Exclusividad</h4>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div
+                            class="w-16 h-16 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-6 border border-turingRed/50 text-turingRed shadow-[0_0_15px_rgba(230,57,70,0.5)]">
+                            <i class="fa-solid fa-user-shield text-2xl"></i>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-3 ts-title">Control Estricto</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Cada miembro es
+                            rigurosamente
+                            aprobado a través de
+                            nuestro panel administrativo. Tu ecosistema está protegido.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="glass-card p-8 rounded-2xl text-center group">
+                        <div
+                            class="w-16 h-16 mx-auto bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6 border border-green-500/50 text-green-600 dark:text-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)] dark:shadow-[0_0_15px_rgba(34,197,94,0.5)] transition-transform group-hover:scale-110 duration-300">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-3 ts-title">Concierge WhatsApp
+                        </h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Nada de carritos de compras.
+                            Trato VIP directo con
+                            asesor a través de WhatsApp para la adquisición de tus Gems.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="glass-card p-8 rounded-2xl text-center">
+                        <div
+                            class="w-16 h-16 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-6 border border-turingRed/50 text-turingRed shadow-[0_0_15px_rgba(230,57,70,0.3)] dark:shadow-[0_0_15px_rgba(230,57,70,0.5)]">
+                            <i class="fa-solid fa-server text-2xl"></i>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-3 ts-title">Alta Tecnología</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Sistemas con reconocimiento
+                            dinámico de sesiones.
+                            Bloqueo automático ante logins no autorizados multicuentas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIP Services Section -->
+        <section id="services" class="py-24 relative z-10 border-t border-red-900/30 bg-gray-100 dark:bg-[#0a0a0e]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h3 class="text-turingRed ts-title text-sm tracking-widest mb-2 font-bold">Catálogo Exclusivo</h3>
+                    <h4 class="text-4xl ts-title text-gray-900 dark:text-white">Nuestros Servicios y Herramientas</h4>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">Accede a soluciones premium de
+                        inteligencia
+                        artificial,
+                        cuentas exclusivas y herramientas de e-commerce especialmente curadas.</p>
+                </div>
+
+                <!-- Categories Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- Category: Cuentas Premium -->
+                    <div class="glass-card p-6 rounded-2xl group flex flex-col h-full">
+                        <div
+                            class="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 border border-blue-500/50 text-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                            <i class="fa-solid fa-key text-xl"></i>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-2 ts-title">Cuentas Premium</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow">Accesos exclusivos a
+                            herramientas top del
+                            mercado
+                            con soporte 24/7.</p>
+                        <ul
+                            class="text-xs text-gray-700 dark:text-gray-400 space-y-2 mb-6 font-semibold dark:font-normal">
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Gemini Pro</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> ChatGPT Plus</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> CapCut Pro</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Canva Pro</li>
+                        </ul>
+                        <a href="login.html" class="btn-outline w-full py-2 rounded-lg text-sm text-center mt-auto">Ver
+                            Catálogo</a>
+                    </div>
+
+                    <!-- Category: GEMS Creator -->
+                    <div
+                        class="glass-card p-6 rounded-2xl group flex flex-col h-full border-turingRed/40 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 bg-turingRed text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg tracking-wider uppercase">
+                            Hot</div>
+                        <div
+                            class="w-12 h-12 bg-red-900/30 rounded-lg flex items-center justify-center mb-4 border border-turingRed/50 text-turingRed shadow-[0_0_15px_rgba(230,57,70,0.4)]">
+                            <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-2 ts-title">GEMS Premium</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow">Herramientas creativas
+                            poderosas para potenciar
+                            tu
+                            marketing digital.</p>
+                        <ul
+                            class="text-xs text-gray-700 dark:text-gray-400 space-y-2 mb-6 font-semibold dark:font-normal">
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Gems Landing Creator</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Gems Creador Ads</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Masterdesigner</li>
+                        </ul>
+                        <a href="login.html"
+                            class="btn-primary w-full py-2 rounded-lg text-sm text-center mt-auto border-none">Ver
+                            Catálogo</a>
+                    </div>
+
+                    <!-- Category: E-commerce Tools -->
+                    <div class="glass-card p-6 rounded-2xl group flex flex-col h-full">
+                        <div
+                            class="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 border border-purple-500/50 text-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+                            <i class="fa-solid fa-chart-line text-xl"></i>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-2 ts-title">E-commerce Tools</h5>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow">Recursos diseñados
+                            específicamente para escalar
+                            tus
+                            tiendas Dropshipping.</p>
+                        <ul
+                            class="text-xs text-gray-700 dark:text-gray-400 space-y-2 mb-6 font-semibold dark:font-normal">
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Tabla Análisis de Productos</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Calculadora Precios IA</li>
+                            <li><i class="fa-solid fa-check text-turingRed mr-2"></i> Pack 100 Códigos Shopify</li>
+                        </ul>
+                        <a href="login.html" class="btn-outline w-full py-2 rounded-lg text-sm text-center mt-auto">Ver
+                            Catálogo</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section id="how-it-works" class="py-24 relative z-10 bg-gray-200/50 dark:bg-black/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h4 class="text-4xl ts-title text-gray-900 dark:text-white">Flujo de Acceso</h4>
+                </div>
+
+                <div class="relative">
+                    <!-- Linea conectora (solo desktop) -->
+                    <div
+                        class="hidden md:block absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-transparent via-turingRed to-transparent -translate-y-1/2 opacity-30">
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-12 relative z-10">
+                        <div class="text-center">
+                            <div
+                                class="w-20 h-20 mx-auto glass-card rounded-full flex items-center justify-center text-3xl font-black ts-title text-gray-900 dark:text-white mb-6 border-turingRed/80 shadow-[0_0_20px_rgba(230,57,70,0.4)]">
+                                1
+                            </div>
+                            <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Registro de Interés</h5>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Crea tu cuenta básica y aguarda nuestra
+                                confirmación.</p>
+                        </div>
+                        <div class="text-center">
+                            <div
+                                class="w-20 h-20 mx-auto glass-card rounded-full flex items-center justify-center text-3xl font-black ts-title text-gray-900 dark:text-white mb-6 border-turingRed/80 shadow-[0_0_20px_rgba(230,57,70,0.4)]">
+                                2
+                            </div>
+                            <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Habilitación VIP</h5>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">El sistema aprueba tu IP y te da ingreso
+                                al
+                                catálogo privado.
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div
+                                class="w-20 h-20 mx-auto glass-card rounded-full flex items-center justify-center text-3xl font-black ts-title text-gray-900 dark:text-white mb-6 border-turingRed/80 shadow-[0_0_20px_rgba(230,57,70,0.4)]">
+                                3
+                            </div>
+                            <h5 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Solicita tus Gems</h5>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Elige qué recursos necesitas y un agente
+                                te
+                                atiende vía
+                                WhatsApp.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20 text-center">
+                    <a href="login.html"
+                        class="inline-block ts-title text-turingRed hover:text-red-700 dark:hover:text-white transition-colors border-b-2 border-turingRed pb-1 font-bold tracking-widest uppercase">
+                        Ya tengo una cuenta aprobada <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-[#020202] border-t border-red-900/30 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <img src="assets/image.png" alt="Turing Logo" class="h-12 w-12 object-contain mb-6 dark:hidden"
+                onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+            <img src="assets/Logoblanco.png" alt="Turing Logo" class="hidden h-12 w-12 object-contain mb-6 dark:block"
+                onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+            <h6 class="text-gray-900 dark:text-white ts-title text-2xl mb-2 tracking-widest">Turing Store</h6>
+            <p class="text-gray-500 text-sm mb-8 font-mono">EST. 2026 // PRIVATE NETWORK</p>
+
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-8"></div>
+
+            <p class="text-gray-500 text-xs uppercase tracking-widest">&copy; <span id="year"></span> Turing Store.
+                Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check local storage or system preferences on load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+        // Anti-Inspect & Right Click Protection
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', function (e) { e.preventDefault(); });
+        document.addEventListener('selectstart', function (e) { e.preventDefault(); });
+    </script>
+</body>
+
+</html>

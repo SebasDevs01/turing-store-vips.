@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Store | Registro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/image.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+                    colors: {
+                        turingRed: '#E63946',
+                        turingDark: '#111111',
+                        turingDarkCard: '#1A1A1A',
+                        turingLight: '#F8F9FA'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .ts-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .light .ts-input {
+            background-color: white;
+            border-color: #E2E8F0;
+            color: #111;
+        }
+
+        .light .ts-input:focus {
+            border-color: #E63946;
+            box-shadow: 0 0 10px rgba(230, 57, 70, 0.2);
+        }
+
+        .light .ts-card {
+            background-color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .dark body {
+            background-color: #000000;
+        }
+
+        .dark .ts-card {
+            background-color: #0A0A0A;
+            box-shadow: 0 0 25px rgba(230, 57, 70, 0.3);
+            border: 1px solid rgba(230, 57, 70, 0.2);
+        }
+
+        .dark .ts-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(230, 57, 70, 0.4);
+            color: white;
+        }
+
+        .dark .ts-input:focus {
+            border-color: #E63946;
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .ts-btn {
+            width: 100%;
+            padding: 14px 16px;
+            border: 0;
+            border-radius: 10px;
+            background: #E63946;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s all ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ts-btn:hover {
+            background: #D62828;
+            box-shadow: 0 0 16px rgba(230, 57, 70, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .dark .ts-text-muted {
+            color: #A0AEC0;
+        }
+
+        .light .ts-text-muted {
+            color: #4A5568;
+        }
+    </style>
+    <link rel="icon" href="assets/image.png" type="image/png">
+
+    <!-- Theme Check before render -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+
+<body
+    class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-turingLight dark:bg-black relative">
+
+    <!-- Theme Toggle -->
+    <button id="themeToggle"
+        class="absolute top-6 right-6 p-3 rounded-full bg-white dark:bg-turingDarkCard shadow-lg text-turingRed transition-transform hover:scale-110">
+        <i class="fa-solid fa-moon dark:hidden text-xl"></i>
+        <i class="fa-solid fa-sun hidden dark:block text-xl text-yellow-400"></i>
+    </button>
+
+    <div class="ts-card w-full max-w-md p-10 rounded-2xl relative transition-colors duration-300">
+        <div id="loadingOverlay"
+            class="hidden absolute inset-0 bg-white/90 dark:bg-black/90 flex items-center justify-center rounded-2xl z-50 backdrop-blur-sm">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-turingRed"></div>
+        </div>
+
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center h-24 mb-4 w-auto px-4">
+                <img src="assets/image.png" alt="Turing Logo"
+                    class="h-16 w-16 mx-auto mb-4 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:hidden"
+                    onerror="this.src='https://via.placeholder.com/150?text=Turing'">
+                <img src="assets/Logoblanco.png" alt="Turing Logo"
+                    class="hidden h-16 w-16 mx-auto mb-4 object-contain filter drop-shadow-[0_0_15px_rgba(230,57,70,0.8)] dark:block"
+                    onerror="this.src='https://via.placeholder.com/150?text=Turing'">
+            </div>
+            <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                Crear Cuenta
+            </h2>
+            <p class="mt-2 text-sm ts-text-muted">
+                Únete a la comunidad VIP.
+            </p>
+        </div>
+
+        <form id="registerForm" class="space-y-5">
+            <div id="errorMessage"
+                class="hidden bg-red-500/10 border border-red-500/50 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm font-medium text-center transition-all">
+                <i class="fa-solid fa-triangle-exclamation mr-1"></i> <span id="errorText">Error</span>
+            </div>
+            <div id="successMessage"
+                class="hidden bg-green-500/10 border border-green-500/50 text-green-600 dark:text-green-400 px-4 py-3 rounded-lg text-sm font-medium text-center transition-all">
+                <i class="fa-solid fa-circle-check mr-1"></i> Registro exitoso. Espera autorización.
+            </div>
+
+            <div>
+                <input id="name" name="name" type="text" required class="ts-input" placeholder="Nombre completo">
+            </div>
+            <div>
+                <input id="email" name="email" type="email" required class="ts-input" placeholder="Correo electrónico">
+            </div>
+            <div>
+                <input id="whatsapp" name="whatsapp" type="tel" required class="ts-input"
+                    placeholder="Whatsapp con el que realizaste la compra">
+            </div>
+            <div>
+                <select id="country" name="country" required class="ts-input" style="color: gray;">
+                    <option value="" disabled selected>¿De qué país realizaste la compra?</option>
+                    <option value="AR">Argentina</option>
+                    <option value="BR">Brasil</option>
+                    <option value="CO">Colombia</option>
+                    <option value="EC">Ecuador</option>
+                    <option value="ES">España</option>
+                    <option value="MX">México</option>
+                    <option value="PA">Panamá</option>
+                    <option value="OTRO">Otro país</option>
+                </select>
+            </div>
+            <div>
+                <input id="password" name="password" type="password" required class="ts-input"
+                    placeholder="Contraseña (Mín. 6 letras)">
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" class="ts-btn flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-user-plus"></i> Registrarse Ahora
+                </button>
+            </div>
+
+            <div class="flex items-center justify-between mt-6">
+                <a href="login.html" class="text-sm font-bold text-turingRed hover:text-red-700 transition-colors">Ya
+                    tengo cuenta</a>
+                <a href="index.html"
+                    class="text-sm font-semibold ts-text-muted hover:text-turingRed dark:hover:text-turingRed transition-colors">Volver</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Theme Logic -->
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+    </script>
+
+    <!-- Auth Logic -->
+    <script type="module">
+        import { auth, db, createUserWithEmailAndPassword, doc, setDoc, signOut } from './firebase-config.js?v=3';
+
+        const registerForm = document.getElementById('registerForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const successMessage = document.getElementById('successMessage');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.classList.add('hidden');
+            loadingOverlay.classList.remove('hidden');
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const country = document.getElementById('country').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                if (!auth.app.options.apiKey || auth.app.options.apiKey === "TU_API_KEY") {
+                    throw new Error("Demo Mode: Agrega las credenciales de Firebase.");
+                }
+
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                await setDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    email: email,
+                    whatsapp: whatsapp,
+                    country: country,
+                    role: "user",
+                    status: "pending", // Requiere activacion
+                    purchased_products: [],
+                    created_at: new Date(),
+                    current_session_token: null
+                });
+
+                await signOut(auth);
+
+                loadingOverlay.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+
+            } catch (error) {
+                console.error(error);
+                loadingOverlay.classList.add('hidden');
+                errorMessage.classList.remove('hidden');
+
+                if (error.code === 'auth/email-already-in-use') {
+                    errorText.textContent = 'Este correo ya existe.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorText.textContent = 'Usa una contraseña más fuerte.';
+                } else {
+                    errorText.textContent = error.message;
+                }
+            }
+        });
+        // Anti-Inspect & Right Click Protection
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('dragstart', function (e) { e.preventDefault(); });
+        document.addEventListener('selectstart', function (e) { e.preventDefault(); });
+    </script>
+</body>
+
+</html>
