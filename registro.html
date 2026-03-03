@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="color-scheme" content="light dark">
     <title>Turing Store | Registro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
@@ -27,9 +28,12 @@
         }
     </script>
     <style>
+        html,
         body {
             font-family: 'Montserrat', sans-serif;
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            width: 100vw;
         }
 
         .ts-input {
@@ -121,11 +125,11 @@
 </head>
 
 <body
-    class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-turingLight dark:bg-black relative">
+    class="min-h-screen flex items-center justify-center py-20 sm:py-12 px-4 sm:px-6 lg:px-8 bg-turingLight dark:bg-black relative">
 
     <!-- Theme Toggle -->
     <button id="themeToggle"
-        class="absolute top-6 right-6 p-3 rounded-full bg-white dark:bg-turingDarkCard shadow-lg text-turingRed transition-transform hover:scale-110">
+        class="absolute top-4 right-4 sm:top-6 sm:right-6 p-3 rounded-full bg-white dark:bg-turingDarkCard shadow-lg text-turingRed transition-transform hover:scale-110 z-50">
         <i class="fa-solid fa-moon dark:hidden text-xl"></i>
         <i class="fa-solid fa-sun hidden dark:block text-xl text-yellow-400"></i>
     </button>

@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="color-scheme" content="light dark">
     <title>Turing Store | Panel Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -38,6 +39,12 @@
         }
     </script>
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
         body {
             display: none;
             background-color: #f9fafb;

@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="color-scheme" content="light dark">
     <title>Turing Store | El Ecosistema VIP</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,6 +44,7 @@
         }
     </script>
     <style>
+        html,
         body {
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -251,11 +253,10 @@
                             <i class="fa-solid fa-crown mr-2"></i> Club Exclusivo VIP
                         </div>
                         <h2
-                            class="text-5xl md:text-7xl font-black mb-6 text-gray-900 dark:text-white ts-title leading-tight">
-                            Desbloquea el <br>
-                            <span
-                                class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-turingRed dark:from-red-500 text-glow">Ecosistema</span>
-                            Turing
+                            class="text-4xl sm:text-5xl md:text-7xl font-black mb-6 text-gray-900 dark:text-white ts-title leading-[1.1] md:leading-tight tracking-tight break-words">
+                            Desbloquea el <br class="hidden sm:block">
+                            <span class="text-turingRed drop-shadow-[0_0_20px_rgba(230,57,70,0.8)]">Ecosistema</span>
+                            <br class="sm:hidden"> Turing
                         </h2>
                         <p
                             class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
