@@ -58,26 +58,30 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                             const currentLocalSessionToken = localStorage.getItem('sessionToken');
                             const justLoggedIn = localStorage.getItem('justLoggedIn');
 
-                            if (!justLoggedIn && userData.current_session_token && userData.current_session_token !== currentLocalSessionToken) {
-                                try {
-                                    // BLOQUEAR CUENTA y destuir sesiones activas para anular la intrusión detectada
-                                    await updateDoc(userRef, {
-                                        status: 'banned',
-                                        current_session_token: null,
-                                        last_ip_device: null
-                                    });
-                                } catch (e) { }
+                            if (userData.current_session_token && currentLocalSessionToken && userData.current_session_token !== currentLocalSessionToken) {
+                                // If the database token doesn't match our local token, AND we didn't JUST log in,
+                                // someone else took over the session.
+                                if (!justLoggedIn) {
+                                    try {
+                                        // BLOQUEAR CUENTA y destuir sesiones activas para anular la intrusión detectada
+                                        await updateDoc(userRef, {
+                                            status: 'banned',
+                                            current_session_token: null,
+                                            last_ip_device: null
+                                        });
+                                    } catch (e) { }
 
-                                alert("¡INTRUSIÓN! Se ha detectado un inicio de sesión simultáneo en otro dispositivo. Por seguridad del ecosistema, tu cuenta ha sido BLOQUEADA automáticamente. Contacta al Admin.");
-                                await signOut(auth);
-                                localStorage.removeItem('sessionToken');
-                                window.location.href = redirectUrl;
+                                    alert("¡INTRUSIÓN! Se ha detectado un inicio de sesión simultáneo en otro dispositivo. Por seguridad del ecosistema, tu cuenta ha sido BLOQUEADA automáticamente. Contacta al Admin.");
+                                    await signOut(auth);
+                                    localStorage.removeItem('sessionToken');
+                                    window.location.href = redirectUrl;
 
-                                if (!isAuthResolved) {
-                                    reject("Múltiples sesiones bloqueadas");
-                                    isAuthResolved = true;
+                                    if (!isAuthResolved) {
+                                        reject("Múltiples sesiones bloqueadas");
+                                        isAuthResolved = true;
+                                    }
+                                    return;
                                 }
-                                return;
                             }
 
                             if (justLoggedIn) {

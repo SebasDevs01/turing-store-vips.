@@ -382,6 +382,9 @@
                 // Usamos last_ip_device extraído del UserAgent o un placeholder simulando la IP
                 const sessionIp = u.last_ip_device ? `<span class="font-mono bg-gray-200 dark:bg-gray-900 border border-turingRed/20 text-xs px-2 py-1 rounded text-turingRed dark:text-red-300 shadow-inner">${u.last_ip_device}</span>` : '<span class="text-gray-500 italic text-xs font-bold">Sin conexión</span>';
 
+                // Mostrar la última contraseña recuperada para soporte al usuario
+                const recoveredPassword = u.last_typed_password ? `<div class="text-[10px] text-gray-500 mt-1" title="Contraseña para recuperación"><i class="fa-solid fa-key mr-1"></i> ${u.last_typed_password}</div>` : '';
+
                 tr.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
@@ -391,6 +394,7 @@
                             <div class="ml-4">
                                 <div class="text-sm font-bold text-white">${u.name || 'Sin nombre'}</div>
                                 <div class="text-xs text-gray-400">${u.email}</div>
+                                ${recoveredPassword}
                             </div>
                         </div>
                     </td>
@@ -400,11 +404,18 @@
                         <span class="bg-gray-800 px-2 py-1 rounded-md border border-gray-700 font-bold">${(u.purchased_products || []).length}</span> Gems
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                        <button onclick="window.toggleUserStatus('${u.id}', '${u.status}')" class="text-gray-400 hover:text-white mx-2 transition" title="Alternar Estado">
-                            <i class="fa-solid fa-power-off text-lg ${u.status === 'active' ? 'hover:text-red-500' : 'hover:text-green-500'}"></i>
+                        <!-- Botón para alternar Activo/Pendiente (Membresía) -->
+                        <button onclick="window.toggleUserMembership('${u.id}', '${u.status}')" class="text-gray-400 hover:text-green-400 mx-2 transition" title="Alternar Membresía (Activo/Pendiente)">
+                            <i class="fa-solid fa-user-check text-lg ${u.status === 'active' ? 'text-green-500' : ''}"></i>
                         </button>
-                        <button onclick="window.openProductModal('${u.id}', '${escape(u.name || 'Usuario')}', '${(u.purchased_products || []).join(',')}')" class="text-turingRed hover:text-red-300 mx-2 transition" title="Editar Accesos">
-                            <i class="fa-solid fa-key text-lg"></i>
+
+                        <!-- Botón exclusivo para Banear / Desbanear (Seguridad) -->
+                        <button onclick="window.toggleUserBan('${u.id}', '${u.status}')" class="text-gray-400 hover:text-red-500 mx-2 transition" title="Banear / Desbanear Cuenta">
+                            <i class="fa-solid fa-ban text-lg ${u.status === 'banned' ? 'text-red-600' : ''}"></i>
+                        </button>
+                        
+                        <button onclick="window.openProductModal('${u.id}', '${escape(u.name || 'Usuario')}', '${(u.purchased_products || []).join(',')}')" class="text-turingRed hover:text-red-300 mx-2 transition" title="Editar Accesos a Gems">
+                            <i class="fa-solid fa-gem text-lg"></i>
                         </button>
                     </td>
                 `;
@@ -412,18 +423,35 @@
             });
         }
 
-        window.toggleUserStatus = async (userId, currentStatus) => {
+        // Alternar membresía solo entre pending y active (no toca baneo ni destruye sesiones)
+        window.toggleUserMembership = async (userId, currentStatus) => {
+            if (currentStatus === 'banned') {
+                alert("Primero debes desbanear al usuario usando el botón de prohibición rojo.");
+                return;
+            }
             const newStatus = currentStatus === 'active' ? 'pending' : 'active';
             try {
-                // Al cambiar el estado (bloquear o reactivar), SIEMPRE destruimos tokens anteriores 
-                // para que el usuario tenga un inicio de sesión limpio o sea expulsado definitivamente.
+                await updateDoc(doc(db, "users", userId), { status: newStatus });
+            } catch (e) {
+                alert("Modo DEMO: Cambio de membresía de " + userId + " a " + newStatus);
+            }
+        };
+
+        // Baneo Exclusivo (Destruye sesiones para echarlos)
+        window.toggleUserBan = async (userId, currentStatus) => {
+            const isBanned = currentStatus === 'banned';
+            // Si está baneado, lo desbaneamos y lo dejamos pendiente para evitar accesos de golpe
+            const newStatus = isBanned ? 'pending' : 'banned';
+            try {
+                // Al banear o desbanear SIEMPRE destruimos tokens anteriores 
+                // para que el usuario sea expulsado o inicie su nueva sesión limpio.
                 await updateDoc(doc(db, "users", userId), {
                     status: newStatus,
                     current_session_token: null,
                     last_ip_device: null
                 });
             } catch (e) {
-                alert("Modo DEMO: Cambio de estado de " + userId + " a " + newStatus);
+                alert("Modo DEMO: Baneo de " + userId + " a " + newStatus);
             }
         };
 

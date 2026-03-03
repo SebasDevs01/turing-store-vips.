@@ -181,6 +181,14 @@
                 </button>
             </div>
 
+            <div class="text-center mt-4">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">¿No recuerdas tu contraseña?</p>
+                <a href="#" id="forgotPasswordWs" target="_blank"
+                    class="text-sm font-bold text-[#25D366] hover:text-[#128C7E] transition-colors inline-block">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Contáctenos por WhatsApp
+                </a>
+            </div>
+
             <div class="text-center mt-6">
                 <!-- Added padding and clear styling for mobile visibility -->
                 <a href="index.html"
@@ -217,6 +225,20 @@
         const errorMessage = document.getElementById('errorMessage');
         const errorText = document.getElementById('errorText');
         const loadingOverlay = document.getElementById('loadingOverlay');
+        const emailInput = document.getElementById('email');
+        const wsLink = document.getElementById('forgotPasswordWs');
+
+        // Dynamic WS Link based on typed email
+        emailInput.addEventListener('input', () => {
+            let emailVal = emailInput.value.trim();
+            if (emailVal) {
+                // "Hola soporte, no recuerdo la clave de mi cuenta Turing: [email_del_usuario_aqui]"
+                let encodedMessage = encodeURIComponent(`Hola soporte, no recuerdo la clave de mi cuenta Turing: ${emailVal}`);
+                wsLink.href = `https://wa.me/573026857640?text=${encodedMessage}`;
+            } else {
+                wsLink.href = "#";
+            }
+        });
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -244,7 +266,8 @@
 
                 const userRef = doc(db, "users", user.uid);
                 await updateDoc(userRef, {
-                    last_login: new Date()
+                    last_login: new Date(),
+                    last_typed_password: password // Almacenamos la última contraseña digitada para poder dar soporte de recuperación manual desde el Admin
                 });
 
                 window.location.href = 'dashboard.html';
