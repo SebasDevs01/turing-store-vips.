@@ -240,19 +240,11 @@
                 const sessionToken = Math.random().toString(36).substring(2, 15);
                 localStorage.setItem('sessionToken', sessionToken);
 
-                // Extraer información básica del dispositivo como simulación de IP/Dispositivo
-                let deviceInfo = "Web Browser";
-                if (/android/i.test(navigator.userAgent)) deviceInfo = "Android Móvil";
-                if (/iPad|iPhone|iPod/.test(navigator.userAgent)) deviceInfo = "iPhone/iPad";
-                if (/Windows/.test(navigator.userAgent)) deviceInfo = "Windows PC";
-                if (/Mac OS X/.test(navigator.userAgent)) deviceInfo = "Mac OS";
-
-                const logData = `${deviceInfo} - ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`;
+                // deviceInfo and last_ip_device are now handled globally in auth-helper.js during checkAuth
 
                 const userRef = doc(db, "users", user.uid);
                 await updateDoc(userRef, {
                     current_session_token: sessionToken,
-                    last_ip_device: logData,
                     last_login: new Date()
                 });
 

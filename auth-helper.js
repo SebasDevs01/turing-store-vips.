@@ -44,8 +44,6 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                         }
 
                         // Verificación de Sesión Única (IP Simulación)
-                        // En un entorno real estático, generamos un token de sesión en localStorage
-                        // y lo comparamos con el de Firestore. Si no coincide, alguien más se conectó.
                         const currentLocalSessionToken = localStorage.getItem('sessionToken');
                         if (userData.current_session_token && userData.current_session_token !== currentLocalSessionToken) {
                             alert("Se ha detectado un inicio de sesión desde otro dispositivo. Tu sesión ha sido cerrada por seguridad.");
@@ -54,6 +52,31 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                             window.location.href = redirectUrl;
                             reject("Múltiples sesiones detectadas");
                             return;
+                        }
+
+                        // Update device info and session token on every auth verification
+                        let deviceInfo = "Web Browser";
+                        if (/android/i.test(navigator.userAgent)) deviceInfo = "Android Móvil";
+                        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) deviceInfo = "iPhone/iPad";
+                        if (/Windows/.test(navigator.userAgent)) deviceInfo = "Windows PC";
+                        if (/Mac OS X/.test(navigator.userAgent)) deviceInfo = "Mac OS";
+
+                        const logData = `${deviceInfo} - ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`;
+                        let sessionToken = currentLocalSessionToken;
+
+                        if (!sessionToken) {
+                            sessionToken = Math.random().toString(36).substring(2, 15);
+                            localStorage.setItem('sessionToken', sessionToken);
+                        }
+
+                        try {
+                            await updateDoc(userRef, {
+                                current_session_token: sessionToken,
+                                last_ip_device: logData,
+                                last_login: new Date()
+                            });
+                        } catch (e) {
+                            console.warn("Could not update session tracking data:", e);
                         }
 
                         resolve({ user, userData });
