@@ -215,9 +215,26 @@
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button class="md:hidden text-white hover:text-turingRed transition">
+            <button id="mobileMenuBtn" class="md:hidden text-gray-900 dark:text-white hover:text-turingRed transition">
                 <i class="fa-solid fa-bars text-2xl"></i>
             </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu"
+            class="hidden md:hidden bg-white/95 dark:bg-[#050505]/95 backdrop-blur-xl border-b border-turingRed/20 px-4 py-6 shadow-2xl">
+            <div class="flex flex-col gap-5 text-center">
+                <a href="#features"
+                    class="mobile-link text-lg font-bold text-gray-900 dark:text-white hover:text-turingRed transition">Características</a>
+                <a href="#how-it-works"
+                    class="mobile-link text-lg font-bold text-gray-900 dark:text-white hover:text-turingRed transition">Cómo
+                    Funciona</a>
+                <div class="w-full h-px bg-gray-200 dark:bg-gray-800 my-2"></div>
+                <a href="login.html"
+                    class="text-lg font-bold text-gray-900 dark:text-white hover:text-turingRed transition">Ingresar</a>
+                <a href="registro.html"
+                    class="btn-primary px-8 py-3 rounded-md text-lg mx-auto w-full max-w-xs">Registrarse</a>
+            </div>
         </div>
     </header>
 
@@ -512,6 +529,30 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
 
         // Theme Toggle Logic
         const themeToggleBtn = document.getElementById('themeToggle');
