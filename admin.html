@@ -305,7 +305,7 @@
     <!-- Firebase y Lógica -->
     <script type="module">
         import { checkAuth, handleLogout } from './auth-helper.js?v=3';
-        import { db, collection, doc, updateDoc, onSnapshot } from './firebase-config.js?v=3';
+        import { db, collection, doc, updateDoc, onSnapshot, deleteDoc } from './firebase-config.js?v=3';
 
         let currentEditingUserId = null;
         // Simulamos la lista de Gems de Turing Store
@@ -417,6 +417,10 @@
                         
                         <button onclick="window.openProductModal('${u.id}', '${escape(u.name || 'Usuario')}', '${(u.purchased_products || []).join(',')}')" class="text-turingRed hover:text-red-300 mx-2 transition" title="Editar Accesos a Gems">
                             <i class="fa-solid fa-key text-lg"></i>
+                        </button>
+                        <!-- Botón exclusivo para Eliminar (Destrucción Total) -->
+                        <button onclick="window.deleteUser('${u.id}', '${escape(u.name || 'Usuario')}')" class="text-gray-400 hover:text-red-500 mx-1 transition rounded hover:bg-red-500/10 p-1" title="Eliminar Cuenta Definitivamente">
+                            <i class="fa-solid fa-trash-can text-lg"></i>
                         </button>
                     </td>
                 `;

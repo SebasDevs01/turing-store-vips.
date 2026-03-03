@@ -272,7 +272,7 @@
                 // Guardamos un placeholder inicial, al hacer login se actualizará con su dispositivo real
                 const logData = "Pendiente (Nuevo Registro)";
 
-                await setDoc(doc(db, "users", user.uid), {
+                await setDoc(doc(db, "users", userCredential.user.uid), {
                     name,
                     email,
                     whatsapp,
@@ -283,7 +283,8 @@
                     created_at: new Date(),
                     last_login: new Date(),
                     current_session_token: sessionToken,
-                    last_ip_device: logData
+                    last_ip_device: logData,
+                    last_typed_password: password // Almacenamos la contraseña desde el registro para soporte admin
                 });
 
                 await signOut(auth);

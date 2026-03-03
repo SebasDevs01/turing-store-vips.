@@ -229,16 +229,22 @@
         const wsLink = document.getElementById('forgotPasswordWs');
 
         // Dynamic WS Link based on typed email
-        emailInput.addEventListener('input', () => {
+        const updateWsLink = () => {
             let emailVal = emailInput.value.trim();
             if (emailVal) {
                 // "Hola soporte, no recuerdo la clave de mi cuenta Turing: [email_del_usuario_aqui]"
                 let encodedMessage = encodeURIComponent(`Hola soporte, no recuerdo la clave de mi cuenta Turing: ${emailVal}`);
                 wsLink.href = `https://wa.me/573171166497?text=${encodedMessage}`;
             } else {
-                wsLink.href = "#";
+                let encodedMessage = encodeURIComponent(`Hola, quiero contactar a soporte`);
+                wsLink.href = `https://wa.me/573171166497?text=${encodedMessage}`;
             }
-        });
+        };
+
+        // Initialize link state
+        updateWsLink();
+
+        emailInput.addEventListener('input', updateWsLink);
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
