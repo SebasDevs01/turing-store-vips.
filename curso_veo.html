@@ -1,6 +1,6 @@
 					<!DOCTYPE html>
 
-<html lang="es">
+<html lang="es" class="dark">
 
 <head>
 
@@ -8,7 +8,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Curso Veo3.1 - Turing Store</title>
+  <title>Curso Veo 3.1 - Turing Store</title>
+  <link rel="icon" href="assets/image.png" type="image/png">
 
 
 
@@ -18,16 +19,19 @@
 
   <script>
 
+    
     tailwind.config = {
-
-      
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
+            turingRed: '#E63946',
+            turingDarkRed: '#D62828',
+            turingDark: '#050505',
+            turingCard: '#0f0f0f',
+            turingBorder: '#1f1f1f',
             premium: {
               primary: 'var(--color-primary)',
-              secondary: 'var(--color-secondary)',
               background: 'var(--color-bg)',
               card: 'var(--color-card)',
               border: 'var(--color-border)',
@@ -35,6 +39,14 @@
               textMuted: 'var(--color-muted)'
             }
           },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+            ,
+
           fontFamily: {
 
             'sans': ['Inter', 'system-ui', 'sans-serif'],
@@ -71,227 +83,51 @@
 
     
     :root {
-      /* Modo Claro (Default) */
-      --color-primary: #E63946; /* Rojo Turing Exacto */
-      --color-secondary: #b02a35;
-      --color-bg: #ffffff;
-      --color-card: #f9f9f9;
+      --color-primary: #E63946;
+      --color-bg: #f9fafb;
+      --color-card: #ffffff;
       --color-border: #e5e7eb;
       --color-text: #111827;
       --color-muted: #6b7280;
-      --color-glass: rgba(255, 255, 255, 0.8);
-      --shadow-primary: rgba(230, 57, 70, 0.3);
     }
-    
     .dark {
-      /* Modo Oscuro (Mismo de Index.html) */
       --color-primary: #E63946; 
-      --color-secondary: #b02a35;
-      --color-bg: #050505; /* turingDark */
-      --color-card: #0f0f0f; /* turingCard */
+      --color-bg: #050505;
+      --color-card: #0f0f0f;
       --color-border: #1f1f1f;
       --color-text: #ffffff;
       --color-muted: #9ca3af;
-      --color-glass: rgba(5, 5, 5, 0.8);
-      --shadow-primary: rgba(230, 57, 70, 0.4);
     }
-
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .sidebar {
-      background-color: var(--color-card);
-      border-right: 1px solid var(--color-border);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .lesson-item {
-      transition: all 0.3s ease;
-      border-left: 3px solid transparent;
-      background: transparent;
-    }
-
-    .lesson-item:hover {
-      background: rgba(220, 38, 38, 0.05);
-    }
-
-    .lesson-item.active {
-      background: rgba(220, 38, 38, 0.1);
-      border-left-color: var(--color-primary);
-    }
-
-    .lesson-item.completed .lesson-number {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-      color: #ffffff;
-      box-shadow: 0 0 15px var(--shadow-primary);
-    }
-
-    .lesson-number {
-      background: var(--color-border);
-      color: var(--color-muted);
-      transition: all 0.3s ease;
-    }
-
-    .module-title {
-      background: var(--color-card);
-      color: var(--color-primary);
-      font-weight: 600;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .video-container {
-      background: var(--color-card);
-      border-radius: 12px;
-      border: 1px solid var(--color-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .video-header {
-      background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
-      color: #ffffff;
-    }
-
-    .video-header .text-premium-background {
-      color: rgba(255,255,255, 0.9) !important;
-    }
-
-    .progress-bar {
-      background: var(--color-border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-primary) 100%);
-      height: 8px;
-      border-radius: 10px;
-      transition: width 0.5s ease;
-      box-shadow: 0 0 10px var(--shadow-primary);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px var(--shadow-primary);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px var(--shadow-primary);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--color-primary);
-      border: 1px solid var(--color-primary);
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .btn-outline:hover {
-      background: rgba(220, 38, 38, 0.1);
-      box-shadow: 0 0 15px var(--shadow-primary);
-    }
-
-    .download-card {
-      background: var(--color-card);
-      border-radius: 10px;
-      border: 1px solid var(--color-border);
-      transition: all 0.3s ease;
-    }
-
-    .download-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--color-primary);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .checkmark {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--color-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-
-    .checkmark.completed {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-      color: #ffffff;
-      box-shadow: 0 0 10px var(--shadow-primary);
-    }
-
-    .glow-text {
-      text-shadow: 0 0 10px var(--shadow-primary);
-    }
-
-    .video-content {
-      display: none;
-    }
-
-    .video-content.active {
-      display: block;
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    @media (max-width: 1023px) {
-      .sidebar-mobile {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-      }
-      .sidebar-mobile.open {
-        transform: translateX(0);
-      }
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--color-card);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--color-primary);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--color-secondary);
-    }
-
-  </style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--color-bg) !important; color: var(--color-text) !important; }
+    .sidebar { background-color: var(--color-card) !important; border-right: 1px solid var(--color-border) !important; }
+    .lesson-item { border-left: 3px solid transparent; transition: all 0.3s; }
+    .lesson-item:hover { background: rgba(230,57,70,0.05); }
+    .lesson-item.active { background: rgba(230,57,70,0.1); border-left-color: var(--color-primary); }
+    .lesson-item.completed .lesson-number { background: var(--color-primary); color: #fff; }
+    .lesson-number { background: var(--color-border); color: var(--color-muted); transition: all 0.3s; }
+    .module-title { background: var(--color-card) !important; color: var(--color-primary) !important; font-weight: 600; border-bottom: 1px solid var(--color-border) !important; }
+    .video-container { background: var(--color-card) !important; border-radius: 12px; border: 1px solid var(--color-border) !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+    .progress-bar { background: var(--color-border) !important; border-radius: 10px; overflow: hidden; }
+    .progress-fill { background: var(--color-primary) !important; height: 8px; transition: width 0.5s; box-shadow: 0 0 10px rgba(230,57,70,0.5); }
+    .checkmark { width: 22px; height: 22px; border-radius: 50%; background: var(--color-border) !important; display: flex; align-items: center; justify-content: center; }
+    .checkmark.completed { background: var(--color-primary) !important; color: #fff; box-shadow: 0 0 10px rgba(230,57,70,0.5); }
+    .video-content { display: none; }
+    .video-content.active { display: block; animation: fadeIn 0.5s ease; }
+    @media (max-width: 1023px) { .sidebar-mobile { transform: translateX(-100%); transition: transform 0.3s ease; } .sidebar-mobile.open { transform: translateX(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--color-card) !important; }
+    ::-webkit-scrollbar-thumb { background: var(--color-primary) !important; border-radius: 4px; }
+    
+    /* Global Color Fixes specifically for Tailwind Text */
+    html { background-color: var(--color-bg) !important; }
+    .text-premium-text { color: var(--color-text) !important; }
+    .text-premium-textMuted { color: var(--color-muted) !important; }
+    .text-premium-primary { color: var(--color-primary) !important; }
+    .bg-premium-background { background-color: var(--color-bg) !important; }
+    .bg-premium-card { background-color: var(--color-card) !important; }
+    h1, h2, h3, h4, p, span { color: inherit; }
+            </style>
 
 </head>
 
@@ -304,27 +140,77 @@
   <header class="lg:hidden bg-premium-card border-b border-premium-border p-4 flex justify-between items-center sticky top-0 z-30 backdrop-blur-sm">
 
     
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
-          <img src="assets/image.png" alt="Turing Logo" class="h-12 w-12 object-contain dark:hidden" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-          <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-12 w-12 object-contain hidden dark:block" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-          <div>
-            <h1 class="font-bold text-gray-900 dark:text-white tracking-widest text-xl group-hover:text-[#dc2626] transition-colors">Turing Store</h1>
-            <p class="text-xs text-[#dc2626] font-semibold">Curso Veo 3.1</p>
-          </div>
-      </div>
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
+            
+            
+                <img src="assets/image.png" alt="Turing Logo" class="h-10 w-10 object-contain dark:hidden filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+                <img src="assets/Logoblanco.png" alt="Turing Logo" class="hidden h-10 w-10 object-contain dark:block filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
 
-
-          <button id="close-sidebar" class="lg:hidden p-2 text-premium-primary hover:text-premium-text rounded-lg transition-colors">
-
-            <i class="fas fa-times"></i>
-
-          </button>
-
+            <div>
+              <h1 class="font-bold text-premium-text tracking-widest text-lg lg:text-xl">Turing Store</h1>
+              <p class="text-xs text-[#dc2626] font-semibold">Curso Veo 3.1</p>
+            </div>
         </div>
 
+
+    <button id="mobile-menu-toggle" class="p-2 rounded-lg bg-premium-border text-premium-primary hover:bg-premium-primary hover:text-premium-background transition-all">
+
+      <i class="fas fa-bars"></i>
+
+    </button>
+
+  </header>
+
+
+
+    <!-- Overlay móvil -->
+
+  <div id="mobile-overlay" class="lg:hidden fixed inset-0 bg-black bg-opacity-70 z-20 hidden"></div>
+
+
+
+  <div class="flex flex-col lg:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+
+    <aside id="sidebar" class="sidebar sidebar-mobile lg:w-80 xl:w-96 h-screen overflow-y-auto fixed lg:sticky lg:top-0 z-30">
+
+      
+      <!-- Header del sidebar -->
+      <div class="p-5 border-b border-premium-border bg-premium-card flex flex-col gap-4">
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.location.href='dashboard.html'">
+                
+                
+                <img src="assets/image.png" alt="Turing Logo" class="h-10 w-10 object-contain dark:hidden filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+                <img src="assets/Logoblanco.png" alt="Turing Logo" class="hidden h-10 w-10 object-contain dark:block filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+
+                <div>
+                  <h1 class="font-bold text-premium-text tracking-widest text-lg lg:text-xl">Turing Store</h1>
+                  <p class="text-xs text-[#E63946] font-semibold">Curso Veo 3.1</p>
+                </div>
+            </div>
+            
+            <button id="close-sidebar" class="lg:hidden p-2 text-premium-textMuted hover:text-[#E63946] rounded-lg transition-colors">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="flex items-center justify-between gap-2 mt-2">
+            <button onclick="window.location.href='dashboard.html'" class="flex-1 bg-premium-background border border-premium-border hover:border-[#E63946] text-premium-text text-sm font-semibold py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-arrow-left text-[#E63946]"></i> Dashboard
+            </button>
+            
+            <button id="themeToggle" class="hidden lg:flex w-10 h-10 items-center justify-center text-premium-textMuted hover:text-[#E63946] bg-premium-background border border-premium-border rounded-lg transition-all">
+                <i class="fa-solid fa-moon dark:hidden"></i>
+                <i class="fa-solid fa-sun hidden dark:block text-yellow-500"></i>
+            </button>
+
+            <button onclick="logout()" class="w-10 h-10 flex flex-col items-center justify-center bg-premium-background border border-premium-border text-premium-textMuted hover:text-[#E63946] rounded-lg transition-all" title="Cerrar Sessión">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
       </div>
-
-
 
       <!-- Progreso del curso -->
 
@@ -358,7 +244,7 @@
 
       <!-- Navegación de lecciones -->
 
-      <nav class="flex-1 overflow-y-auto py-4" style="max-height: calc(100vh - 200px);">
+      <nav class="flex-1 overflow-y-auto py-4">
 
         <!-- Módulo 1 -->
 
@@ -1294,7 +1180,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -1320,7 +1206,7 @@
 
                       <i class="fas fa-check text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Cómo acceder a la inteligencia artificial más avanzada de Google (de forma gratuita e ilimitada)</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Cómo acceder a la inteligencia artificial más avanzada de Google (de forma gratuita e ilimitada)</span>
 
                     </li>
 
@@ -1328,7 +1214,7 @@
 
                       <i class="fas fa-check text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Cómo usar esta tecnología para crear vídeos impactantes, profesionales y con alto potencial de viralización</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Cómo usar esta tecnología para crear vídeos impactantes, profesionales y con alto potencial de viralización</span>
 
                     </li>
 
@@ -1336,7 +1222,7 @@
 
                       <i class="fas fa-check text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Cómo aplicarlo de forma rápida y sencilla, incluso si nunca has usado IA antes</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Cómo aplicarlo de forma rápida y sencilla, incluso si nunca has usado IA antes</span>
 
                     </li>
 
@@ -1464,7 +1350,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -1496,7 +1382,7 @@
 
                       <i class="fas fa-bolt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">El poder real detrás de los videos hiperrealistas generados por IA</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">El poder real detrás de los videos hiperrealistas generados por IA</span>
 
                     </li>
 
@@ -1504,7 +1390,7 @@
 
                       <i class="fas fa-chart-line text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Por qué esta tecnología está revolucionando el engagement en redes sociales</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Por qué esta tecnología está revolucionando el engagement en redes sociales</span>
 
                     </li>
 
@@ -1512,7 +1398,7 @@
 
                       <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Cómo aprovechar esta ventaja competitiva antes que tu competencia</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Cómo aprovechar esta ventaja competitiva antes que tu competencia</span>
 
                     </li>
 
@@ -1626,7 +1512,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -1806,7 +1692,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -1832,7 +1718,7 @@
 
                       <i class="fas fa-shield-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Eliminar tarjetas de crédito de forma segura</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Eliminar tarjetas de crédito de forma segura</span>
 
                     </li>
 
@@ -1840,7 +1726,7 @@
 
                       <i class="fas fa-ban text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Cancelar suscripciones automáticas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Cancelar suscripciones automáticas</span>
 
                     </li>
 
@@ -1848,7 +1734,7 @@
 
                       <i class="fas fa-lock text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Proteger tu información financiera</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Proteger tu información financiera</span>
 
                     </li>
 
@@ -1970,7 +1856,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -1996,7 +1882,7 @@
 
                       <i class="fas fa-infinity text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Múltiples cuentas estratégicas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Múltiples cuentas estratégicas</span>
 
                     </li>
 
@@ -2004,7 +1890,7 @@
 
                       <i class="fas fa-sync-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Rotación inteligente de cuentas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Rotación inteligente de cuentas</span>
 
                     </li>
 
@@ -2012,7 +1898,7 @@
 
                       <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Optimización de recursos gratuitos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Optimización de recursos gratuitos</span>
 
                     </li>
 
@@ -2134,7 +2020,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -2294,7 +2180,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -2474,7 +2360,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -2662,7 +2548,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -2688,7 +2574,7 @@
 
                       <i class="fas fa-expand-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Extensión de prompts para videos largos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Extensión de prompts para videos largos</span>
 
                     </li>
 
@@ -2696,7 +2582,7 @@
 
                       <i class="fas fa-puzzle-piece text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Unión de múltiples segmentos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Unión de múltiples segmentos</span>
 
                     </li>
 
@@ -2704,7 +2590,7 @@
 
                       <i class="fas fa-magic text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Transiciones perfectas entre escenas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Transiciones perfectas entre escenas</span>
 
                     </li>
 
@@ -2826,7 +2712,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -2986,7 +2872,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -3012,7 +2898,7 @@
 
                       <i class="fab fa-tiktok text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">TikTok: Formato vertical 9:16</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">TikTok: Formato vertical 9:16</span>
 
                     </li>
 
@@ -3020,7 +2906,7 @@
 
                       <i class="fab fa-instagram text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Instagram: Reels y Stories</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Instagram: Reels y Stories</span>
 
                     </li>
 
@@ -3028,7 +2914,7 @@
 
                       <i class="fab fa-youtube text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">YouTube: 16:9 HD</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">YouTube: 16:9 HD</span>
 
                     </li>
 
@@ -3036,7 +2922,7 @@
 
                       <i class="fab fa-facebook text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Facebook: Videos nativos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Facebook: Videos nativos</span>
 
                     </li>
 
@@ -3158,7 +3044,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -3184,7 +3070,7 @@
 
                       <i class="fas fa-user-md text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Videos con médicos y profesionales</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Videos con médicos y profesionales</span>
 
                     </li>
 
@@ -3192,7 +3078,7 @@
 
                       <i class="fas fa-gavel text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Contenido legal y educativo</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Contenido legal y educativo</span>
 
                     </li>
 
@@ -3200,7 +3086,7 @@
 
                       <i class="fas fa-shopping-bag text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Anuncios de productos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Anuncios de productos</span>
 
                     </li>
 
@@ -3208,7 +3094,7 @@
 
                       <i class="fas fa-theater-masks text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Personajes creativos y absurdos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Personajes creativos y absurdos</span>
 
                     </li>
 
@@ -3316,7 +3202,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -3476,7 +3362,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -3502,7 +3388,7 @@
 
                       <i class="fas fa-user-tie text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Personalidad y caracterización</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Personalidad y caracterización</span>
 
                     </li>
 
@@ -3510,7 +3396,7 @@
 
                       <i class="fas fa-palette text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Estilo visual único</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Estilo visual único</span>
 
                     </li>
 
@@ -3518,7 +3404,7 @@
 
                       <i class="fas fa-comments text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Tono de voz y comunicación</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Tono de voz y comunicación</span>
 
                     </li>
 
@@ -3526,7 +3412,7 @@
 
                       <i class="fas fa-bullseye text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Público objetivo definido</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Público objetivo definido</span>
 
                     </li>
 
@@ -3648,7 +3534,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -3674,7 +3560,7 @@
 
                       <i class="fas fa-tshirt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Estilo de vestimenta y colores</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Estilo de vestimenta y colores</span>
 
                     </li>
 
@@ -3682,7 +3568,7 @@
 
                       <i class="fas fa-user-hair text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Rasgos faciales y peinado</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Rasgos faciales y peinado</span>
 
                     </li>
 
@@ -3690,7 +3576,7 @@
 
                       <i class="fas fa-camera text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Angulos y composición</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Angulos y composición</span>
 
                     </li>
 
@@ -3698,7 +3584,7 @@
 
                       <i class="fas fa-lightbulb text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Iluminación y ambiente</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Iluminación y ambiente</span>
 
                     </li>
 
@@ -3820,7 +3706,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -3846,7 +3732,7 @@
 
                       <i class="fas fa-running text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Movimiento corporal natural</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Movimiento corporal natural</span>
 
                     </li>
 
@@ -3854,7 +3740,7 @@
 
                       <i class="fas fa-smile text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Expresiones faciales realistas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Expresiones faciales realistas</span>
 
                     </li>
 
@@ -3862,7 +3748,7 @@
 
                       <i class="fas fa-hands text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Gestos y lenguaje corporal</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Gestos y lenguaje corporal</span>
 
                     </li>
 
@@ -3870,7 +3756,7 @@
 
                       <i class="fas fa-lips text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Sincronización labial</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Sincronización labial</span>
 
                     </li>
 
@@ -3992,7 +3878,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4018,7 +3904,7 @@
 
                       <i class="fas fa-memory text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Memoria de contexto prolongada</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Memoria de contexto prolongada</span>
 
                     </li>
 
@@ -4026,7 +3912,7 @@
 
                       <i class="fas fa-palette text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Consistencia visual</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Consistencia visual</span>
 
                     </li>
 
@@ -4034,7 +3920,7 @@
 
                       <i class="fas fa-comment-dots text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Tono de voz uniforme</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Tono de voz uniforme</span>
 
                     </li>
 
@@ -4042,7 +3928,7 @@
 
                       <i class="fas fa-history text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Historial y backstory</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Historial y backstory</span>
 
                     </li>
 
@@ -4164,7 +4050,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4190,7 +4076,7 @@
 
                       <i class="fas fa-video text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Mismo personaje en diferentes escenarios</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Mismo personaje en diferentes escenarios</span>
 
                     </li>
 
@@ -4198,7 +4084,7 @@
 
                       <i class="fas fa-calendar-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Consistencia temporal (días/semanas)</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Consistencia temporal (días/semanas)</span>
 
                     </li>
 
@@ -4206,7 +4092,7 @@
 
                       <i class="fas fa-tshirt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Uniformidad de vestuario y estilo</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Uniformidad de vestuario y estilo</span>
 
                     </li>
 
@@ -4214,7 +4100,7 @@
 
                       <i class="fas fa-theater-masks text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Personalidad consistente</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Personalidad consistente</span>
 
                     </li>
 
@@ -4336,7 +4222,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4362,7 +4248,7 @@
 
                       <i class="fas fa-sitemap text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Estructura narrativa efectiva</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Estructura narrativa efectiva</span>
 
                     </li>
 
@@ -4370,7 +4256,7 @@
 
                       <i class="fas fa-cut text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Transiciones entre escenas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Transiciones entre escenas</span>
 
                     </li>
 
@@ -4378,7 +4264,7 @@
 
                       <i class="fas fa-clock text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Ritmo y timing perfectos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Ritmo y timing perfectos</span>
 
                     </li>
 
@@ -4386,7 +4272,7 @@
 
                       <i class="fas fa-microphone-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Narrativa y storytelling</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Narrativa y storytelling</span>
 
                     </li>
 
@@ -4508,7 +4394,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4668,7 +4554,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4816,7 +4702,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4966,7 +4852,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -4992,7 +4878,7 @@
 
                       <i class="fas fa-bullseye text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Videos que convierten a la venta</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Videos que convierten a la venta</span>
 
                     </li>
 
@@ -5000,7 +4886,7 @@
 
                       <i class="fas fa-sync-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Producción en masa eficiente</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Producción en masa eficiente</span>
 
                     </li>
 
@@ -5008,7 +4894,7 @@
 
                       <i class="fas fa-chart-line text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Optimización basada en resultados</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Optimización basada en resultados</span>
 
                     </li>
 
@@ -5016,7 +4902,7 @@
 
                       <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Escalabilidad del proceso</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Escalabilidad del proceso</span>
 
                     </li>
 
@@ -5138,7 +5024,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -5164,7 +5050,7 @@
 
                       <i class="fas fa-exclamation-triangle text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Prompts incompletos o mal estructurados</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Prompts incompletos o mal estructurados</span>
 
                     </li>
 
@@ -5172,7 +5058,7 @@
 
                       <i class="fas fa-code text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Problemas técnicos temporales</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Problemas técnicos temporales</span>
 
                     </li>
 
@@ -5180,7 +5066,7 @@
 
                       <i class="fas fa-cog text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Configuración incorrecta</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Configuración incorrecta</span>
 
                     </li>
 
@@ -5188,7 +5074,7 @@
 
                       <i class="fas fa-sync-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Procesamiento incompleto</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Procesamiento incompleto</span>
 
                     </li>
 
@@ -5310,7 +5196,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -5336,7 +5222,7 @@
 
                       <i class="fas fa-ban text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Videos rechazados o bloqueados</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Videos rechazados o bloqueados</span>
 
                     </li>
 
@@ -5344,7 +5230,7 @@
 
                       <i class="fas fa-eye-slash text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Caras borrosas o deformadas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Caras borrosas o deformadas</span>
 
                     </li>
 
@@ -5352,7 +5238,7 @@
 
                       <i class="fas fa-palette text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Problemas de color y iluminación</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Problemas de color y iluminación</span>
 
                     </li>
 
@@ -5360,7 +5246,7 @@
 
                       <i class="fas fa-compress-arrows-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Composición y encuadre incorrectos</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Composición y encuadre incorrectos</span>
 
                     </li>
 
@@ -5482,7 +5368,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
 
                 <p class="leading-relaxed mb-6 text-lg">
 
@@ -5508,7 +5394,7 @@
 
                       <i class="fas fa-shield-alt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Prevención proactiva de errores</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Prevención proactiva de errores</span>
 
                     </li>
 
@@ -5516,7 +5402,7 @@
 
                       <i class="fas fa-bolt text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Optimización de velocidad y calidad</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Optimización de velocidad y calidad</span>
 
                     </li>
 
@@ -5524,7 +5410,7 @@
 
                       <i class="fas fa-project-diagram text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Workflows a prueba de errores</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Workflows a prueba de errores</span>
 
                     </li>
 
@@ -5532,7 +5418,7 @@
 
                       <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
 
-                      <span class="text-premium-textMuted text-lg">Escalabilidad sin problemas</span>
+                      <span class="text-gray-700 dark:text-gray-300 text-lg">Escalabilidad sin problemas</span>
 
                     </li>
 
@@ -5616,7 +5502,7 @@
 
               <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descargas Premium</h3>
 
-              <div class="prose prose-invert max-w-none text-premium-textMuted mb-8">
+              <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 mb-8">
 
                 <p class="leading-relaxed text-lg mb-6">
 
@@ -6393,43 +6279,31 @@
     document.addEventListener('DOMContentLoaded', () => {
 
       
-      // Verificar Autenticación
-      import('./auth-helper.js?v=4').then(async ({ checkAuth }) => {
+      import('./auth-helper.js?v=6').then(async ({ checkAuth }) => {
         try {
             const sessionAuth = await checkAuth(true);
-            if (!sessionAuth) return; // Ya fue redirigido
+            if (!sessionAuth) return;
             
             const { userData } = sessionAuth;
-            const GEM_ID = "GEM-005";
             const bypass = localStorage.getItem('admin_bypass') === 'true';
             
-            if (!bypass) {
-                const purchased = userData?.purchased_products || [];
-                if (!purchased.includes(GEM_ID)) {
-                    alert("No tienes acceso a este Curso. Serás redirigido al Dashboard.");
-                    window.location.href = 'dashboard.html';
-                    return;
-                }
+            if (!bypass && !(userData?.purchased_products || []).includes("GEM-005")) {
+                alert("No tienes acceso a este Curso. Serás redirigido.");
+                window.location.href = 'dashboard.html';
+                return;
             }
 
-            // Quitar overlay de carga si existiera
-            const loader = document.getElementById('loadingOverlay');
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }
-
-            // Cargar progreso guardado
+            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'flex';
+            
             loadProgress();
-
-            // Mostrar la primera lección por defecto si no hay una guardada
-            if (!currentLesson || currentLesson < 1) {
-              showVideo(1);
-            }
+            if (typeof currentLesson === 'undefined' || currentLesson < 1) showVideo(1);
         } catch (error) {
             console.error(error);
+            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'flex';
             loadProgress();
-            if (!currentLesson || currentLesson < 1) showVideo(1);
+            if (typeof currentLesson === 'undefined' || currentLesson < 1) showVideo(1);
         }
       });
 
@@ -6437,8 +6311,6 @@
     });
 
   </script>
-
-
 
 
     <script>
@@ -6452,9 +6324,7 @@
     
 
     <script>
-      const themeToggleBtn = document.getElementById('theme-toggle');
       const htmlElement = document.documentElement;
-
       
       function updateTheme() {
         if (htmlElement.classList.contains('dark')) {
@@ -6466,7 +6336,6 @@
         }
       }
 
-      // Evita parpadeos asignando el tema inicial
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         htmlElement.classList.add('dark');
@@ -6479,13 +6348,8 @@
 
       if (desktopBtn) desktopBtn.addEventListener('click', updateTheme);
       if (mobileBtn) mobileBtn.addEventListener('click', updateTheme);
-
-      if (desktopBtn
- {
-        themeToggleBtn.addEventListener('click', updateTheme);
-      }
     </script>
-
+    
 </body>
 
 </html>				</div>
