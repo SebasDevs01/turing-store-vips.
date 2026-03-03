@@ -403,19 +403,20 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
                         <span class="bg-gray-800 px-2 py-1 rounded-md border border-gray-700 font-bold">${(u.purchased_products || []).length}</span> Gems
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                        <!-- Botón para alternar Activo/Pendiente (Membresía) -->
-                        <button onclick="window.toggleUserMembership('${u.id}', '${u.status}')" class="text-gray-400 hover:text-green-400 mx-2 transition" title="Alternar Membresía (Activo/Pendiente)">
-                            <i class="fa-solid fa-user-check text-lg ${u.status === 'active' ? 'text-green-500' : ''}"></i>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm flex justify-end items-center gap-2">
+                        <!-- Botón Desbloquear (Solo visible si está baneado) -->
+                        ${u.status === 'banned' ? `
+                        <button onclick="window.unlockUser('${u.id}')" class="bg-red-500/20 text-red-500 border border-red-500 hover:bg-red-500 hover:text-white px-3 py-1 rounded-full text-xs font-bold transition flex items-center gap-1" title="Desbloquear Cuenta">
+                            <i class="fa-solid fa-lock-open text-[10px]"></i> Desbloquear
                         </button>
-
-                        <!-- Botón exclusivo para Banear / Desbanear (Seguridad) -->
-                        <button onclick="window.toggleUserBan('${u.id}', '${u.status}')" class="text-gray-400 hover:text-red-500 mx-2 transition" title="Banear / Desbanear Cuenta">
-                            <i class="fa-solid fa-ban text-lg ${u.status === 'banned' ? 'text-red-600' : ''}"></i>
+                        ` : `
+                        <button onclick="window.toggleUserStatus('${u.id}', '${u.status}')" class="text-gray-400 hover:text-white mx-2 transition" title="Alternar Estado">
+                            <i class="fa-solid fa-power-off text-lg ${u.status === 'active' ? 'hover:text-red-500' : 'hover:text-green-500'}"></i>
                         </button>
+                        `}
                         
                         <button onclick="window.openProductModal('${u.id}', '${escape(u.name || 'Usuario')}', '${(u.purchased_products || []).join(',')}')" class="text-turingRed hover:text-red-300 mx-2 transition" title="Editar Accesos a Gems">
-                            <i class="fa-solid fa-gem text-lg"></i>
+                            <i class="fa-solid fa-key text-lg"></i>
                         </button>
                     </td>
                 `;
@@ -423,37 +424,34 @@
             });
         }
 
-        // Alternar membresía solo entre pending y active (no toca baneo ni destruye sesiones)
-        window.toggleUserMembership = async (userId, currentStatus) => {
-            if (currentStatus === 'banned') {
-                alert("Primero debes desbanear al usuario usando el botón de prohibición rojo.");
-                return;
-            }
+        window.toggleUserStatus = async (userId, currentStatus) => {
             const newStatus = currentStatus === 'active' ? 'pending' : 'active';
             try {
-                await updateDoc(doc(db, "users", userId), { status: newStatus });
-            } catch (e) {
-                alert("Modo DEMO: Cambio de membresía de " + userId + " a " + newStatus);
-            }
-        };
-
-        // Baneo Exclusivo (Destruye sesiones para echarlos)
-        window.toggleUserBan = async (userId, currentStatus) => {
-            const isBanned = currentStatus === 'banned';
-            // Si está baneado, lo desbaneamos y lo dejamos pendiente para evitar accesos de golpe
-            const newStatus = isBanned ? 'pending' : 'banned';
-            try {
-                // Al banear o desbanear SIEMPRE destruimos tokens anteriores 
-                // para que el usuario sea expulsado o inicie su nueva sesión limpio.
+                // Al cambiar el estado (bloquear o reactivar), SIEMPRE destruimos tokens anteriores 
+                // para que el usuario tenga un inicio de sesión limpio o sea expulsado definitivamente.
                 await updateDoc(doc(db, "users", userId), {
                     status: newStatus,
                     current_session_token: null,
                     last_ip_device: null
                 });
             } catch (e) {
-                alert("Modo DEMO: Baneo de " + userId + " a " + newStatus);
+                alert("Modo DEMO: Cambio de estado de " + userId + " a " + newStatus);
             }
         };
+
+        window.unlockUser = async (userId) => {
+            try {
+                // Al desbanear al usuario, lo pasamos a pendiente y borramos la sesión
+                await updateDoc(doc(db, "users", userId), {
+                    status: 'pending',
+                    current_session_token: null,
+                    last_ip_device: null
+                });
+            } catch (e) {
+                alert("Modo DEMO: Cuenta desbloqueada localmente");
+            }
+        };
+
 
         window.openProductModal = (id, name, productsStr) => {
             currentEditingUserId = id;
