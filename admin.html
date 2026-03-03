@@ -126,52 +126,52 @@
         }
 
         /* Light overrides for Tailwind classes */
-        body:not(.dark) .text-white {
+        html:not(.dark) body .text-white {
             color: #111827 !important;
         }
 
-        body:not(.dark) .text-gray-400 {
+        html:not(.dark) body .text-gray-400 {
             color: #4b5563 !important;
         }
 
-        body:not(.dark) .text-gray-300 {
+        html:not(.dark) body .text-gray-300 {
             color: #374151 !important;
         }
 
-        body:not(.dark) .border-gray-800 {
+        html:not(.dark) body .border-gray-800 {
             border-color: #e5e7eb !important;
         }
 
-        body:not(.dark) .divide-gray-800> :not([hidden])~ :not([hidden]) {
+        html:not(.dark) body .divide-gray-800> :not([hidden])~ :not([hidden]) {
             border-color: #e5e7eb !important;
         }
 
-        body:not(.dark) .bg-gray-800 {
+        html:not(.dark) body .bg-gray-800 {
             background-color: #f3f4f6 !important;
         }
 
-        body:not(.dark) .hover\:bg-gray-700:hover {
+        html:not(.dark) body .hover\:bg-gray-700:hover {
             background-color: #e5e7eb !important;
         }
 
-        body:not(.dark) .bg-turingDarkCard {
+        html:not(.dark) body .bg-turingDarkCard {
             background-color: #ffffff !important;
         }
 
-        body:not(.dark) .bg-black\/30 {
+        html:not(.dark) body .bg-black\/30 {
             background-color: #f9fafb !important;
         }
 
         /* Admin specific light mode fixes */
-        body:not(.dark) .text-turingRed {
+        html:not(.dark) body .text-turingRed {
             color: #D62828 !important;
         }
 
-        body:not(.dark) .text-red-400 {
+        html:not(.dark) body .text-red-400 {
             color: #DC2626 !important;
         }
 
-        body:not(.dark) .text-gray-500 {
+        html:not(.dark) body .text-gray-500 {
             color: #6b7280 !important;
         }
     </style>
@@ -429,14 +429,14 @@
             allProducts.forEach(prod => {
                 const isChecked = userProducts.includes(prod.id) ? 'checked' : '';
                 checksDiv.innerHTML += `
-                    <label class="flex items-center p-3 border border-gray-800 rounded-lg hover:bg-gray-800/50 cursor-pointer transition">
+                    <label class="flex items-center p-3 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition">
                         <div class="relative flex items-center">
-                            <input type="checkbox" id="chk_${prod.id}" value="${prod.id}" ${isChecked} class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-gray-600 bg-gray-900 checked:bg-turingRed checked:border-turingRed transition-all">
+                            <input type="checkbox" id="chk_${prod.id}" value="${prod.id}" ${isChecked} class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 checked:bg-turingRed checked:border-turingRed dark:checked:bg-turingRed dark:checked:border-turingRed transition-all">
                             <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 peer-checked:opacity-100">
                                 <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                             </span>
                         </div>
-                        <span class="ml-3 text-sm text-gray-300 font-bold">${prod.name} <span class="text-xs text-gray-500 font-normal ml-2">(${prod.id})</span></span>
+                        <span class="ml-3 text-sm text-gray-700 dark:text-gray-300 font-bold">${prod.name} <span class="text-xs text-gray-500 font-normal ml-2">(${prod.id})</span></span>
                     </label>
                 `;
             });
