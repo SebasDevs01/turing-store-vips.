@@ -154,6 +154,19 @@
         body:not(.dark) .bg-black\/30 {
             background-color: #f9fafb !important;
         }
+
+        /* Admin specific light mode fixes */
+        body:not(.dark) .text-turingRed {
+            color: #D62828 !important;
+        }
+
+        body:not(.dark) .text-red-400 {
+            color: #DC2626 !important;
+        }
+
+        body:not(.dark) .text-gray-500 {
+            color: #6b7280 !important;
+        }
     </style>
 </head>
 
@@ -235,9 +248,9 @@
                             <th scope="col" class="px-6 py-4 text-right">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="usersTableBody" class="divide-y divide-gray-800">
+                    <tbody id="usersTableBody" class="divide-y divide-gray-800 text-gray-700 dark:text-gray-300">
                         <tr>
-                            <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-500">
                                 <i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando base de datos...
                             </td>
                         </tr>
@@ -257,10 +270,11 @@
             <div
                 class="inline-block align-bottom bg-turingDarkCard rounded-2xl border border-red-900 shadow-[0_0_30px_rgba(230,57,70,0.3)] text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="px-6 pt-6 pb-4 sm:p-6 sm:pb-4 border-b border-gray-800">
-                    <h3 class="text-xl leading-6 font-bold text-white ts-title mb-2" id="modal-title">Gestión de Accesos
+                    <h3 class="text-xl leading-6 font-bold text-gray-900 dark:text-white ts-title mb-2"
+                        id="modal-title">Gestión de Accesos
                     </h3>
-                    <p class="text-sm text-gray-400">Activando productos para: <span id="modalUserName"
-                            class="text-turingRed font-bold"></span></p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Activando productos para: <span
+                            id="modalUserName" class="text-turingRed font-bold"></span></p>
                 </div>
                 <div class="px-6 py-4 bg-black/30">
                     <div id="productsChecklist" class="space-y-3">

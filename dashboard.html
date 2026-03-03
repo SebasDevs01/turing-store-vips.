@@ -153,6 +153,19 @@
         body:not(.dark) .border-red-900\/50 {
             border-color: rgba(230, 57, 70, 0.2) !important;
         }
+
+        /* Dashboard specific light mode fixes */
+        body:not(.dark) .text-turingRed {
+            color: #D62828 !important;
+        }
+
+        body:not(.dark) .text-whatsapp {
+            color: #128C7E !important;
+        }
+
+        body:not(.dark) .text-gray-500 {
+            color: #6b7280 !important;
+        }
     </style>
 </head>
 
@@ -180,7 +193,7 @@
                     <span id="userName" class="text-sm font-bold text-turingRed shadow-sm">Cargando...</span>
                 </div>
                 <button id="logoutBtn"
-                    class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-4 py-2 rounded-lg text-sm transition font-bold text-white hover:text-red-400">
+                    class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-4 py-2 rounded-lg text-sm transition font-bold text-white hover:text-red-600 dark:hover:text-red-400">
                     <i class="fa-solid fa-right-from-bracket md:mr-2 text-turingRed"></i><span
                         class="hidden md:inline">Salir</span>
                 </button>
@@ -203,9 +216,10 @@
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             <div class="col-span-full text-center py-12">
                 <div
-                    class="animate-spin rounded-full h-12 w-12 border-b-2 border-turingRed mx-auto shadow-[0_0_15px_rgba(230,57,70,0.6)]">
+                    class="animate-spin rounded-full h-12 w-12 border-b-2 border-turingRed mx-auto shadow-[0_0_15px_rgba(230,57,70,0.3)] dark:shadow-[0_0_15px_rgba(230,57,70,0.6)]">
                 </div>
-                <p class="mt-4 text-gray-400 uppercase tracking-widest text-sm font-bold">Cargando Catálogo...</p>
+                <p class="mt-4 text-gray-500 dark:text-gray-400 uppercase tracking-widest text-sm font-bold">Cargando
+                    Catálogo...</p>
             </div>
         </div>
     </main>
