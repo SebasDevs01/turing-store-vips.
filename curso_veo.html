@@ -1,395 +1,6491 @@
-<!DOCTYPE html>
-<html lang="es" class="dark">
+					<!DOCTYPE html>
+
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="color-scheme" content="dark">
-    <title>Curso Veo 3.1 | Turing Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Orbitron:wght@700;900&display=swap"
-        rel="stylesheet">
-    <link rel="icon" href="assets/image.png" type="image/png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Lite YouTube Embed -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
+  <meta charset="UTF-8"/>
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        orbitron: ['Orbitron', 'sans-serif']
-                    },
-                    colors: {
-                        turingRed: '#E63946',
-                        turingDark: '#050505',
-                        turingDarkCard: '#0f0f0f'
-                    }
-                }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Curso Veo3.1 - Turing Store</title>
+
+
+
+  <!-- Tailwind -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+
+    tailwind.config = {
+
+      
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            premium: {
+              primary: 'var(--color-primary)',
+              secondary: 'var(--color-secondary)',
+              background: 'var(--color-bg)',
+              card: 'var(--color-card)',
+              border: 'var(--color-border)',
+              text: 'var(--color-text)',
+              textMuted: 'var(--color-muted)'
             }
-        }
-    </script>
-    <style>
-        html,
-        body {
-            overflow-x: hidden;
-            background-color: #050505;
-            color: #ffffff;
+          },
+          fontFamily: {
+
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+
+          }
+
         }
 
-        /* Aesthetics */
-        .ts-title {
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1px;
-            text-shadow: 0 0 15px rgba(230, 57, 70, 0.6);
-        }
+      }
 
-        .ts-card {
-            background: #0f0f0f;
-            border: 1px solid rgba(230, 57, 70, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border-radius: 16px;
-        }
+    }
 
-        .lesson-item {
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            cursor: pointer;
-        }
+  </script>
 
-        .lesson-item:hover,
-        .lesson-item.active {
-            background: rgba(230, 57, 70, 0.1);
-            border-left-color: #E63946;
-        }
 
-        .lesson-item.active {
-            box-shadow: inset 0 0 20px rgba(230, 57, 70, 0.05);
-        }
 
-        .lesson-number {
-            background: #1f2937;
-            color: #9ca3af;
-            transition: all 0.3s ease;
-        }
+  <!-- Íconos -->
 
-        .lesson-item.active .lesson-number {
-            background: #E63946;
-            color: white;
-            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
-        }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
-        /* Custom Scrollbar for Sidebar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
+  
 
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
+  <!-- Google Fonts -->
 
-        ::-webkit-scrollbar-thumb {
-            background: #E63946;
-            border-radius: 4px;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D62828;
-        }
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        /* Mobile Sidebar Toggle */
-        @media (max-width: 1023px) {
-            .sidebar-mobile {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-            .sidebar-mobile.open {
-                transform: translateX(0);
-            }
-        }
 
-        .video-container-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            /* 16:9 Aspect Ratio */
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(230, 57, 70, 0.15);
-            border: 1px solid rgba(230, 57, 70, 0.3);
-        }
 
-        lite-youtube {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+  <style>
+
+    
+    :root {
+      /* Modo Claro (Default) */
+      --color-primary: #E63946; /* Rojo Turing Exacto */
+      --color-secondary: #b02a35;
+      --color-bg: #ffffff;
+      --color-card: #f9f9f9;
+      --color-border: #e5e7eb;
+      --color-text: #111827;
+      --color-muted: #6b7280;
+      --color-glass: rgba(255, 255, 255, 0.8);
+      --shadow-primary: rgba(230, 57, 70, 0.3);
+    }
+    
+    .dark {
+      /* Modo Oscuro (Mismo de Index.html) */
+      --color-primary: #E63946; 
+      --color-secondary: #b02a35;
+      --color-bg: #050505; /* turingDark */
+      --color-card: #0f0f0f; /* turingCard */
+      --color-border: #1f1f1f;
+      --color-text: #ffffff;
+      --color-muted: #9ca3af;
+      --color-glass: rgba(5, 5, 5, 0.8);
+      --shadow-primary: rgba(230, 57, 70, 0.4);
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar {
+      background-color: var(--color-card);
+      border-right: 1px solid var(--color-border);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .lesson-item {
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+      background: transparent;
+    }
+
+    .lesson-item:hover {
+      background: rgba(220, 38, 38, 0.05);
+    }
+
+    .lesson-item.active {
+      background: rgba(220, 38, 38, 0.1);
+      border-left-color: var(--color-primary);
+    }
+
+    .lesson-item.completed .lesson-number {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      color: #ffffff;
+      box-shadow: 0 0 15px var(--shadow-primary);
+    }
+
+    .lesson-number {
+      background: var(--color-border);
+      color: var(--color-muted);
+      transition: all 0.3s ease;
+    }
+
+    .module-title {
+      background: var(--color-card);
+      color: var(--color-primary);
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .video-container {
+      background: var(--color-card);
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .video-header {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+      color: #ffffff;
+    }
+
+    .video-header .text-premium-background {
+      color: rgba(255,255,255, 0.9) !important;
+    }
+
+    .progress-bar {
+      background: var(--color-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+      height: 8px;
+      border-radius: 10px;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px var(--shadow-primary);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--shadow-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--shadow-primary);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background: rgba(220, 38, 38, 0.1);
+      box-shadow: 0 0 15px var(--shadow-primary);
+    }
+
+    .download-card {
+      background: var(--color-card);
+      border-radius: 10px;
+      border: 1px solid var(--color-border);
+      transition: all 0.3s ease;
+    }
+
+    .download-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-primary);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .checkmark {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .checkmark.completed {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--shadow-primary);
+    }
+
+    .glow-text {
+      text-shadow: 0 0 10px var(--shadow-primary);
+    }
+
+    .video-content {
+      display: none;
+    }
+
+    .video-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @media (max-width: 1023px) {
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar-mobile.open {
+        transform: translateX(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-card);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-primary);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-secondary);
+    }
+
+  </style>
+
 </head>
 
-<body
-    class="min-h-screen flex flex-col bg-[radial-gradient(circle_at_80%_20%,_rgba(230,57,70,0.05)_0%,_transparent_40%),_radial-gradient(circle_at_20%_80%,_rgba(204,0,0,0.05)_0%,_transparent_40%)]">
 
-    <!-- Header Overlay for Protection -->
-    <div id="loadingOverlay"
-        class="fixed inset-0 z-50 bg-[#050505] flex flex-col items-center justify-center transition-opacity duration-500">
-        <div
-            class="animate-spin rounded-full h-16 w-16 border-b-2 border-turingRed shadow-[0_0_15px_rgba(230,57,70,0.6)] mb-4">
+
+<body class="min-h-screen">
+
+  <!-- Header móvil -->
+
+  <header class="lg:hidden bg-premium-card border-b border-premium-border p-4 flex justify-between items-center sticky top-0 z-30 backdrop-blur-sm">
+
+    
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
+          <img src="assets/image.png" alt="Turing Logo" class="h-12 w-12 object-contain dark:hidden" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+          <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-12 w-12 object-contain hidden dark:block" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+          <div>
+            <h1 class="font-bold text-gray-900 dark:text-white tracking-widest text-xl group-hover:text-[#dc2626] transition-colors">Turing Store</h1>
+            <p class="text-xs text-[#dc2626] font-semibold">Curso Veo 3.1</p>
+          </div>
+      </div>
+
+
+          <button id="close-sidebar" class="lg:hidden p-2 text-premium-primary hover:text-premium-text rounded-lg transition-colors">
+
+            <i class="fas fa-times"></i>
+
+          </button>
+
         </div>
-        <h2 class="ts-title text-xl text-white">Verificando Acceso VIP...</h2>
-    </div>
 
-    <!-- Mobile Header -->
-    <header
-        class="lg:hidden bg-black/80 backdrop-blur-md border-b border-red-900/50 p-4 flex justify-between items-center sticky top-0 z-40">
-        <div class="flex items-center gap-3">
-            <img src="assets/Logoblanco.png" class="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]"
-                alt="Turing Logo" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-            <div>
-                <h1 class="font-bold text-white ts-title uppercase text-sm">Curso Veo 3.1</h1>
-            </div>
+      </div>
+
+
+
+      <!-- Progreso del curso -->
+
+      <div class="p-6 border-b border-premium-border">
+
+        <div class="flex items-center justify-between text-sm text-premium-primary mb-3">
+
+          <span>Tu progreso</span>
+
+          <span id="progress-percent" class="font-semibold">0%</span>
+
         </div>
-        <button id="mobile-menu-toggle" class="p-2 text-gray-400 hover:text-white transition-colors">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-    </header>
 
-    <!-- Mobile Overlay -->
-    <div id="mobile-overlay" class="lg:hidden fixed inset-0 bg-black/80 z-30 hidden backdrop-blur-sm"></div>
+        <div class="progress-bar">
 
-    <div class="flex flex-col lg:flex-row flex-grow w-full h-screen overflow-hidden">
+          <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
 
-        <!-- Sidebar Navigation -->
-        <aside id="sidebar"
-            class="sidebar-mobile lg:w-96 h-full flex flex-col fixed lg:relative z-40 bg-turingDarkCard border-r border-red-900/40 w-80">
-            <!-- Sidebar Header -->
-            <div class="p-6 border-b border-red-900/40 hidden lg:flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <img src="assets/Logoblanco.png"
-                        class="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" alt="Turing Logo"
-                        onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-                    <div>
-                        <h2 class="font-bold text-white ts-title uppercase text-md">Curso Veo 3.1</h2>
-                    </div>
+        </div>
+
+        <div class="mt-3 text-xs text-premium-textMuted flex justify-between">
+
+          <span id="progress-text">0/27 lecciones</span>
+
+          <span id="progress-count">0% completado</span>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Navegación de lecciones -->
+
+      <nav class="flex-1 overflow-y-auto py-4" style="max-height: calc(100vh - 200px);">
+
+        <!-- Módulo 1 -->
+
+        <div class="mb-6">
+
+          <div class="module-title px-6 py-4 text-sm font-semibold">
+
+            <i class="fas fa-play-circle mr-2"></i>Módulo 1 — Dominando Veo 3.1
+
+          </div>
+
+          <div class="space-y-1 px-4">
+
+            <!-- Lecciones 1-12 -->
+
+            <button class="lesson-item active w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="1" onclick="showVideo(1)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Qué vas a aprender aquí</p>
+
+                  <p class="text-xs text-premium-textMuted">Introducción al curso</p>
+
                 </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="1">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="2" onclick="showVideo(2)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">¿Qué es Veo3.1 y por qué es la nueva ola?</p>
+
+                  <p class="text-xs text-premium-textMuted">Fundamentos</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="2">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="3" onclick="showVideo(3)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Cómo usar Flow Veo3.1 GRATIS</p>
+
+                  <p class="text-xs text-premium-textMuted">Configuración inicial</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="3">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="4" onclick="showVideo(4)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Cómo quitar tarjeta y cancelar suscripción</p>
+
+                  <p class="text-xs text-premium-textMuted">Gestión de cuenta</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="4">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="5" onclick="showVideo(5)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">50 videos por cuenta gratuita</p>
+
+                  <p class="text-xs text-premium-textMuted">Optimización</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="5">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="6" onclick="showVideo(6)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Configurar ChatGPT para videos perfectos</p>
+
+                  <p class="text-xs text-premium-textMuted">Integración con IA</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="6">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="7" onclick="showVideo(7)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Cómo usar Flow de Veo3.1</p>
+
+                  <p class="text-xs text-premium-textMuted">Uso práctico</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="7">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="8" onclick="showVideo(8)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">8</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Crear videos en la práctica</p>
+
+                  <p class="text-xs text-premium-textMuted">Ejercicio práctico</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="8">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="9" onclick="showVideo(9)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">9</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Videos de más de 8 segundos</p>
+
+                  <p class="text-xs text-premium-textMuted">Técnicas avanzadas</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="9">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="10" onclick="showVideo(10)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">10</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Crear videos usando imágenes</p>
+
+                  <p class="text-xs text-premium-textMuted">Trabajo con imágenes</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="10">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="11" onclick="showVideo(11)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">11</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Descarga y uso en redes sociales</p>
+
+                  <p class="text-xs text-premium-textMuted">Implementación</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="11">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="12" onclick="showVideo(12)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">12</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Ejemplos de videos creados</p>
+
+                  <p class="text-xs text-premium-textMuted">Casos de éxito</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="12">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Módulo 2 -->
+
+        <div class="mb-6">
+
+          <div class="module-title px-6 py-4 text-sm font-semibold">
+
+            <i class="fas fa-robot mr-2"></i>Módulo 2 — Crear tu Influencer IA
+
+          </div>
+
+          <div class="space-y-1 px-4">
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="13" onclick="showVideo(13)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">13</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Ultra prompt definitivo</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="13">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="14" onclick="showVideo(14)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">14</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Cómo crear tu influencer IA</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="14">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="15" onclick="showVideo(15)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">15</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Generando la imagen de tu influencer</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="15">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="16" onclick="showVideo(16)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">16</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Transformando foto en video</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="16">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Módulo 3 -->
+
+        <div class="mb-6">
+
+          <div class="module-title px-6 py-4 text-sm font-semibold">
+
+            <i class="fas fa-sync-alt mr-2"></i>Módulo 3 — Consistencia de personajes
+
+          </div>
+
+          <div class="space-y-1 px-4">
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="17" onclick="showVideo(17)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">17</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Instruyendo a ChatGPT</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="17">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="18" onclick="showVideo(18)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">18</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Resultado en la práctica</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="18">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="19" onclick="showVideo(19)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">19</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Videos de más de 8 segundos</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="19">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Módulo 4 -->
+
+        <div class="mb-6">
+
+          <div class="module-title px-6 py-4 text-sm font-semibold">
+
+            <i class="fas fa-box mr-2"></i>Módulo 4 — Videos de productos
+
+          </div>
+
+          <div class="space-y-1 px-4">
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="20" onclick="showVideo(20)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">20</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Crear videos de productos PARTE 1</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="20">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="21" onclick="showVideo(21)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">21</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Crear videos de productos PARTE 2</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="21">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="22" onclick="showVideo(22)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">22</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Crear videos de productos PARTE 3</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="22">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="23" onclick="showVideo(23)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">23</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Crear videos de productos PARTE 4</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="23">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Módulo 5 -->
+
+        <div class="mb-6">
+
+          <div class="module-title px-6 py-4 text-sm font-semibold">
+
+            <i class="fas fa-exclamation-triangle mr-2"></i>Módulo 5 — Errores de prompts
+
+          </div>
+
+          <div class="space-y-1 px-4">
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="24" onclick="showVideo(24)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">24</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Error de vídeo sin sonido</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="24">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="25" onclick="showVideo(25)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">25</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Solucionar errores PARTE 1</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="25">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+            
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="26" onclick="showVideo(26)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">26</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">Solucionar errores PARTE 2</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="26">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Módulo 6 -->
+
+        <div class="mb-6">
+
+          <div class="module-title px-6 py-4 text-sm font-semibold">
+
+            <i class="fas fa-file-pdf mr-2"></i>Módulo 6 — Caja de Prompts (10 PDFs)
+
+          </div>
+
+          <div class="space-y-1 px-4">
+
+            <button class="lesson-item w-full text-left p-4 rounded-lg flex items-center justify-between"
+
+                    data-lesson="27" onclick="showVideo(27)">
+
+              <div class="flex items-center space-x-4">
+
+                <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">27</span>
+
+                <div>
+
+                  <p class="text-sm font-semibold text-premium-text">📄 Caja de Prompts — Descargas</p>
+
+                  <p class="text-xs text-premium-textMuted">10 recursos premium</p>
+
+                </div>
+
+              </div>
+
+              <div class="checkmark" data-lesson="27">
+
+                <i class="fas fa-check text-xs hidden"></i>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </nav>
+
+    </aside>
+
+
+
+    <!-- Contenido principal -->
+
+    <main class="flex-1 p-6 lg:p-8">
+
+      <div class="max-w-6xl mx-auto">
+
+        
+
+        <!-- CONTENIDO DE LECCIÓN 1 -->
+
+        <div id="video-1" class="video-content active">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 1</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Qué vas a aprender aquí</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Introducción al curso Veo3.1</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
             </div>
 
-            <!-- Back to Dashboard -->
-            <div class="p-4 border-b border-red-900/40 bg-black/20">
-                <a href="dashboard.html"
-                    class="flex items-center text-sm font-bold text-gray-400 hover:text-turingRed transition-colors uppercase tracking-wider">
-                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver al Dashboard
-                </a>
-            </div>
+            
 
-            <!-- Lessons List -->
-            <nav class="flex-1 overflow-y-auto py-2" id="lessonsContainer">
-                <!-- Modules will be injected here via JS -->
-            </nav>
-        </aside>
+            <!-- Navegación móvil -->
 
-        <!-- Main Video Area -->
-        <main class="flex-1 overflow-y-auto p-4 lg:p-8 relative">
-            <div class="max-w-5xl mx-auto w-full">
+            <div class="lg:hidden flex justify-between mt-6 bg-premium-card p-4 rounded-xl border border-premium-border">
 
-                <div class="mb-6 flex justify-between items-end">
-                    <div>
-                        <span class="text-turingRed text-sm font-bold tracking-widest uppercase mb-1 block"
-                            id="currentModuleTitle">Módulo 1</span>
-                        <h1 class="text-2xl md:text-3xl font-bold text-white ts-title" id="currentLessonTitle">Cargando
-                            Lección...</h1>
-                    </div>
-                </div>
+              <button class="btn-outline flex items-center flex-1 justify-center mr-2" onclick="navigateVideo('prev')">
 
-                <!-- Video Component Wrapper -->
-                <div class="video-container-wrapper bg-black">
-                    <!-- Default state, will be updated via JS -->
-                    <lite-youtube videoid="dQw4w9WgXcQ" playlabel="Reproducir Lección" params="modestbranding=1&rel=0"
-                        id="videoPlayer"></lite-youtube>
-                </div>
+                <i class="fas fa-arrow-left mr-2"></i> Anterior
 
-                <div class="mt-8 ts-card p-6 border-l-4 border-l-turingRed">
-                    <h3 class="text-xl font-bold text-white mb-2"><i
-                            class="fa-solid fa-circle-info mr-2 text-turingRed"></i> Notas de la lección</h3>
-                    <p class="text-gray-400 leading-relaxed" id="currentLessonDesc">
-                        Selecciona una lección del panel lateral para comenzar.
-                    </p>
-                </div>
+              </button>
+
+              <button class="btn-primary flex items-center flex-1 justify-center ml-2" onclick="navigateVideo('next')">
+
+                Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+              </button>
 
             </div>
-        </main>
-    </div>
 
-    <!-- Firebase y Lógica -->
-    <script type="module">
-        import { checkAuth } from './auth-helper.js?v=3';
+          </div>
 
-        const GEM_ID = "GEM-005";
+          
 
-        // Estructura del curso
-        const courseData = [
-            {
-                module: "Dominando Veo 3.1",
-                lessons: [
-                    { id: 1, title: "Qué vas a aprender aquí", videoId: "dQw4w9WgXcQ", desc: "Introducción al curso y expectativas." },
-                    { id: 2, title: "¿Qué es Veo3.1 y por qué es la nueva ola?", videoId: "dQw4w9WgXcQ", desc: "Fundamentos y teoría sobre esta nueva tecnología IA." },
-                    { id: 3, title: "Cómo usar Flow Veo3.1 GRATIS", videoId: "dQw4w9WgXcQ", desc: "Configuración inicial y trucos para empezar sin costo." },
-                    { id: 4, title: "Cómo quitar tarjeta y cancelar suscripción", videoId: "dQw4w9WgXcQ", desc: "Gestión de cuenta y facturación." }
-                ]
-            },
-            {
-                module: "Práctica y Proyecto",
-                lessons: [
-                    { id: 5, title: "Creando tu primer video corto", videoId: "dQw4w9WgXcQ", desc: "Paso a paso para generar resultados rápidos." },
-                    { id: 6, title: "Técnicas avanzadas de personalización", videoId: "dQw4w9WgXcQ", desc: "Llevando el diseño al siguiente nivel." }
-                ]
-            }
-        ];
+          <!-- Contenido de la lección -->
 
-        let currentActiveLessonId = null;
+          <div class="video-container fade-in mb-8">
 
-        async function initCourse() {
-            try {
-                // 1. Verificar Autenticación
-                const sessionAuth = await checkAuth(true);
-                if (!sessionAuth) return; // Ya fue redirigido
+            <!-- Video -->
 
-                const { user, userData } = sessionAuth;
+            <div class="aspect-video bg-black">
 
-                // 2. Verificar que tenga el GEM-005 comprado (Seguridad Extra)
-                const bypass = localStorage.getItem('admin_bypass') === 'true';
-                if (!bypass) {
-                    const purchased = userData?.purchased_products || [];
-                    if (!purchased.includes(GEM_ID)) {
-                        alert("No tienes acceso a este Curso. Serás redirigido al Dashboard.");
-                        window.location.href = 'dashboard.html';
-                        return;
-                    }
-                }
+              <iframe 
 
-                // 3. Renderizar vista si tiene permisos
-                document.getElementById('loadingOverlay').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                }, 500);
+                src="https://drive.google.com/file/d/1R92SQcILFs3DoGFp-h3SHVeU-GlYwV5j/preview" 
 
-                renderSidebar();
-                loadLesson(courseData[0].lessons[0]); // Cargar primera lección por defecto
+                allow="autoplay; fullscreen; encrypted-media" 
 
-            } catch (error) {
-                console.error("Error validando acceso:", error);
-                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    // DEMO FALLBACK LIMITADO
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                    renderSidebar();
-                    loadLesson(courseData[0].lessons[0]);
-                }
-            }
-        }
+                class="w-full h-full"
 
-        function renderSidebar() {
-            const container = document.getElementById('lessonsContainer');
-            container.innerHTML = '';
-            let globalLessonCount = 1;
+                frameborder="0">
 
-            courseData.forEach((mod, modIdx) => {
-                // Module Header
-                const modHeader = document.createElement('div');
-                modHeader.className = "bg-black/40 px-6 py-4 text-xs font-bold text-turingRed tracking-widest uppercase border-y border-red-900/20";
-                modHeader.innerHTML = `<i class="fa-solid fa-layer-group mr-2"></i> Módulo ${modIdx + 1}: ${mod.module}`;
-                container.appendChild(modHeader);
+              </iframe>
 
-                // Lessons
-                const lessonList = document.createElement('div');
-                lessonList.className = "flex flex-col py-2";
+            </div>
 
-                mod.lessons.forEach(lesson => {
-                    const btn = document.createElement('button');
-                    btn.className = `lesson-item w-full text-left px-6 py-4 flex items-center gap-4 ${currentActiveLessonId === lesson.id ? 'active' : ''}`;
-                    btn.id = `lesson-btn-${lesson.id}`;
+            
 
-                    btn.innerHTML = `
-                        <span class="lesson-number w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0">${globalLessonCount}</span>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-bold text-white truncate group-hover:text-turingRed transition-colors">${lesson.title}</p>
-                            <p class="text-xs text-gray-500 truncate mt-1"><i class="fa-solid fa-play text-[10px] mr-1"></i> Video</p>
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Prepárate para entrar en un universo completamente nuevo, donde descubrirás el secreto detrás de los vídeos más increíblemente realistas que se están haciendo virales en internet.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  En esta primera clase, vas a entender por qué este tipo de contenido puede transformar por completo tu juego en el marketing digital — y por qué es la mejor oportunidad de los últimos tiempos para quienes quieren destacar, vender más y gastar menos.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-8 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">En esta lección aprenderás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-check text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Cómo acceder a la inteligencia artificial más avanzada de Google (de forma gratuita e ilimitada)</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-check text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Cómo usar esta tecnología para crear vídeos impactantes, profesionales y con alto potencial de viralización</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-check text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Cómo aplicarlo de forma rápida y sencilla, incluso si nunca has usado IA antes</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+                
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Si quieres llamar la atención, aumentar el engagement, multiplicar tus ventas y crear contenidos imposibles de ignorar… esta clase es tu punto de partida.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(1)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="far fa-comment mr-3"></i> Comentarios
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="far fa-bookmark mr-3"></i> Guardar
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 2 -->
+
+        <div id="video-2" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 2</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">¿Qué es Veo3.1 y por qué es la nueva ola del marketing digital?</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Fundamentos de Veo3.1</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/12grWK2tLbsbYyCuVAWzpbNjrk7bS4RdH/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Prepárate para descubrir la herramienta que está cambiando las reglas del juego en el marketing digital.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  En esta clase, vas a entender qué es VEO3, la nueva inteligencia artificial de Google que está dominando las redes sociales con vídeos increíblemente realistas, creados a partir de simples comandos de texto.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Vas a ver cómo funciona esta tecnología, por qué es tan poderosa y cómo está permitiendo que cualquier persona —sin mostrarse, sin grabar, sin saber editar— pueda crear contenidos que se vuelven virales, enamoran y venden.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-8 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Lo que descubrirás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-bolt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">El poder real detrás de los videos hiperrealistas generados por IA</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-chart-line text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Por qué esta tecnología está revolucionando el engagement en redes sociales</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Cómo aprovechar esta ventaja competitiva antes que tu competencia</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(2)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="far fa-comment mr-3"></i> Comentarios
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 3 -->
+
+        <div id="video-3" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 3</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo usar Flow Veo3.1 GRATIS</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Configuración inicial paso a paso</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1GivbiHdxplv6WFqmqMYA0ogCDxALVUnN/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  En esta lección práctica, te guiaré paso a paso para que configures y comiences a usar Flow Veo3.1 de forma completamente gratuita.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Recursos de esta lección:</p>
+
+                  <div class="space-y-4">
+
+                    <a href="https://one.google.com/u/2/ai?utm_source=flow&utm_medium=web&utm_campaign=flow_account_menu_upgrade&pli=1" target="_blank"
+
+                       class="download-card p-4 flex items-center justify-between group">
+
+                      <div class="flex items-center">
+
+                        <i class="fas fa-user-plus text-premium-primary text-xl mr-4"></i>
+
+                        <div>
+
+                          <p class="font-semibold text-premium-text">Crear cuenta gratuita</p>
+
+                          <p class="text-sm text-premium-textMuted">Acceso a Google AI</p>
+
                         </div>
-                    `;
 
-                    btn.onclick = () => {
-                        loadLesson(lesson, mod.module);
+                      </div>
 
-                        // Handle mobile sidebar auto-close
-                        if (window.innerWidth < 1024) {
-                            toggleMobileMenu();
-                        }
-                    };
+                      <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
 
-                    lessonList.appendChild(btn);
-                    globalLessonCount++;
-                });
+                    </a>
 
-                container.appendChild(lessonList);
-            });
+                    
+
+                    <a href="https://labs.google/fx/tools/flow" target="_blank"
+
+                       class="download-card p-4 flex items-center justify-between group">
+
+                      <div class="flex items-center">
+
+                        <i class="fas fa-play text-premium-primary text-xl mr-4"></i>
+
+                        <div>
+
+                          <p class="font-semibold text-premium-text">Acceder a Flow</p>
+
+                          <p class="text-sm text-premium-textMuted">Plataforma principal</p>
+
+                        </div>
+
+                      </div>
+
+                      <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                    </a>
+
+                  </div>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Aprenderás exactamente cómo registrarte, configurar tu cuenta y comenzar a crear tus primeros videos con IA sin costo alguno.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(3)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-external-link-alt mr-3"></i> Probar Flow ahora
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 4 -->
+
+        <div id="video-4" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 4</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo quitar la tarjeta y cancelar la suscripción</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Gestión segura de tu cuenta</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1wZ2OA3EVfGeIpOMB4lv0TH22pWAcr8oJ/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  En esta lección crucial, te muestro cómo gestionar tu cuenta de forma segura y evitar cargos no deseados.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprenderás los pasos exactos para remover métodos de pago y cancelar cualquier suscripción de manera permanente.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Aprenderás a:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-shield-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Eliminar tarjetas de crédito de forma segura</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-ban text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Cancelar suscripciones automáticas</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-lock text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Proteger tu información financiera</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Importante:</strong> Sigue estos pasos cuidadosamente para mantener el control total sobre tu cuenta y gastos.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(4)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-download mr-3"></i> Guía PDF
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 5 -->
+
+        <div id="video-5" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 5</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo hacer hasta 50 videos por cuenta gratuita en FLOW</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Maximiza tu uso gratuito</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1DNi9CZXx-7_m8NuW4dBjUmckk3NE4whD/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Descubre los secretos para multiplicar tu capacidad de creación sin pagar un solo dólar.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  En esta lección te revelo estrategias avanzadas para crear hasta 50 videos por cuenta gratuita, maximizando al máximo el plan free de Flow Veo3.1.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Técnicas que aprenderás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-infinity text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Múltiples cuentas estratégicas</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-sync-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Rotación inteligente de cuentas</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Optimización de recursos gratuitos</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado:</strong> Podrás crear contenido ilimitado sin inversión, perfecto para agencias o creadores de contenido.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(5)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-table mr-3"></i> Planificador de cuentas
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 6 -->
+
+        <div id="video-6" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 6</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo configurar ChatGPT para crear videos perfectos</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Integración avanzada con IA</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1KELHHAcyXlOcR6-_kf5oX4xn1M-HkJY-/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende a potenciar Veo3.1 con ChatGPT para crear prompts perfectos que generen videos impresionantes.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Recursos incluidos:</p>
+
+                  <a href="https://chatgpt.com/canvas/shared/684a964b40e08191ba3e28066cc38c41" target="_blank"
+
+                     class="download-card p-4 flex items-center justify-between group mb-4">
+
+                    <div class="flex items-center">
+
+                      <i class="fas fa-brain text-premium-primary text-xl mr-4"></i>
+
+                      <div>
+
+                        <p class="font-semibold text-premium-text">Prompt Avanzado ChatGPT</p>
+
+                        <p class="text-sm text-premium-textMuted">Configuración profesional</p>
+
+                      </div>
+
+                    </div>
+
+                    <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </a>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Descubrirás cómo entrenar a ChatGPT para que entienda exactamente qué tipo de videos quieres crear y genere prompts optimizados para Veo3.1.
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-yellow-900 bg-opacity-20 border border-yellow-600 rounded-lg">
+
+                  <p class="text-yellow-300 font-semibold">💡 Pro Tip: Usa este prompt para generar ideas ilimitadas de contenido viral.</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(6)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-copy mr-3"></i> Copiar Prompt
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 7 -->
+
+        <div id="video-7" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 7</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo usar Flow de Veo3.1</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Interfaz y funcionalidades principales</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/18yYgOugisQJ45AvcN4idd6a8oZPM3hWW/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Domina la interfaz de Flow Veo3.1 y descubre todas sus funcionalidades ocultas.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Recursos esenciales:</p>
+
+                  <div class="space-y-4">
+
+                    <a href="https://labs.google/fx/tools/flow" target="_blank"
+
+                       class="download-card p-4 flex items-center justify-between group">
+
+                      <div class="flex items-center">
+
+                        <i class="fas fa-play text-premium-primary text-xl mr-4"></i>
+
+                        <div>
+
+                          <p class="font-semibold text-premium-text">Acceder a FLOW</p>
+
+                          <p class="text-sm text-premium-textMuted">Plataforma principal</p>
+
+                        </div>
+
+                      </div>
+
+                      <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                    </a>
+
+                    
+
+                    <a href="https://chatgpt.com/canvas/shared/683899e5ef848191acc7070d0afce5c1" target="_blank"
+
+                       class="download-card p-4 flex items-center justify-between group">
+
+                      <div class="flex items-center">
+
+                        <i class="fas fa-brain text-premium-primary text-xl mr-4"></i>
+
+                        <div>
+
+                          <p class="font-semibold text-premium-text">PROMPT Especializado</p>
+
+                          <p class="text-sm text-premium-textMuted">Para esta lección</p>
+
+                        </div>
+
+                      </div>
+
+                      <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                    </a>
+
+                  </div>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Aprenderás a navegar por todas las opciones de Flow, entender el panel de control y utilizar las herramientas más potentes para crear videos profesionales.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(7)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-desktop mr-3"></i> Practicar en Flow
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 8 -->
+
+        <div id="video-8" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 8</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear los videos en la práctica en FLOW de Veo3.1</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Ejercicio práctico completo</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1NZYyQZXV5EgrJVUGq-8cIMh5b5Ep70TU/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Llegó el momento de la acción. En esta lección práctica, crearás tu primer video profesional paso a paso.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Recursos para practicar:</p>
+
+                  <div class="space-y-4">
+
+                    <a href="https://labs.google/fx/tools/flow" target="_blank"
+
+                       class="download-card p-4 flex items-center justify-between group">
+
+                      <div class="flex items-center">
+
+                        <i class="fas fa-play text-premium-primary text-xl mr-4"></i>
+
+                        <div>
+
+                          <p class="font-semibold text-premium-text">FLOW Platform</p>
+
+                          <p class="text-sm text-premium-textMuted">Para practicar</p>
+
+                        </div>
+
+                      </div>
+
+                      <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                    </a>
+
+                    
+
+                    <a href="https://chatgpt.com/canvas/shared/684a964b40e08191ba3e28066cc38c41" target="_blank"
+
+                       class="download-card p-4 flex items-center justify-between group">
+
+                      <div class="flex items-center">
+
+                        <i class="fas fa-brain text-premium-primary text-xl mr-4"></i>
+
+                        <div>
+
+                          <p class="font-semibold text-premium-text">PROMPT Avanzado</p>
+
+                          <p class="text-sm text-premium-textMuted">Para mejores resultados</p>
+
+                        </div>
+
+                      </div>
+
+                      <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                    </a>
+
+                  </div>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Sigue cada paso del video y crea tu primer video profesional. Te guiaré desde la idea hasta el resultado final.
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-green-900 bg-opacity-20 border border-green-600 rounded-lg">
+
+                  <p class="text-green-300 font-semibold">🎯 Ejercicio: Crea un video de 30 segundos sobre tu nicho favorito.</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(8)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-video mr-3"></i> Subir mi video
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 9 -->
+
+        <div id="video-9" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 9</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo generar videos de más de 8 segundos</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Técnicas para videos largos</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1zI7HHlNQhkCcIrzSTg13nr6zY27ZYV5I/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Rompe la barrera de los 8 segundos y aprende a crear videos largos y completos con Veo3.1.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Descubre los secretos para superar la limitación de tiempo y crear contenido extenso y de calidad.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Técnicas que dominarás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-expand-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Extensión de prompts para videos largos</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-puzzle-piece text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Unión de múltiples segmentos</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-magic text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Transiciones perfectas entre escenas</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado:</strong> Podrás crear videos de 30, 60 segundos o incluso más, perfectos para YouTube, VSLs o contenido educativo.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(9)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-clock mr-3"></i> Plantilla videos largos
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 10 -->
+
+        <div id="video-10" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 10</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo Crear Videos usando imágenes con Veo3.1</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Transforma fotos en videos animados</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1gL4mHT6NV_D7d2CNr1IiopyMSDywSWWP/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende la técnica avanzada de transformar imágenes estáticas en videos dinámicos y profesionales.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Material de práctica:</p>
+
+                  <a href="https://drive.google.com/file/d/11ArYKlnLMzZs6zw8EQmXvgI_Zif0vl5i/view?usp=sharing" target="_blank"
+
+                     class="download-card p-4 flex items-center justify-between group">
+
+                    <div class="flex items-center">
+
+                      <i class="fas fa-image text-premium-primary text-xl mr-4"></i>
+
+                      <div>
+
+                        <p class="font-semibold text-premium-text">ARCHIVO de Práctica</p>
+
+                        <p class="text-sm text-premium-textMuted">Imágenes para ejercitar</p>
+
+                      </div>
+
+                    </div>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </a>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Descubrirás cómo usar cualquier imagen como base para crear videos sorprendentes, añadiendo movimiento, efectos y narrativa.
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-blue-900 bg-opacity-20 border border-blue-600 rounded-lg">
+
+                  <p class="text-blue-300 font-semibold">💡 Ideal para: Productos, antes/después, transformaciones y storytelling visual.</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(10)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-images mr-3"></i> Kit de imágenes
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 11 -->
+
+        <div id="video-11" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 11</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Descarga y usa video en tu embudo o redes sociales</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Implementación profesional</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1qcknuG1CHBQHVG56p4S-HRYNNIRN5vjT/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende el proceso completo desde la descarga hasta la implementación profesional en tus plataformas.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Descubre los formatos óptimos, técnicas de compresión y mejores prácticas para cada red social.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Optimización por plataforma:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fab fa-tiktok text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">TikTok: Formato vertical 9:16</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fab fa-instagram text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Instagram: Reels y Stories</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fab fa-youtube text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">YouTube: 16:9 HD</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fab fa-facebook text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Facebook: Videos nativos</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado:</strong> Tus videos se verán profesionales en cualquier plataforma, maximizando el engagement y conversiones.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(11)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-cloud-download-alt mr-3"></i> Guía de formatos
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 12 -->
+
+        <div id="video-12" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 12</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Ejemplos de videos creados con la herramienta</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Inspiración y casos reales</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/19XYQOUiw8nZC2Iq_19gawsLFLrmff62N/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  ¡Prepárate para abrir la mente e inspirarte! En esta clase, vas a conocer varios ejemplos reales de vídeos generados con VEO3.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Desde contenidos para redes sociales hasta VSLs y anuncios listos para volverse virales.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Tipos de ejemplos que verás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-user-md text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Videos con médicos y profesionales</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-gavel text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Contenido legal y educativo</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-shopping-bag text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Anuncios de productos</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-theater-masks text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Personajes creativos y absurdos</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Verás cómo esta inteligencia artificial puede crear vídeos con médicos, abogados, influencers e incluso personajes absurdos en escenarios cinematográficos.
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-purple-900 bg-opacity-20 border border-purple-600 rounded-lg">
+
+                  <p class="text-purple-300 font-semibold">🚀 ¡Es hora de despertar el potencial creativo que tienes en tus manos!</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(12)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-lightbulb mr-3"></i> Banco de ideas
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 13 -->
+
+        <div id="video-13" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 13</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Ultra prompt definitivo</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">El prompt más avanzado para Veo3.1</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Accede al prompt más avanzado y completo para Veo3.1 que hemos desarrollado después de meses de testing.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Descarga el Ultra Prompt:</p>
+
+                  <a href="https://drive.google.com/file/d/17SK_OHLrY2_7fNbv07HezsWNahr3lt0V/view?usp=sharing" target="_blank"
+
+                     class="download-card p-4 flex items-center justify-between group">
+
+                    <div class="flex items-center">
+
+                      <i class="fas fa-crown text-premium-primary text-xl mr-4"></i>
+
+                      <div>
+
+                        <p class="font-semibold text-premium-text">Ultra prompt definitivo</p>
+
+                        <p class="text-sm text-premium-textMuted">Prompt profesional completo</p>
+
+                      </div>
+
+                    </div>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </a>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  Este prompt incluye todas las optimizaciones, parámetros avanzados y técnicas que hemos descubierto para obtener los mejores resultados con Veo3.1.
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-red-900 bg-opacity-20 border border-red-600 rounded-lg">
+
+                  <p class="text-red-300 font-semibold">⚡ Este prompt puede duplicar la calidad de tus videos instantáneamente.</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(13)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-copy mr-3"></i> Copiar Prompt
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 14 -->
+
+        <div id="video-14" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 14</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear tu influencer IA</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Desarrollo de personajes digitales</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1e3ICh2aVJCu8po-NRaNhUYMTFvqsG0Rg/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende a crear tu propio influencer artificial desde cero, con personalidad única y estilo definido.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Desarrollarás un personaje digital que puede representar tu marca de forma consistente y profesional.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Elementos del influencer IA:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-user-tie text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Personalidad y caracterización</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-palette text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Estilo visual único</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-comments text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Tono de voz y comunicación</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-bullseye text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Público objetivo definido</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado:</strong> Tendrás un influencer IA listo para crear contenido consistente y de alta calidad para tu audiencia.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(14)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-user-plus mr-3"></i> Plantilla personaje
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 15 -->
+
+        <div id="video-15" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 15</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Generando la imagen de tu influencer</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Creación visual del personaje</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1BqFv1Ia10MUNWlK1alpQQ8ix7b0Vwm_r/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Lleva tu influencer IA al siguiente nivel generando su imagen visual perfecta y consistente.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende las técnicas para crear una apariencia única y memorable para tu personaje digital.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Aspectos visuales a definir:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-tshirt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Estilo de vestimenta y colores</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-user-hair text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Rasgos faciales y peinado</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-camera text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Angulos y composición</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-lightbulb text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Iluminación y ambiente</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Pro Tip:</strong> Crea múltiples variaciones de tu influencer para diferentes tipos de contenido y situaciones.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(15)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-paint-brush mr-3"></i> Kit de estilos
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 16 -->
+
+        <div id="video-16" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 16</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Creando video: Transformando tu foto en video</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Animación de personajes</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1rpyWd6_8tHZhsfwZ2x8ynpv7XhzefvAy/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Da vida a tu influencer IA transformando su imagen estática en un video completamente animado y expresivo.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende las técnicas avanzadas para crear movimiento natural, expresiones faciales y lenguaje corporal convincente.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Técnicas de animación:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-running text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Movimiento corporal natural</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-smile text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Expresiones faciales realistas</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-hands text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Gestos y lenguaje corporal</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-lips text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Sincronización labial</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado:</strong> Tu influencer IA cobrará vida, pudiendo hablar, gesticular y moverse de forma completamente natural en videos.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(16)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-film mr-3"></i> Plantilla animación
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 17 -->
+
+        <div id="video-17" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 17</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Instruyendo a ChatGPT a mantener la consistencia</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Coherencia de personajes</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/17QNmvxI9_4PtRGBgulV9pRune-gVxBff/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende a entrenar a ChatGPT para que mantenga la consistencia de tu personaje en todos los videos.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  La clave para un influencer IA creíble es la coherencia en apariencia, personalidad y comportamiento.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Elementos de consistencia:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-memory text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Memoria de contexto prolongada</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-palette text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Consistencia visual</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-comment-dots text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Tono de voz uniforme</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-history text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Historial y backstory</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Pro Tip:</strong> Crea un "manual de personaje" detallado que ChatGPT pueda consultar para mantener la coherencia en todas las interacciones.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(17)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-book mr-3"></i> Manual de personaje
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 18 -->
+
+        <div id="video-18" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 18</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Resultado en la práctica</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Demostración de consistencia</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1g5lY34DurBNGRrsv-WlQhXd--dLka1I9/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Ve en acción los resultados de aplicar las técnicas de consistencia con ejemplos reales y comparaciones.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Observa cómo el mismo personaje mantiene coherencia a través de múltiples videos y escenarios diferentes.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Ejemplos que verás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-video text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Mismo personaje en diferentes escenarios</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-calendar-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Consistencia temporal (días/semanas)</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-tshirt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Uniformidad de vestuario y estilo</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-theater-masks text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Personalidad consistente</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado:</strong> Comprenderás visualmente la importancia de la consistencia y cómo lograrla en la práctica.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(18)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-chart-line mr-3"></i> Métricas de consistencia
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 19 -->
+
+        <div id="video-19" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 19</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo generar videos de más de 8 segundos</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Técnicas extendidas para contenido largo</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1ZfM1jy0tFvTiOj0mRUZ-pq_iJzPQtNEa/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Domina técnicas avanzadas para crear videos extensos manteniendo la calidad y coherencia de tu influencer IA.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende a estructurar contenido largo que mantenga la atención del espectador de principio a fin.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Estrategias para videos largos:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-sitemap text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Estructura narrativa efectiva</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-cut text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Transiciones entre escenas</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-clock text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Ritmo y timing perfectos</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-microphone-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Narrativa y storytelling</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Ideal para:</strong> VSLs (Video Sales Letters), contenido educativo, tutoriales extensos y webinars en video.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(19)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-hourglass-half mr-3"></i> Plantilla videos largos
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 20 -->
+
+        <div id="video-20" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 20</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 1</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Fundamentos de videos comerciales</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/15i_BSQcIYiu2SWp9-Wq_1oCYg0VfLYFA/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Comienza tu journey en la creación de videos comerciales profesionales para productos físicos y digitales.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Material de apoyo:</p>
+
+                  <a href="https://drive.google.com/file/d/1XohNCJXUrdkMItWkoqw6tIk0i4ir2YJb/view?usp=drive_link" target="_blank"
+
+                     class="download-card p-4 flex items-center justify-between group">
+
+                    <div class="flex items-center">
+
+                      <i class="fas fa-book text-premium-primary text-xl mr-4"></i>
+
+                      <div>
+
+                        <p class="font-semibold text-premium-text">GUIA COMPLETA PARA CREAR VIDEOS REALISTAS CON PRODUCTOS FISICOS</p>
+
+                        <p class="text-sm text-premium-textMuted">Guía profesional completa</p>
+
+                      </div>
+
+                    </div>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </a>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  En esta primera parte, aprenderás los fundamentos de la creación de videos comerciales efectivos, incluyendo estructura básica, ángulos y presentación del producto.
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-orange-900 bg-opacity-20 border border-orange-600 rounded-lg">
+
+                  <p class="text-orange-300 font-semibold">🎯 Enfoque: Videos que convierten y muestran el valor real del producto.</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(20)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-shopping-cart mr-3"></i> Plantilla producto
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 21 -->
+
+        <div id="video-21" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 21</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 2</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Técnicas avanzadas de demostración</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/17Qgc4Z-Niu-2l79NZcGs98QzWY3iIN-h/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Profundiza en técnicas avanzadas para mostrar productos de manera irresistible y persuasiva.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende a crear demostraciones que resalten los beneficios y características únicas de cada producto.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Prompt profesional para productos:</p>
+
+                  <div class="bg-premium-background p-4 rounded-lg">
+
+                    <p class="text-premium-primary font-mono text-sm">
+
+                      Describe detalladamente este producto de forma perfecta y quiero un comercial profesional de (tu personaje) promocionando este producto de forma idéntica, debe ser un comercial al estilo televisión.<br><br>
+
+                      LAS FRASES DEL PERSONAJE DEBEN ESTAR EN ESPAÑOL Y EL PROMPT PARA VEO3 EN INGLÉS
+
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Nota:</strong> Si todavía no has creado tu personaje y no tienes los prompts con su descripción, mira el módulo de cómo crear tu personaje.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(21)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-copy mr-3"></i> Copiar Prompt
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 22 -->
+
+        <div id="video-22" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 22</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 3</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Optimización y perfeccionamiento</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1MdIkqPzrDo6-JZEd-MTt1GQpavUws-K2/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Perfecciona tus videos de productos con técnicas de optimización que garantizan resultados profesionales.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Prompt optimizado para productos:</p>
+
+                  <div class="bg-premium-background p-4 rounded-lg">
+
+                    <p class="text-premium-primary font-mono text-sm">
+
+                      Quiero un comercial profesional de (tu personaje) promocionando este producto. Describe el producto con todo detalle dentro del prompt — quiero que el producto se vea 100% perfecto, con todas sus características claras — y Nina debe hacer un anuncio al estilo de televisión.<br><br>
+
+                      Las frases del personaje deben estar en español y el prompt para VEO3 debe estar en inglés.
+
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Nota:</strong> Si todavía no has creado tu personaje ni tienes los prompts con su descripción, mira el módulo de "Cómo crear tu personaje".
+
+                </p>
+
+                
+
+                <div class="mt-6 p-4 bg-green-900 bg-opacity-20 border border-green-600 rounded-lg">
+
+                  <p class="text-green-300 font-semibold">💎 Enfoque: Calidad cinematográfica y perfección en los detalles del producto.</p>
+
+                </div>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(22)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-star mr-3"></i> Plantilla premium
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 23 -->
+
+        <div id="video-23" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 23</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 4</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Masterclass final de productos</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1oIoF03YoNGeTN68BmPWRDS57nvIouvXq/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Concluye tu mastery en videos de productos con técnicas avanzadas y casos de estudio reales.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Integra todo lo aprendido para crear campañas completas de video marketing para productos.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Lo que lograrás:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-bullseye text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Videos que convierten a la venta</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-sync-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Producción en masa eficiente</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-chart-line text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Optimización basada en resultados</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Escalabilidad del proceso</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado final:</strong> Serás capaz de crear videos comerciales profesionales para cualquier producto, listos para generar ventas.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(23)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-gem mr-3"></i> Kit maestro productos
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 24 -->
+
+        <div id="video-24" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 24</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo corregir el error de vídeo sin sonido</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Solución de problemas comunes</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1ERVN7hdkpkbqcZF7VhqvGQtUksidndMi/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Soluciona uno de los problemas más comunes al trabajar con Veo3.1: videos generados sin audio.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende las causas y soluciones definitivas para este error frecuente.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Causas comunes:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-exclamation-triangle text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Prompts incompletos o mal estructurados</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-code text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Problemas técnicos temporales</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-cog text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Configuración incorrecta</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-sync-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Procesamiento incompleto</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Solución:</strong> Te mostraré exactamente cómo modificar tus prompts y configuraciones para garantizar que todos tus videos incluyan audio perfecto.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(24)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-volume-up mr-3"></i> Plantilla con audio
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 25 -->
+
+        <div id="video-25" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 25</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo solucionar los errores de los prompts PARTE 1</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Debugging y optimización</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/1V6cluEKUDLJgH3mF1gYrdU25xpDZDSQv/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Conviértete en un experto en debugging de prompts aprendiendo a identificar y corregir errores comunes.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Desarrolla la habilidad de analizar qué salió mal y cómo ajustar tus prompts para obtener mejores resultados.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Errores comunes a solucionar:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-ban text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Videos rechazados o bloqueados</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-eye-slash text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Caras borrosas o deformadas</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-palette text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Problemas de color y iluminación</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-compress-arrows-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Composición y encuadre incorrectos</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Habilidad clave:</strong> Aprenderás a "leer" los errores y entender exactamente qué ajustar en tus prompts para solucionarlos.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(25)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-bug mr-3"></i> Guía debugging
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 26 -->
+
+        <div id="video-26" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 26</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Cómo solucionar los errores de los prompts PARTE 2</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Masterclass de troubleshooting</p>
+
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-3 mt-6 lg:mt-0">
+
+                  <button class="btn-outline flex items-center" onclick="navigateVideo('prev')">
+
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+
+                  </button>
+
+                  <button class="btn-primary flex items-center" onclick="navigateVideo('next')">
+
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <!-- Video -->
+
+            <div class="aspect-video bg-black">
+
+              <iframe 
+
+                src="https://drive.google.com/file/d/13U3VlMgM4_I_yQCSzwR1G_VyUWdfJ0wD/preview" 
+
+                allow="autoplay; fullscreen; encrypted-media" 
+
+                class="w-full h-full"
+
+                frameborder="0">
+
+              </iframe>
+
+            </div>
+
+            
+
+            <!-- Descripción -->
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descripción</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted">
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Concluye tu entrenamiento en solución de problemas con técnicas avanzadas de troubleshooting.
+
+                </p>
+
+                <p class="leading-relaxed mb-6 text-lg">
+
+                  Aprende a anticipar y prevenir errores antes de que ocurran, optimizando tu flujo de trabajo.
+
+                </p>
+
+                
+
+                <div class="bg-premium-card border-l-4 border-premium-primary p-6 mt-6 rounded-r-xl">
+
+                  <p class="text-premium-primary font-semibold text-lg mb-4">Técnicas avanzadas:</p>
+
+                  <ul class="space-y-3">
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-shield-alt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Prevención proactiva de errores</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-bolt text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Optimización de velocidad y calidad</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-project-diagram text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Workflows a prueba de errores</span>
+
+                    </li>
+
+                    <li class="flex items-start">
+
+                      <i class="fas fa-rocket text-premium-primary mt-1 mr-3 text-lg"></i>
+
+                      <span class="text-premium-textMuted text-lg">Escalabilidad sin problemas</span>
+
+                    </li>
+
+                  </ul>
+
+                </div>
+
+
+
+                <p class="leading-relaxed mt-8 text-lg">
+
+                  <strong>Resultado final:</strong> Serás capaz de crear prompts casi perfectos desde el primer intento, minimizando significativamente los errores y reprocesos.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(26)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-tools mr-3"></i> Kit troubleshooting
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DE LECCIÓN 27 (PDFs) -->
+
+        <div id="video-27" class="video-content">
+
+          <!-- Encabezado de lección -->
+
+          <div class="mb-8">
+
+            <div class="video-header text-premium-background p-8 rounded-xl">
+
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                  <span class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección 27</span>
+
+                  <h2 class="text-3xl font-bold mt-4 glow-text">Caja de Prompts — 10 PDFs Premium</h2>
+
+                  <p class="text-premium-background text-opacity-80 mt-2 text-lg">Recursos exclusivos para dominar Veo3.1</p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+          <!-- Contenido de la lección -->
+
+          <div class="video-container fade-in mb-8">
+
+            <div class="p-8">
+
+              <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Descargas Premium</h3>
+
+              <div class="prose prose-invert max-w-none text-premium-textMuted mb-8">
+
+                <p class="leading-relaxed text-lg mb-6">
+
+                  Accede a nuestra colección exclusiva de 10 PDFs con prompts profesionales, workflows y técnicas avanzadas para llevar tus habilidades con Veo3.1 al siguiente nivel.
+
+                </p>
+
+              </div>
+
+              
+
+              <!-- Grid de PDFs -->
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- PDF 1 -->
+
+                <a href="https://drive.google.com/file/d/1Rz02rQ3-UM19iC9W_kChH6x8ya3-j1VN/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Creación de Modelos e Influencers IA</h4>
+
+                      <p class="text-sm text-premium-textMuted">Guía completa para crear personajes únicos</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+                
+
+                <!-- PDF 2 -->
+
+                <a href="https://drive.google.com/file/d/1LIm0AqVzFTyWacMg0KEIlsm3VZyhR2PY/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Prompts para TikTok Virales</h4>
+
+                      <p class="text-sm text-premium-textMuted">Estrategias para contenido viral</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+                
+
+                <!-- PDF 3 -->
+
+                <a href="https://drive.google.com/file/d/1iN_3UFwjJWMHNALH_um_0gFouFRYTPav/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">WORKFLOW Productos Físicos</h4>
+
+                      <p class="text-sm text-premium-textMuted">Integración perfecta de productos</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 4 -->
+
+                <a href="https://drive.google.com/file/d/1LhcBRMfe651rHdCkf7eWS4RCx1O1-Ixi/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Prompts de Vídeo Comercial</h4>
+
+                      <p class="text-sm text-premium-textMuted">Anuncios profesionales con IA</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 5 -->
+
+                <a href="https://drive.google.com/file/d/1FG3KgTjTJMrqxAwVaM-LqIs08i3BLbMD/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Corredor Inmobiliario IA</h4>
+
+                      <p class="text-sm text-premium-textMuted">Personajes para bienes raíces</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 6 -->
+
+                <a href="https://drive.google.com/file/d/1M7sKlKbe7OoAb078XDZ8v2b5Eg0NSuG9/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Prompts para Creación de Modelos</h4>
+
+                      <p class="text-sm text-premium-textMuted">Técnicas avanzadas de modelado</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 7 -->
+
+                <a href="https://drive.google.com/file/d/1MgSSNb2PdnUNenuLbbi8eQJ6o7U2KSaw/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Prompts Creativos con Mujeres #1</h4>
+
+                      <p class="text-sm text-premium-textMuted">Estilos y poses profesionales</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 8 -->
+
+                <a href="https://drive.google.com/file/d/1GXqJNK4XrVMpbO-anrPsiAy2Tnkx5yVV/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Prompts Creativos con Mujeres #2</h4>
+
+                      <p class="text-sm text-premium-textMuted">Variaciones y estilos avanzados</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 9 -->
+
+                <a href="https://drive.google.com/file/d/1P_Iz46-NMpw3az9mhMDPMPkwApGCCFe1/view?usp=sharing" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-file-pdf text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">Prompts con Personaje Masculino</h4>
+
+                      <p class="text-sm text-premium-textMuted">Estilos y caracterizaciones</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Descargar PDF</span>
+
+                    <i class="fas fa-download text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- PDF 10 -->
+
+                <a href="https://chatgpt.com/g/g-68e94b3e5d44819184dba016b62f67ef-veo3-prompt-pro" target="_blank"
+
+                   class="download-card p-6 group">
+
+                  <div class="flex items-start mb-4">
+
+                    <i class="fas fa-robot text-premium-primary text-2xl mr-4"></i>
+
+                    <div>
+
+                      <h4 class="font-bold text-premium-text text-lg mb-1">GPT Creador de Prompt Turbo</h4>
+
+                      <p class="text-sm text-premium-textMuted">Asistente IA especializado</p>
+
+                    </div>
+
+                  </div>
+
+                  <div class="flex justify-between items-center">
+
+                    <span class="text-premium-primary text-sm font-semibold">Acceder GPT</span>
+
+                    <i class="fas fa-external-link-alt text-premium-textMuted group-hover:text-premium-primary"></i>
+
+                  </div>
+
+                </a>
+
+              </div>
+
+              
+
+              <p class="text-xs text-premium-textMuted mt-6 text-center">Todos los recursos están optimizados para maximizar tus resultados con Veo3.1</p>
+
+              
+
+              <!-- Acciones -->
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <button class="btn-primary flex items-center text-lg" onclick="toggleCompleted(27)">
+
+                  <i class="far fa-check-circle mr-3"></i> Marcar como completado
+
+                </button>
+
+                <button class="btn-outline flex items-center text-lg">
+
+                  <i class="fas fa-download mr-3"></i> Descargar Todos
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Información adicional del curso -->
+
+        <div class="bg-premium-card p-8 rounded-xl border border-premium-border mt-8">
+
+          <h3 class="text-2xl font-bold text-premium-text mb-6 glow-text">Información del Curso</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="flex items-center p-4 bg-premium-background bg-opacity-20 rounded-lg">
+
+              <i class="fas fa-play-circle text-premium-primary text-2xl mr-4"></i>
+
+              <div>
+
+                <p class="text-sm text-premium-textMuted">Lecciones</p>
+
+                <p class="font-semibold text-premium-text text-lg">27 videos premium</p>
+
+              </div>
+
+            </div>
+
+            <div class="flex items-center p-4 bg-premium-background bg-opacity-20 rounded-lg">
+
+              <i class="fas fa-clock text-premium-primary text-2xl mr-4"></i>
+
+              <div>
+
+                <p class="text-sm text-premium-textMuted">Duración total</p>
+
+                <p class="font-semibold text-premium-text text-lg">~4 horas de contenido</p>
+
+              </div>
+
+            </div>
+
+            <div class="flex items-center p-4 bg-premium-background bg-opacity-20 rounded-lg">
+
+              <i class="fas fa-certificate text-premium-primary text-2xl mr-4"></i>
+
+              <div>
+
+                <p class="text-sm text-premium-textMuted">Certificado</p>
+
+                <p class="font-semibold text-premium-text text-lg">Incluido</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+
+  <!-- JavaScript -->
+
+  <script>
+
+    // Elementos del DOM
+
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+
+    const closeSidebar = document.getElementById('close-sidebar');
+
+    const sidebar = document.getElementById('sidebar');
+
+    const mobileOverlay = document.getElementById('mobile-overlay');
+
+    const lessonItems = document.querySelectorAll('.lesson-item');
+
+    const checkmarks = document.querySelectorAll('.checkmark');
+
+    const progressFill = document.getElementById('progress-fill');
+
+    const progressPercent = document.getElementById('progress-percent');
+
+    const progressText = document.getElementById('progress-text');
+
+    const progressCount = document.getElementById('progress-count');
+
+    const videoContents = document.querySelectorAll('.video-content');
+
+    
+
+    // Estado de la aplicación
+
+    let currentLesson = 1;
+
+    let completedLessons = new Set();
+
+    const totalLessons = 27;
+
+    
+
+    // Funciones de utilidad
+
+    const updateProgress = () => {
+
+      const progress = (completedLessons.size / totalLessons) * 100;
+
+      const roundedProgress = Math.round(progress);
+
+      
+
+      progressFill.style.width = `${progress}%`;
+
+      progressPercent.textContent = `${roundedProgress}%`;
+
+      progressText.textContent = `${completedLessons.size}/${totalLessons} lecciones`;
+
+      progressCount.textContent = `${roundedProgress}% completado`;
+
+    };
+
+    
+
+    const toggleCompleted = (lessonId) => {
+
+      const lessonItem = document.querySelector(`.lesson-item[data-lesson="${lessonId}"]`);
+
+      const checkmark = document.querySelector(`.checkmark[data-lesson="${lessonId}"]`);
+
+      const checkIcon = checkmark.querySelector('i');
+
+      
+
+      if (completedLessons.has(lessonId)) {
+
+        completedLessons.delete(lessonId);
+
+        checkmark.classList.remove('completed');
+
+        checkIcon.classList.add('hidden');
+
+        lessonItem.classList.remove('completed');
+
+      } else {
+
+        completedLessons.add(lessonId);
+
+        checkmark.classList.add('completed');
+
+        checkIcon.classList.remove('hidden');
+
+        lessonItem.classList.add('completed');
+
+      }
+
+      
+
+      updateProgress();
+
+      saveProgress();
+
+    };
+
+    
+
+    const setActiveLesson = (lessonId) => {
+
+      // Remover clase activa de todas las lecciones
+
+      lessonItems.forEach(item => {
+
+        item.classList.remove('active');
+
+      });
+
+      
+
+      // Agregar clase activa a la lección seleccionada
+
+      const activeLesson = document.querySelector(`.lesson-item[data-lesson="${lessonId}"]`);
+
+      if (activeLesson) {
+
+        activeLesson.classList.add('active');
+
+      }
+
+      
+
+      currentLesson = lessonId;
+
+    };
+
+    
+
+    const showVideo = (lessonId) => {
+
+      // Validar rango
+
+      if (lessonId < 1) lessonId = 1;
+
+      if (lessonId > totalLessons) lessonId = totalLessons;
+
+      
+
+      // Ocultar todos los contenidos
+
+      videoContents.forEach(content => {
+
+        content.classList.remove('active');
+
+      });
+
+      
+
+      // Mostrar contenido de la lección seleccionada
+
+      const videoContent = document.getElementById(`video-${lessonId}`);
+
+      if (videoContent) {
+
+        videoContent.classList.add('active');
+
+      }
+
+      
+
+      setActiveLesson(lessonId);
+
+      
+
+      // Cerrar el menú móvil si está abierto
+
+      if (window.innerWidth < 1024) {
+
+        closeMobileMenu();
+
+      }
+
+      
+
+      // Guardar lección actual
+
+      saveProgress();
+
+    };
+
+    
+
+    const navigateVideo = (direction) => {
+
+      const newLesson = direction === 'next' ? currentLesson + 1 : currentLesson - 1;
+
+      
+
+      // Validar que la lección exista
+
+      if (newLesson >= 1 && newLesson <= totalLessons) {
+
+        showVideo(newLesson);
+
+      }
+
+    };
+
+    
+
+    // Funciones del menú móvil
+
+    const openMobileMenu = () => {
+
+      sidebar.classList.add('open');
+
+      mobileOverlay.classList.remove('hidden');
+
+    };
+
+    
+
+    const closeMobileMenu = () => {
+
+      sidebar.classList.remove('open');
+
+      mobileOverlay.classList.add('hidden');
+
+    };
+
+    
+
+    // Guardar y cargar progreso
+
+    const saveProgress = () => {
+
+      const progressData = {
+
+        completedLessons: Array.from(completedLessons),
+
+        currentLesson: currentLesson
+
+      };
+
+      localStorage.setItem('veo31-progress', JSON.stringify(progressData));
+
+    };
+
+    
+
+    const loadProgress = () => {
+
+      const savedProgress = localStorage.getItem('veo31-progress');
+
+      if (savedProgress) {
+
+        try {
+
+          const progressData = JSON.parse(savedProgress);
+
+          completedLessons = new Set(progressData.completedLessons || []);
+
+          
+
+          // Actualizar UI con lecciones completadas
+
+          completedLessons.forEach(lessonId => {
+
+            const checkmark = document.querySelector(`.checkmark[data-lesson="${lessonId}"]`);
+
+            const checkIcon = checkmark.querySelector('i');
+
+            const lessonItem = document.querySelector(`.lesson-item[data-lesson="${lessonId}"]`);
+
+            
+
+            if (checkmark && lessonItem) {
+
+              checkmark.classList.add('completed');
+
+              checkIcon.classList.remove('hidden');
+
+              lessonItem.classList.add('completed');
+
+            }
+
+          });
+
+          
+
+          // Establecer lección actual
+
+          if (progressData.currentLesson) {
+
+            showVideo(progressData.currentLesson);
+
+          }
+
+          
+
+          updateProgress();
+
+        } catch (e) {
+
+          console.error('Error al cargar el progreso:', e);
+
         }
 
-        function loadLesson(lesson, moduleName = "Curso Veo 3.1") {
-            // Update Active State in Sidebar
-            if (currentActiveLessonId) {
-                const prevBtn = document.getElementById(`lesson-btn-${currentActiveLessonId}`);
-                if (prevBtn) prevBtn.classList.remove('active');
+      }
+
+    };
+
+    
+
+    // Event Listeners
+
+    mobileMenuToggle.addEventListener('click', openMobileMenu);
+
+    closeSidebar.addEventListener('click', closeMobileMenu);
+
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+
+    
+
+    // Navegación por teclado
+
+    document.addEventListener('keydown', (e) => {
+
+      if (e.key === 'ArrowLeft') {
+
+        navigateVideo('prev');
+
+      } else if (e.key === 'ArrowRight') {
+
+        navigateVideo('next');
+
+      } else if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+
+        closeMobileMenu();
+
+      }
+
+    });
+
+    
+
+    // Inicialización
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      
+      // Verificar Autenticación
+      import('./auth-helper.js?v=4').then(async ({ checkAuth }) => {
+        try {
+            const sessionAuth = await checkAuth(true);
+            if (!sessionAuth) return; // Ya fue redirigido
+            
+            const { userData } = sessionAuth;
+            const GEM_ID = "GEM-005";
+            const bypass = localStorage.getItem('admin_bypass') === 'true';
+            
+            if (!bypass) {
+                const purchased = userData?.purchased_products || [];
+                if (!purchased.includes(GEM_ID)) {
+                    alert("No tienes acceso a este Curso. Serás redirigido al Dashboard.");
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
             }
-            const currentBtn = document.getElementById(`lesson-btn-${lesson.id}`);
-            if (currentBtn) currentBtn.classList.add('active');
 
-            currentActiveLessonId = lesson.id;
+            // Quitar overlay de carga si existiera
+            const loader = document.getElementById('loadingOverlay');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
 
-            // Update DOM Content
-            document.getElementById('currentModuleTitle').textContent = moduleName;
-            document.getElementById('currentLessonTitle').textContent = lesson.title;
-            document.getElementById('currentLessonDesc').textContent = lesson.desc;
+            // Cargar progreso guardado
+            loadProgress();
 
-            // Update Lite YouTube Element
-            const videoWrapper = document.querySelector('.video-container-wrapper');
-            videoWrapper.innerHTML = `<lite-youtube videoid="${lesson.videoId}" playlabel="Reproducir: ${lesson.title}" params="modestbranding=1&rel=0"></lite-youtube>`;
+            // Mostrar la primera lección por defecto si no hay una guardada
+            if (!currentLesson || currentLesson < 1) {
+              showVideo(1);
+            }
+        } catch (error) {
+            console.error(error);
+            loadProgress();
+            if (!currentLesson || currentLesson < 1) showVideo(1);
         }
+      });
 
-        // --- Mobile Menu Handling ---
-        const mobileToggle = document.getElementById('mobile-menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('mobile-overlay');
 
-        function toggleMobileMenu() {
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('hidden');
-        }
+    });
 
-        mobileToggle.addEventListener('click', toggleMobileMenu);
-        overlay.addEventListener('click', toggleMobileMenu);
+  </script>
 
-        // --- Protecciones ---
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('keydown', function (e) {
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))) {
-                e.preventDefault();
-            }
-            if (e.ctrlKey && e.keyCode === 85) {
-                e.preventDefault();
-            }
-        });
 
-        // Initialize App
-        initCourse();
 
+
+    <script>
+      function logout() {
+          localStorage.removeItem('userEmail');
+          localStorage.removeItem('isAdmin');
+          localStorage.removeItem('userProducts');
+          window.location.href = 'index.html';
+      }
     </script>
+    
+
+    <script>
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      const htmlElement = document.documentElement;
+
+      
+      function updateTheme() {
+        if (htmlElement.classList.contains('dark')) {
+          htmlElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          htmlElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+
+      // Evita parpadeos asignando el tema inicial
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        htmlElement.classList.add('dark');
+      } else {
+        htmlElement.classList.remove('dark');
+      }
+
+      const desktopBtn = document.getElementById('themeToggle');
+      const mobileBtn = document.getElementById('theme-toggle-mobile');
+
+      if (desktopBtn) desktopBtn.addEventListener('click', updateTheme);
+      if (mobileBtn) mobileBtn.addEventListener('click', updateTheme);
+
+      if (desktopBtn
+ {
+        themeToggleBtn.addEventListener('click', updateTheme);
+      }
+    </script>
+
 </body>
 
-</html>
+</html>				</div>
