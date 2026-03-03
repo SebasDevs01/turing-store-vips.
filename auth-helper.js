@@ -62,25 +62,40 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                                 // If the database token doesn't match our local token, AND we didn't JUST log in,
                                 // someone else took over the session.
                                 if (!justLoggedIn) {
-                                    try {
-                                        // BLOQUEAR CUENTA y destuir sesiones activas para anular la intrusión detectada
-                                        await updateDoc(userRef, {
-                                            status: 'banned',
-                                            current_session_token: null,
-                                            last_ip_device: null
-                                        });
-                                    } catch (e) { }
+                                    if (userData.role !== 'admin') {
+                                        let banSuccessful = false;
+                                        try {
+                                            // BLOQUEAR CUENTA y destuir sesiones activas para anular la intrusión detectada
+                                            // Make sure we await this properly AND catch any errors separately so it doesn't abort.
+                                            await updateDoc(userRef, {
+                                                status: 'banned',
+                                                current_session_token: null,
+                                                last_ip_device: null
+                                            });
+                                            banSuccessful = true;
+                                        } catch (error) {
+                                            console.error("Error al banear usuario por sesión múltiple:", error);
+                                        }
 
-                                    alert("¡INTRUSIÓN! Se ha detectado un inicio de sesión simultáneo en otro dispositivo. Por seguridad del ecosistema, tu cuenta ha sido BLOQUEADA automáticamente. Contacta al Admin.");
-                                    await signOut(auth);
-                                    localStorage.removeItem('sessionToken');
-                                    window.location.href = redirectUrl;
+                                        // Only alert AFTER the network request to ban has completed or explicitly failed.
+                                        alert("¡INTRUSIÓN! Se ha detectado un inicio de sesión simultáneo en otro dispositivo. Por seguridad del ecosistema, tu cuenta ha sido BLOQUEADA automáticamente. Contacta al Admin.");
 
-                                    if (!isAuthResolved) {
-                                        reject("Múltiples sesiones bloqueadas");
-                                        isAuthResolved = true;
+                                        // Now it is safe to tear down the local auth state.
+                                        await signOut(auth);
+                                        localStorage.removeItem('sessionToken');
+                                        window.location.href = redirectUrl;
+
+                                        if (!isAuthResolved) {
+                                            reject("Múltiples sesiones bloqueadas");
+                                            isAuthResolved = true;
+                                        }
+                                        return;
+                                    } else {
+                                        // Es Admin, se permite múltiples sesiones o al menos NO los baneamos.
+                                        console.log("Sesión simultánea detectada en cuenta Admin. Baneo omitido por privilegios.");
+                                        // Podemos actualizar su token local al más nuevo para que no los eche.
+                                        localStorage.setItem('sessionToken', userData.current_session_token);
                                     }
-                                    return;
                                 }
                             }
 
