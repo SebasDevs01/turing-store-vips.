@@ -59,28 +59,23 @@
             box-shadow: 0 0 10px rgba(230, 57, 70, 0.2);
         }
 
-        .light .ts-card {
+        .ts-card {
             background-color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border: 1px solid #E2E8F0;
         }
 
-        /* Dark Mode Specifics (Inspired by the original txt black/neon design) */
-        .dark body {
-            background-color: #050505;
-            background-image: radial-gradient(circle at 50% 50%, rgba(230, 57, 70, 0.05) 0%, transparent 50%);
-        }
-
         .dark .ts-card {
-            background-color: #0f0f0f;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(230, 57, 70, 0.2);
+            background: #0a0a0a;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .dark .ts-input {
-            background-color: rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: #111111;
+            /* Explicit very dark gray/black to fix Android rendering */
+            border: 1px solid #2d3748;
+            color: #e2e8f0;
         }
 
         .dark .ts-input:focus {
@@ -184,8 +179,9 @@
             </div>
 
             <div class="text-center mt-6">
+                <!-- Added padding and clear styling for mobile visibility -->
                 <a href="index.html"
-                    class="text-sm font-semibold ts-text-muted hover:text-turingRed dark:hover:text-turingRed transition-colors">
+                    class="inline-block py-2 px-4 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-turingRed dark:hover:text-turingRed transition-colors">
                     <i class="fa-solid fa-arrow-left mr-1"></i> Volver al inicio
                 </a>
             </div>
