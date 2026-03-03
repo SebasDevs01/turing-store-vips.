@@ -253,18 +253,29 @@
                 }
 
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+                const sessionToken = Math.random().toString(36).substring(2, 15);
+
+                // Extraer información básica del dispositivo
+                let deviceInfo = "Web Browser";
+                if (/android/i.test(navigator.userAgent)) deviceInfo = "Android Móvil";
+                if (/iPad|iPhone|iPod/.test(navigator.userAgent)) deviceInfo = "iPhone/iPad";
+                if (/Windows/.test(navigator.userAgent)) deviceInfo = "Windows PC";
+                if (/Mac OS X/.test(navigator.userAgent)) deviceInfo = "Mac OS";
+
+                const logData = `${deviceInfo} - ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`;
 
                 await setDoc(doc(db, "users", user.uid), {
-                    name: name,
-                    email: email,
-                    whatsapp: whatsapp,
-                    country: country,
-                    role: "user",
-                    status: "pending", // Requiere activacion
+                    name,
+                    email,
+                    whatsapp,
+                    country,
+                    status: 'active',
+                    role: 'client',
                     purchased_products: [],
                     created_at: new Date(),
-                    current_session_token: null
+                    last_login: new Date(),
+                    current_session_token: sessionToken,
+                    last_ip_device: logData
                 });
 
                 await signOut(auth);

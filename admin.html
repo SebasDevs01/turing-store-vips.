@@ -367,8 +367,8 @@
                 else if (u.status === 'pending') statusBadge = '<span class="px-3 py-1 text-xs font-bold rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">Pendiente</span>';
                 else statusBadge = '<span class="px-3 py-1 text-xs font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Bloqueado</span>';
 
-                // Usamos sessionToken o un placeholder simulando la IP
-                const sessionIp = u.current_session_token ? `<span class="font-mono bg-gray-900 px-2 py-1 rounded text-red-300 shadow-inner">${u.current_session_token.substring(0, 12)}...</span>` : '<span class="text-gray-600 italic">Sin conexión</span>';
+                // Usamos last_ip_device extraído del UserAgent o un placeholder simulando la IP
+                const sessionIp = u.last_ip_device ? `<span class="font-mono bg-gray-900 text-xs px-2 py-1 rounded text-red-300 shadow-inner">${u.last_ip_device}</span>` : '<span class="text-gray-600 dark:text-gray-500 italic text-xs">Sin conexión</span>';
 
                 tr.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap">
