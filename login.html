@@ -234,6 +234,7 @@
                     return;
                 }
 
+                localStorage.setItem('justLoggedIn', 'true');
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
@@ -244,13 +245,13 @@
 
                 const userRef = doc(db, "users", user.uid);
                 await updateDoc(userRef, {
-                    current_session_token: sessionToken,
                     last_login: new Date()
                 });
 
                 window.location.href = 'dashboard.html';
 
             } catch (error) {
+                localStorage.removeItem('justLoggedIn');
                 console.error(error);
                 loadingOverlay.classList.add('hidden');
                 errorMessage.classList.remove('hidden');

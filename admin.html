@@ -305,7 +305,7 @@
     <!-- Firebase y Lógica -->
     <script type="module">
         import { checkAuth, handleLogout } from './auth-helper.js?v=3';
-        import { db, collection, getDocs, doc, updateDoc } from './firebase-config.js?v=3';
+        import { db, collection, doc, updateDoc, onSnapshot } from './firebase-config.js?v=3';
 
         let currentEditingUserId = null;
         // Simulamos la lista de Gems de Turing Store
@@ -337,21 +337,26 @@
             }
         }
 
+        let usersListenerUnsubscribe = null;
+
         async function loadUsers() {
             const btnIcon = document.getElementById('refreshIcon');
             if (btnIcon) btnIcon.classList.add('fa-spin');
 
             try {
-                const querySnapshot = await getDocs(collection(db, "users"));
-                const users = [];
-                querySnapshot.forEach((doc) => {
-                    users.push({ id: doc.id, ...doc.data() });
+                if (usersListenerUnsubscribe) usersListenerUnsubscribe();
+
+                usersListenerUnsubscribe = onSnapshot(collection(db, "users"), (querySnapshot) => {
+                    const users = [];
+                    querySnapshot.forEach((doc) => {
+                        users.push({ id: doc.id, ...doc.data() });
+                    });
+                    renderUsersTable(users);
+                    if (btnIcon) btnIcon.classList.remove('fa-spin');
                 });
-                renderUsersTable(users);
             } catch (error) {
                 console.error("Error cargando usuarios", error);
                 renderDemoUsers();
-            } finally {
                 if (btnIcon) btnIcon.classList.remove('fa-spin');
             }
         }
@@ -375,7 +380,7 @@
                 else statusBadge = '<span class="px-3 py-1 text-xs font-bold rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Bloqueado</span>';
 
                 // Usamos last_ip_device extraído del UserAgent o un placeholder simulando la IP
-                const sessionIp = u.last_ip_device ? `<span class="font-mono bg-gray-900 text-xs px-2 py-1 rounded text-red-300 shadow-inner">${u.last_ip_device}</span>` : '<span class="text-gray-600 dark:text-gray-500 italic text-xs">Sin conexión</span>';
+                const sessionIp = u.last_ip_device ? `<span class="font-mono bg-gray-200 dark:bg-gray-900 border border-turingRed/20 text-xs px-2 py-1 rounded text-turingRed dark:text-red-300 shadow-inner">${u.last_ip_device}</span>` : '<span class="text-gray-500 italic text-xs font-bold">Sin conexión</span>';
 
                 tr.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -410,11 +415,15 @@
         window.toggleUserStatus = async (userId, currentStatus) => {
             const newStatus = currentStatus === 'active' ? 'pending' : 'active';
             try {
-                await updateDoc(doc(db, "users", userId), { status: newStatus });
-                loadUsers();
+                // Al cambiar el estado (bloquear o reactivar), SIEMPRE destruimos tokens anteriores 
+                // para que el usuario tenga un inicio de sesión limpio o sea expulsado definitivamente.
+                await updateDoc(doc(db, "users", userId), {
+                    status: newStatus,
+                    current_session_token: null,
+                    last_ip_device: null
+                });
             } catch (e) {
                 alert("Modo DEMO: Cambio de estado de " + userId + " a " + newStatus);
-                loadUsers();
             }
         };
 

@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
 // IMPORTANTE: REEMPLAZA ESTO CON LA CONFIGURACIÓN REAL DE TU PROYECTO FIREBASE
 // Para obtener esto: Consola de Firebase -> Configuración del proyecto -> Mis aplicaciones (Añadir Web app)
@@ -18,4 +18,4 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // Exportar funciones útiles de autenticación y base de datos
-export { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, getDocs, updateDoc };
+export { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, collection, getDocs, updateDoc, onSnapshot };
