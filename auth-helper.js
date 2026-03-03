@@ -5,7 +5,7 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
     return new Promise((resolve, reject) => {
         // Admin Bypass
         if (localStorage.getItem('admin_bypass') === 'true') {
-            if (window.location.pathname.includes('admin.html')) {
+            if (window.location.pathname.includes('admin')) {
                 resolve({ user: { uid: 'admin_bypass', email: 'admin1' }, userData: { status: 'active', role: 'admin' } });
                 return;
             } else if (!requireAuth) {
@@ -13,7 +13,7 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                 resolve(null);
                 return;
             }
-        } else if (window.location.pathname.includes('admin.html') && requireAuth) {
+        } else if (window.location.pathname.includes('admin') && requireAuth) {
             // Si intenta entrar al admin y no tiene el bypass, redirigir
             onAuthStateChanged(auth, async (user) => {
                 if (!user) {
@@ -39,7 +39,7 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                             const userData = userSnap.data();
 
                             // 1. Verificación estado activo en tiempo real
-                            if (userData.status !== 'active' && !window.location.pathname.includes('admin.html')) {
+                            if (userData.status !== 'active' && !window.location.pathname.includes('admin')) {
                                 if (!isAuthResolved) {
                                     alert("Tu cuenta no está activada o ha sido bloqueada. Contacta al soporte.");
                                     await signOut(auth);
@@ -131,10 +131,17 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                             }
 
                         } else {
+                            // El documento no existe o fue ELIMINADO en tiempo real
+                            console.warn("Cuenta eliminada de la Base de Datos");
+                            if (!window.location.pathname.includes('registro') && !window.location.pathname.includes('login')) {
+                                alert("Tu cuenta ha sido eliminada permanentemente por el Administrador.");
+                            }
+                            await signOut(auth);
+                            localStorage.removeItem('sessionToken');
+                            window.location.href = redirectUrl;
+
                             if (!isAuthResolved) {
-                                await signOut(auth);
-                                window.location.href = redirectUrl;
-                                reject("Usuario no existe en BBDD");
+                                reject("Usuario eliminado de Firestore");
                                 isAuthResolved = true;
                             }
                         }
@@ -144,7 +151,7 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                     if (!isAuthResolved) reject("No autenticado");
                 }
             } else {
-                if (user && !window.location.pathname.includes('admin.html')) {
+                if (user && !window.location.pathname.includes('admin')) {
                     window.location.href = 'dashboard.html';
                 }
                 if (!isAuthResolved) resolve(null);

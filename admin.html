@@ -456,6 +456,23 @@
             }
         };
 
+        window.deleteUser = async (userId, userName) => {
+            const confirmed = confirm(`🛡️ CUIDADO: Estás a punto de ELIMINAR PERMANENTEMENTE al usuario "${unescape(userName)}".\n\nAl borrarlo de aquí, no podrá acceder más a la tienda y su cuenta de Firebase Authentication también se destruirá por completo.\n\n¿Estás absolutamente seguro de continuar?`);
+            if (confirmed) {
+                const doubleCheck = prompt(`Escribe "ELIMINAR" en mayúsculas para confirmar la DESTRUCCIÓN TOTAL:`);
+                if (doubleCheck === 'ELIMINAR') {
+                    try {
+                        await deleteDoc(doc(db, "users", userId));
+                        alert(`💥 Usuario eliminado exitosamente. El sistema lo expulsará y destruirá su cuenta.`);
+                    } catch (e) {
+                        alert("Error al intentar eliminar el usuario: " + e.message);
+                    }
+                } else {
+                    alert("Operación segura. Eliminación cancelada.");
+                }
+            }
+        };
+
 
         window.openProductModal = (id, name, productsStr) => {
             currentEditingUserId = id;
