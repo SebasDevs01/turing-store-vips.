@@ -243,6 +243,11 @@
     span {
       color: inherit;
     }
+  
+    .video-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #900B15 100%);
+      color: #ffffff;
+    }
   </style>
 
 </head>
@@ -292,7 +297,7 @@
         </button>
 
         <button id="mobile-menu-toggle"
-          class="w-10 h-10 flex items-center justify-center rounded-lg bg-premium-border text-premium-primary hover:bg-premium-primary hover:text-premium-background transition-all">
+          class="w-10 h-10 flex items-center justify-center rounded-lg bg-premium-border text-premium-text hover:bg-premium-primary hover:text-premium-background transition-all">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -314,14 +319,6 @@
 
               <!-- Header del sidebar -->
               <div class="p-5 border-b border-premium-border bg-premium-card flex flex-col gap-4">
-                <div class="flex items-center justify-between w-full">
-                  <div class="flex-1"></div>
-                  <button id="close-sidebar"
-                    class="lg:hidden p-2 text-premium-textMuted hover:text-[#E63946] rounded-lg transition-colors">
-                    <i class="fas fa-times text-xl"></i>
-                  </button>
-                </div>
-
                 <div class="flex items-center justify-between gap-2 mt-2">
                   <button onclick="window.location.href='dashboard.html'"
                     class="flex-1 bg-premium-background border border-premium-border hover:border-[#E63946] text-premium-text text-sm font-semibold py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-2">
@@ -337,8 +334,14 @@
                   <button onclick="logout()"
                     class="w-10 h-10 flex flex-col items-center justify-center bg-premium-background border border-premium-border text-premium-textMuted hover:text-[#E63946] rounded-lg transition-all"
                     title="Cerrar Sessión">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                  </button>
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+
+            <button id="close-sidebar"
+              class="lg:hidden w-10 h-10 flex flex-col items-center justify-center bg-gray-100 dark:bg-[#1f1f1f] border border-premium-border text-premium-textMuted hover:text-[#E63946] hover:bg-red-50 dark:hover:bg-red-950 rounded-lg transition-all"
+              title="Cerrar Menú">
+              <i class="fas fa-times text-xl"></i>
+            </button>
                 </div>
               </div>
 
@@ -374,7 +377,7 @@
 
               <!-- Navegación de lecciones -->
 
-              <nav class="flex-1 overflow-y-auto py-4">
+              <nav class="flex-1 overflow-y-auto py-4 pb-32">
 
                 <!-- Módulo 1 -->
 
@@ -1224,19 +1227,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             1</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Qué vas a aprender aquí</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Introducción al curso Veo3.1
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Introducción al curso Veo3.1
                           </p>
 
                         </div>
@@ -1426,21 +1429,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             2</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">¿Qué es Veo3.1 y por qué es la nueva ola del
                             marketing
                             digital?</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Fundamentos de Veo3.1</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Fundamentos de Veo3.1</p>
 
                         </div>
 
@@ -1595,19 +1598,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             3</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo usar Flow Veo3.1 GRATIS</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Configuración inicial paso a
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Configuración inicial paso a
                             paso
                           </p>
 
@@ -1776,20 +1779,20 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             4</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo quitar la tarjeta y cancelar la suscripción
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Gestión segura de tu cuenta
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Gestión segura de tu cuenta
                           </p>
 
                         </div>
@@ -1947,21 +1950,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             5</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo hacer hasta 50 videos por cuenta gratuita
                             en FLOW
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Maximiza tu uso gratuito</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Maximiza tu uso gratuito</p>
 
                         </div>
 
@@ -2115,21 +2118,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             6</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo configurar ChatGPT para crear videos
                             perfectos
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Integración avanzada con IA
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Integración avanzada con IA
                           </p>
 
                         </div>
@@ -2278,19 +2281,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             7</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo usar Flow de Veo3.1</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Interfaz y funcionalidades
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Interfaz y funcionalidades
                             principales</p>
 
                         </div>
@@ -2456,21 +2459,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             8</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear los videos en la práctica en FLOW de
                             Veo3.1
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Ejercicio práctico completo
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Ejercicio práctico completo
                           </p>
 
                         </div>
@@ -2647,19 +2650,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             9</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo generar videos de más de 8 segundos</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Técnicas para videos largos
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Técnicas para videos largos
                           </p>
 
                         </div>
@@ -2812,20 +2815,20 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             10</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo Crear Videos usando imágenes con Veo3.1
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Transforma fotos en videos
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Transforma fotos en videos
                             animados
                           </p>
 
@@ -2973,21 +2976,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             11</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Descarga y usa video en tu embudo o redes
                             sociales
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Implementación profesional</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Implementación profesional</p>
 
                         </div>
 
@@ -3147,20 +3150,20 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             12</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Ejemplos de videos creados con la herramienta
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Inspiración y casos reales</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Inspiración y casos reales</p>
 
                         </div>
 
@@ -3331,19 +3334,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             13</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Ultra prompt definitivo</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">El prompt más avanzado para
+                          <p class="text-white text-opacity-80 mt-2 text-lg">El prompt más avanzado para
                             Veo3.1
                           </p>
 
@@ -3477,19 +3480,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             14</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear tu influencer IA</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Desarrollo de personajes
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Desarrollo de personajes
                             digitales
                           </p>
 
@@ -3651,19 +3654,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             15</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Generando la imagen de tu influencer</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Creación visual del personaje
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Creación visual del personaje
                           </p>
 
                         </div>
@@ -3821,20 +3824,20 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             16</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Creando video: Transformando tu foto en video
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Animación de personajes</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Animación de personajes</p>
 
                         </div>
 
@@ -3995,20 +3998,20 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             17</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Instruyendo a ChatGPT a mantener la consistencia
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Coherencia de personajes</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Coherencia de personajes</p>
 
                         </div>
 
@@ -4168,19 +4171,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             18</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Resultado en la práctica</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Demostración de consistencia
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Demostración de consistencia
                           </p>
 
                         </div>
@@ -4342,19 +4345,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             19</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo generar videos de más de 8 segundos</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Técnicas extendidas para
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Técnicas extendidas para
                             contenido
                             largo</p>
 
@@ -4516,19 +4519,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             20</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 1</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Fundamentos de videos
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Fundamentos de videos
                             comerciales
                           </p>
 
@@ -4679,19 +4682,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             21</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 2</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Técnicas avanzadas de
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Técnicas avanzadas de
                             demostración
                           </p>
 
@@ -4830,19 +4833,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             22</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 3</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Optimización y
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Optimización y
                             perfeccionamiento</p>
 
                         </div>
@@ -4986,19 +4989,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             23</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo crear videos de productos PARTE 4</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Masterclass final de productos
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Masterclass final de productos
                           </p>
 
                         </div>
@@ -5157,19 +5160,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             24</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo corregir el error de vídeo sin sonido</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Solución de problemas comunes
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Solución de problemas comunes
                           </p>
 
                         </div>
@@ -5329,21 +5332,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             25</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo solucionar los errores de los prompts PARTE
                             1
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Debugging y optimización</p>
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Debugging y optimización</p>
 
                         </div>
 
@@ -5506,21 +5509,21 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             26</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Cómo solucionar los errores de los prompts PARTE
                             2
                           </h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Masterclass de troubleshooting
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Masterclass de troubleshooting
                           </p>
 
                         </div>
@@ -5680,19 +5683,19 @@
                   <!-- Encabezado de lección -->
 
                   <div class="mb-4 lg:mb-8">
-                    <div class="video-header text-premium-background p-4 lg:p-8 rounded-xl">
+                    <div class="video-header text-white p-4 lg:p-8 rounded-xl">
 
                       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 
                         <div>
 
                           <span
-                            class="text-sm font-semibold bg-premium-background bg-opacity-20 px-4 py-2 rounded-full">Lección
+                      class="text-sm font-semibold bg-white bg-opacity-20 px-4 py-2 rounded-full">Lección
                             27</span>
 
                           <h2 class="text-3xl font-bold mt-4 glow-text">Caja de Prompts — 10 PDFs Premium</h2>
 
-                          <p class="text-premium-background text-opacity-80 mt-2 text-lg">Recursos exclusivos para
+                          <p class="text-white text-opacity-80 mt-2 text-lg">Recursos exclusivos para
                             dominar
                             Veo3.1</p>
 
