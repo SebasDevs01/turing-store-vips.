@@ -135,6 +135,18 @@
 
 <body class="min-h-screen overflow-x-hidden">
 
+<!-- Overlay de Carga Principal -->
+<div id="loadingOverlay" class="fixed inset-0 z-[100] bg-turingDark flex flex-col items-center justify-center transition-opacity duration-500">
+    <div class="flex flex-col items-center">
+        <i class="fa-solid fa-circle-notch fa-spin text-5xl text-turingRed mb-4 drop-shadow-[0_0_15px_rgba(230,57,70,0.8)]"></i>
+        <h2 class="text-xl font-bold text-white tracking-widest ts-title">Turing Store</h2>
+        <p class="text-sm text-gray-400 mt-2">Verificando acceso a Veo...</p>
+    </div>
+</div>
+<!-- Wrap App -->
+<div id="appContainer" style="display: none;" class="w-full relative">
+
+
   <!-- Header móvil -->
 
   <header class="lg:hidden bg-premium-card border-b border-premium-border p-4 flex justify-between items-center sticky top-0 z-30 backdrop-blur-sm">
@@ -142,22 +154,50 @@
     
         <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
             
-            
-                <!-- Light Mode Logo: Logoblanco -->
-                <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-10 w-10 object-contain dark:hidden filter drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-                <!-- Dark Mode Logo: Red image.png -->
-                <!-- Light Mode Logo: Logoblanco -->
-                <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-10 w-10 object-contain dark:hidden filter drop-shadow-[0_0_5px_rgba(0,0,0,0.1)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
-                <!-- Dark Mode Logo: Red image.png -->
-                <img src="assets/image.png" alt="Turing Logo" class="hidden h-10 w-10 object-contain dark:block filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)]" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+            <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-10 w-10 object-contain filter drop-shadow-md bg-black/10 rounded-full p-1 dark:bg-transparent dark:p-0" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
+            <div>
+              <h1 class="font-bold text-premium-text tracking-widest text-lg lg:text-xl">Turing Store</h1>
+              <p class="text-xs text-[#dc2626] font-semibold">Curso Veo 3.1</p>
+            </div>
+        </div>
 
+
+    <button id="mobile-menu-toggle" class="p-2 rounded-lg bg-premium-border text-premium-primary hover:bg-premium-primary hover:text-premium-background transition-all">
+
+      <i class="fas fa-bars"></i>
+
+    </button>
+
+  </header>
+
+
+
+    <!-- Overlay móvil -->
+
+  <div id="mobile-overlay" class="lg:hidden fixed inset-0 bg-black bg-opacity-70 z-20 hidden"></div>
+
+
+
+  <div class="flex flex-col lg:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+
+    <aside id="sidebar" class="sidebar sidebar-mobile lg:w-80 xl:w-96 h-screen overflow-y-auto fixed lg:sticky lg:top-0 z-30">
+
+      
+      <!-- Header del sidebar -->
+      <div class="p-5 border-b border-premium-border bg-premium-card flex flex-col gap-4">
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.location.href='dashboard.html'">
+                
+                <img src="assets/Logoblanco.png" alt="Turing Logo" class="h-10 w-10 object-contain filter drop-shadow-md bg-black/10 rounded-full p-1 dark:bg-transparent dark:p-0" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
                 <div>
                   <h1 class="font-bold text-premium-text tracking-widest text-lg lg:text-xl">Turing Store</h1>
                   <p class="text-xs text-[#E63946] font-semibold">Curso Veo 3.1</p>
                 </div>
             </div>
             
-            <button id="close-sidebar" class="lg:hidden p-2 text-premium-textMuted ml-auto hover:text-[#E63946] rounded-lg transition-colors">
+            <button id="close-sidebar" class="lg:hidden p-2 text-premium-textMuted hover:text-[#E63946] rounded-lg transition-colors">
               <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -6289,7 +6329,9 @@
     </script>
     
 
-    <script>
+    
+</div>
+<script>
       const htmlElement = document.documentElement;
       
       function updateTheme() {
