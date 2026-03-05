@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="color-scheme" content="light dark">
+    <title>Tabla de Análisis de Productos | Turing Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Orbitron:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="assets/image.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme Check before render -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif']
+                    },
+                    colors: {
+                        turingRed: '#E63946',
+                        whatsapp: '#25D366'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- EXACT SAME CSS AS DASHBOARD -->
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
+        body {
+            display: block;
+            min-height: 100vh;
+            background-color: #f9fafb;
+            color: #1f2937;
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(204, 0, 0, 0.05) 0%, transparent 40%);
+        }
+
+        .dark body {
+            background-color: #050505;
+            color: #ffffff;
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(204, 0, 0, 0.05) 0%, transparent 40%);
+        }
+
+        .ts-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            color: #111827;
+        }
+
+        .dark .ts-title {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(230, 57, 70, 0.6);
+        }
+
+        .ts-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark .ts-card {
+            background: #0f0f0f;
+            border: 1px solid rgba(230, 57, 70, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .ts-btn {
+            background: #E63946;
+            transition: all 0.3s ease;
+            color: white !important;
+        }
+
+        .ts-btn:hover {
+            background: #D62828;
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+        }
+
+        /* Light mode overrides (same as dashboard) */
+        html:not(.dark) body .text-white {
+            color: #111827 !important;
+        }
+
+        html:not(.dark) body .text-gray-400 {
+            color: #4b5563 !important;
+        }
+
+        html:not(.dark) body .text-gray-300 {
+            color: #374151 !important;
+        }
+
+        html:not(.dark) body .bg-gray-800 {
+            background-color: #f3f4f6 !important;
+        }
+
+        html:not(.dark) body .border-gray-800 {
+            border-color: #e5e7eb !important;
+        }
+
+        html:not(.dark) body .bg-black\/50 {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        html:not(.dark) body .border-red-900\/50 {
+            border-color: rgba(230, 57, 70, 0.2) !important;
+        }
+
+        html:not(.dark) body .text-turingRed {
+            color: #D62828 !important;
+        }
+
+        html:not(.dark) body .text-gray-500 {
+            color: #6b7280 !important;
+        }
+
+        /* Logo fixed size — no layout shift between modes */
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        /* Table */
+        tbody tr:hover td {
+            background: rgba(230, 57, 70, 0.04);
+        }
+
+        select {
+            background: transparent;
+            border: 1px solid rgba(230, 57, 70, 0.5);
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-family: inherit;
+            font-size: .85rem;
+            cursor: pointer;
+            width: 100%;
+            min-width: 140px;
+            transition: box-shadow .2s;
+        }
+
+        .dark select {
+            color: #f1f5f9;
+        }
+
+        html:not(.dark) select {
+            color: #1f2937;
+        }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
+        }
+
+        #result {
+            transition: all .3s ease;
+        }
+    </style>
+
+    <!-- Auth guard -->
+    <script type="module">
+        import { checkAuth } from './auth-helper.js?v=3';
+        const session = await checkAuth(true);
+        if (!session) window.location.href = 'index.html';
+    </script>
+</head>
+
+<body class="antialiased flex flex-col">
+
+    <!-- ── Header (identical to dashboard) ── -->
+    <header class="bg-black/50 backdrop-blur-md border-b border-red-900/50 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+
+      <!-- Logo (clickable) -->
+      <div class="flex items-center gap-3 cursor-pointer group flex-shrink-0" onclick="window.location.href='dashboard.html'">
+        <img src="assets/image.png" alt="Turing Logo"
+            class="logo-img filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)] dark:hidden transition-transform duration-300 group-hover:scale-110"
+            onerror="this.style.display='none'">
+        <img src="assets/Logoblanco.png" alt="Turing Logo"
+            class="logo-img filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)] hidden dark:block transition-transform duration-300 group-hover:scale-110"
+            onerror="this.style.display='none'">
+        <div>
+          <h1 class="text-base font-bold tracking-widest ts-title text-white uppercase group-hover:text-turingRed transition-colors duration-300">Turing Store</h1>
+          <p class="text-xs text-turingRed font-semibold uppercase tracking-wider">Tabla de Análisis</p>
+        </div>
+      </div>
+
+      <!-- Buttons: ← Dashboard + theme + logout — same row, compact -->
+      <div class="flex items-center gap-2">
+        <button onclick="window.location.href='dashboard.html'"
+          class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-gray-700 hover:border-turingRed text-gray-800 dark:text-white text-xs font-semibold transition-all">
+          <i class="fas fa-arrow-left text-turingRed text-xs"></i>
+          <span class="hidden sm:inline">Dashboard</span>
+        </button>
+        <button id="themeToggle"
+          class="w-9 h-9 flex items-center justify-center bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-gray-700 hover:text-turingRed rounded-lg transition-all text-gray-600 dark:text-gray-400">
+          <i class="fa-solid fa-moon dark:hidden text-sm"></i>
+          <i class="fa-solid fa-sun hidden dark:block text-yellow-500 text-sm"></i>
+        </button>
+        <button onclick="logout()"
+          class="w-9 h-9 flex items-center justify-center bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-gray-700 hover:text-turingRed rounded-lg transition-all text-gray-600 dark:text-gray-400"
+          title="Cerrar Sesión">
+          <i class="fa-solid fa-right-from-bracket text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+    <!-- ── Content ── -->
+    <main class="max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 pb-20 flex-1">
+
+        <!-- Page heading -->
+        <div class="mb-8">
+            <h2 class="text-2xl sm:text-3xl font-black ts-title text-white mb-3">
+                Tabla de Análisis de Productos para Testeo
+            </h2>
+            <p class="text-sm text-gray-400 mb-1">
+                Selecciona si el producto <strong class="text-white">cumple</strong> o <strong class="text-white">no
+                    cumple</strong> con cada criterio.
+                Al final verás el porcentaje total de viabilidad.
+            </p>
+            <p class="text-xs text-gray-500 italic">
+                🔴 No viable (0–40%) &nbsp;·&nbsp; 🟡 Poca probabilidad (41–79%) &nbsp;·&nbsp; 🟠 Viable para testeo
+                (80–100%)
+            </p>
+        </div>
+
+        <!-- Table card -->
+        <div class="ts-card overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th
+                                class="px-5 py-4 text-left bg-turingRed text-white text-sm font-bold uppercase tracking-wide">
+                                Criterio</th>
+                            <th
+                                class="px-5 py-4 text-center bg-turingRed text-white text-sm font-bold uppercase tracking-wide w-44">
+                                Cumple</th>
+                        </tr>
+                    </thead>
+                    <tbody id="evaluation-table" class="divide-y divide-gray-100 dark:divide-gray-800/60">
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">El producto no es difícil de transportar</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Genera recompra</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Audiencia amplia</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Resuelve una necesidad o problema</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Buena percepción de valor</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Producto de pasión, temporada o creencia</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">No necesita combo inicial para venderse</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Posibilidad de combos futuros</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Potencial para construir marca</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Coherente con la identidad del negocio</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Cumple lo que promete</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">No se consigue fácilmente (no en D1, Ara,
+                                DollarCity)</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Proveedor verificado y responde</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Más de 100 unidades en stock</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Menos de 5 proveedores en Dropi</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Menos de 2 tiendas vendiéndolo</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Rentabilidad mínima del 20%</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Utilidad mínima de $10.000</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Disponibilidad de creativos (videos o imágenes)
+                            </td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                        <tr class="transition-colors">
+                            <td class="px-5 py-3 text-sm text-white">Ángulos de venta claros y diferenciados</td>
+                            <td class="px-4 py-2"><select onchange="calcular()">
+                                    <option value="">Selecciona...</option>
+                                    <option value="1">✅ Sí</option>
+                                    <option value="0">❌ No</option>
+                                </select></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Result card -->
+        <div id="result" class="ts-card mt-6 p-6 text-center">
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Viabilidad del producto</p>
+            <div id="pct-num" class="text-5xl font-black text-turingRed mb-2">0%</div>
+            <div id="verdict-txt" class="text-sm text-gray-400">Completa todos los criterios ↑</div>
+        </div>
+
+        <!-- Reset button -->
+        <button onclick="resetTabla()"
+            class="mt-4 w-full py-3 rounded-xl border border-gray-700 text-gray-500 hover:text-turingRed hover:border-turingRed transition font-semibold text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-rotate-left"></i> Reiniciar tabla
+        </button>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-800/50 mt-8 py-6 px-4">
+        <div class="max-w-7xl mx-auto text-center text-xs text-gray-500 space-y-1">
+            <p>
+                <span class="text-turingRed font-bold uppercase tracking-widest">Turing Store</span>
+                &nbsp;·&nbsp; Área exclusiva para miembros VIP
+            </p>
+            <p>© 2026 Turing Store · Todos los derechos reservados · Acceso restringido</p>
+        </div>
+    </footer>
+    </main>
+
+    <script>
+        // Theme Toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Calculator
+        function calcular() {
+            const selects = document.querySelectorAll('#evaluation-table select');
+            const total = selects.length;
+            const answered = [...selects].filter(s => s.value !== '');
+            if (answered.length === 0) return;
+
+            const sum = answered.filter(s => s.value === '1').length;
+            const pct = Math.round((sum / total) * 100);
+
+            const pctEl = document.getElementById('pct-num');
+            const verdictEl = document.getElementById('verdict-txt');
+            const resultEl = document.getElementById('result');
+
+            pctEl.textContent = pct + '%';
+
+            if (pct <= 40) {
+                pctEl.style.color = '#ff4444';
+                resultEl.style.borderColor = 'rgba(255,68,68,0.5)';
+                resultEl.style.boxShadow = '0 0 20px rgba(255,68,68,0.2)';
+                verdictEl.textContent = '🔴 No viable – Descarta este producto';
+                verdictEl.style.color = '#ff6666';
+            } else if (pct <= 79) {
+                pctEl.style.color = '#f59e0b';
+                resultEl.style.borderColor = 'rgba(245,158,11,0.5)';
+                resultEl.style.boxShadow = '0 0 20px rgba(245,158,11,0.2)';
+                verdictEl.textContent = '🟡 Poca probabilidad – Analiza mejor antes de invertir';
+                verdictEl.style.color = '#f59e0b';
+            } else {
+                pctEl.style.color = '#E63946';
+                resultEl.style.borderColor = 'rgba(230,57,70,0.5)';
+                resultEl.style.boxShadow = '0 0 25px rgba(230,57,70,0.3)';
+                verdictEl.textContent = '🟠 Viable para testeo – ¡Este producto tiene potencial!';
+                verdictEl.style.color = '#E63946';
+            }
+        }
+
+        function resetTabla() {
+            document.querySelectorAll('#evaluation-table select').forEach(s => s.value = '');
+            document.getElementById('pct-num').textContent = '0%';
+            document.getElementById('pct-num').style.color = '#E63946';
+            document.getElementById('verdict-txt').textContent = 'Completa todos los criterios ↑';
+            document.getElementById('verdict-txt').style.color = '';
+            document.getElementById('result').style.borderColor = '';
+            document.getElementById('result').style.boxShadow = '';
+        }
+
+        // Cerrar sesion (mismo que curso_veo.html)
+        function logout() {
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('isAdmin');
+            localStorage.removeItem('userProducts');
+            window.location.href = 'index.html';
+        }
+        </script>
+</body>
+
+</html>

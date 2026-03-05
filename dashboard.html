@@ -231,16 +231,27 @@
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="border-t border-gray-800/50 mt-8 py-6 px-4">
+        <div class="max-w-7xl mx-auto text-center text-xs text-gray-500 space-y-1">
+            <p>
+                <span class="text-turingRed font-bold uppercase tracking-widest">Turing Store</span>
+                &nbsp;·&nbsp; Área exclusiva para miembros VIP
+            </p>
+            <p>© 2026 Turing Store · Todos los derechos reservados · Acceso restringido</p>
+        </div>
+    </footer>
+
     <script type="module">
         import { checkAuth, handleLogout } from './auth-helper.js?v=3';
 
-        // Catálogo maestro (GEMS)
         const productosMaster = [
-            { id: "GEM-001", nombre: "LandingMaster IA", precio: 50000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/01/A4-IMG-CREADOR-DE-LANDING.avif", link: "#" },
-            { id: "GEM-002", nombre: "Gems Creador Ads", precio: 120000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/02/A4-IMG-CREADOR-DE-POST.avif", link: "#" },
-            { id: "GEM-003", nombre: "MasterDesigner Digital", precio: 250000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2025/10/5.avif", link: "#" },
-            { id: "GEM-004", nombre: "Cuenta ChatGPT Plus", precio: 80000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/01/4_2.avif", link: "#" },
-            { id: "GEM-005", nombre: "Curso Veo 3.1", precio: 150000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/01/Diseno-sin-titulo-5.avif", link: "curso_veo.html" }
+            { id: "GEM-001", nombre: "LandingMaster IA", desc: "Crea landing pages profesionales con IA en minutos, sin código ni diseño previo.", precio: 50000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/01/A4-IMG-CREADOR-DE-LANDING.avif", link: "#" },
+            { id: "GEM-002", nombre: "Gems Creador Ads", desc: "Genera anuncios de alto impacto para Meta y Google con prompts optimizados.", precio: 120000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/02/A4-IMG-CREADOR-DE-POST.avif", link: "#" },
+            { id: "GEM-003", nombre: "MasterDesigner Digital", desc: "Domina el diseño gráfico digital con herramientas IA para crear contenido viral.", precio: 250000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2025/10/5.avif", link: "#" },
+            { id: "GEM-004", nombre: "Cuenta ChatGPT Plus", desc: "Accede a GPT-4 y todas sus funciones premium para potenciar tu productividad.", precio: 80000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2026/01/4_2.avif", link: "#" },
+            { id: "GEM-005", nombre: "Curso Veo 3.1", desc: "Aprende a crear videos con IA usando Google Veo 3.1 y domina el marketing de video.", precio: 150000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2025/10/6.avif", link: "curso_veo.html" },
+            { id: "GEM-006", nombre: "Tabla de Análisis de Productos", desc: "Evalúa cualquier producto con 20 criterios clave y obtén su porcentaje de viabilidad para testeo.", precio: 35000, img: "https://miembros.emanuelbolivar.com/wp-content/uploads/2025/11/19.avif", link: "tabla_analisis.html" }
         ];
 
         document.getElementById('logoutBtn').addEventListener('click', handleLogout);
@@ -307,13 +318,14 @@
 
                 card.innerHTML = `
                     ${statusBadge}
-                    <div class="relative h-48 overflow-hidden bg-black ${hasAccess ? '' : 'grayscale'}">
+                    <div class="relative overflow-hidden bg-black ${hasAccess ? '' : 'grayscale'}" style="aspect-ratio:9/16; border-radius: 14px 14px 0 0;">
                         ${overlay}
-                        <img src="${prod.img}" alt="${prod.nombre}" class="w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110">
+                        <img src="${prod.img}" alt="${prod.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
                     <div class="p-6 flex flex-col flex-grow relative z-20 bg-gradient-to-t from-turingDarkCard via-transparent to-transparent">
-                        <h4 class="text-lg font-bold text-white leading-tight mb-2 ts-title">${prod.nombre}</h4>
-                        <p class="text-xs text-gray-400 mb-6 font-mono">${prod.id}</p>
+                        <h4 class="text-lg font-bold text-white leading-tight mb-1 ts-title">${prod.nombre}</h4>
+                        <p class="text-xs text-gray-400 mb-1 font-mono">${prod.id}</p>
+                        <p class="text-xs text-gray-300 mb-5 leading-relaxed">${prod.desc}</p>
                         <div class="mt-auto">
                             ${ctaHtml}
                         </div>
