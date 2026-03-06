@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Link de WhatsApp – Turing Store</title>
+    <link rel="icon" type="image/png" href="assets/image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;600;700&display=swap"
@@ -261,10 +262,10 @@
                 para tus campañas.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
 
             <!-- Form -->
-            <div class="ts-card p-5 space-y-4">
+            <div class="ts-card p-5 space-y-4 flex flex-col">
                 <h3 class="font-bold text-turingRed uppercase tracking-wide text-sm">Configuración del link</h3>
 
                 <div>
@@ -300,19 +301,54 @@
 
                 <div class="flex flex-col gap-2">
                     <button class="ts-btn-primary" onclick="generarLink()">
-                        <i class="fas fa-link mr-2"></i> Generar Link
+                        <i class="fas fa-link mr-2"></i> Generar Link + QR
                     </button>
                     <button class="ts-btn-sec" onclick="resetForm()">
                         <i class="fas fa-rotate-left mr-2"></i> Limpiar
                     </button>
                 </div>
+
+                <!-- Success summary (shown after generating) -->
+                <div id="formSuccess" class="hidden space-y-3 pt-1">
+                    <div class="border border-green-500/30 bg-green-500/5 rounded-xl p-4 space-y-3">
+                        <div class="flex items-center gap-2 text-green-400 font-bold text-sm">
+                            <i class="fas fa-circle-check text-green-400"></i>
+                            Link generado con éxito
+                        </div>
+                        <div class="space-y-2 text-xs text-gray-400">
+                            <div class="flex justify-between items-center border-b border-gray-700/50 pb-2">
+                                <span class="text-gray-500">Destinatario</span>
+                                <span class="font-mono font-semibold text-white" id="summaryPhone">—</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-700/50 pb-2">
+                                <span class="text-gray-500">Mensaje</span>
+                                <span class="font-semibold text-white truncate max-w-[140px]" id="summaryMsg">—</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500">QR</span>
+                                <span class="text-green-400 font-semibold">✓ Generado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-700/40 rounded-xl p-3 space-y-2">
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide">¿Qué puedes hacer ahora?
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li><i class="fas fa-copy text-turingRed mr-1"></i>Copia el link para tus anuncios</li>
+                            <li><i class="fas fa-qrcode text-turingRed mr-1"></i>Descarga el QR para imprimir</li>
+                            <li><i class="fab fa-whatsapp text-green-400 mr-1"></i>Pruébalo abriendo en WhatsApp</li>
+                            <li><i class="fas fa-rotate-left text-turingRed mr-1"></i>Genera otro con datos distintos
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Result -->
-            <div class="ts-card p-5 space-y-4" id="resultCard">
+            <div class="ts-card p-5 space-y-4 flex flex-col" id="resultCard">
                 <h3 class="font-bold text-turingRed uppercase tracking-wide text-sm">Resultado</h3>
 
-                <div id="resultEmpty" class="space-y-5">
+                <div id="resultEmpty" class="space-y-5 flex-1">
                     <!-- Animated icon + heading -->
                     <div class="flex flex-col items-center gap-2 pt-2">
                         <div class="wa-pulse-wrapper relative inline-flex items-center justify-center w-16 h-16">
@@ -499,6 +535,11 @@
             document.getElementById('resultContent').classList.remove('hidden');
             document.getElementById('copyMsg').classList.add('hidden');
 
+            // Summary en formulario
+            document.getElementById('summaryPhone').textContent = '+' + country + ' ' + phone;
+            document.getElementById('summaryMsg').textContent = mensaje || 'Sin mensaje';
+            document.getElementById('formSuccess').classList.remove('hidden');
+
             // Generar QR
             generarQR(generatedUrl);
         }
@@ -554,6 +595,7 @@
             document.getElementById('resultEmpty').classList.remove('hidden');
             document.getElementById('resultContent').classList.add('hidden');
             document.getElementById('qrContainer').innerHTML = '';
+            document.getElementById('formSuccess').classList.add('hidden');
             qrInstance = null;
             generatedUrl = '';
         }
