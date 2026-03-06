@@ -14,7 +14,6 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                 return;
             }
         } else if (window.location.pathname.includes('admin') && requireAuth) {
-            // Si intenta entrar al admin y no tiene el bypass, redirigir
             onAuthStateChanged(auth, async (user) => {
                 if (!user) {
                     window.location.href = redirectUrl;
@@ -54,57 +53,19 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
                                 return;
                             }
 
-                            // 2. Verificación Múltiples Sesiones (Baneo Automático)
-                            const currentLocalSessionToken = localStorage.getItem('sessionToken');
-                            const justLoggedIn = localStorage.getItem('justLoggedIn');
-
-                            if (userData.current_session_token && currentLocalSessionToken && userData.current_session_token !== currentLocalSessionToken) {
-                                // If the database token doesn't match our local token, AND we didn't JUST log in,
-                                // someone else took over the session.
-                                if (!justLoggedIn) {
-                                    if (userData.role !== 'admin') {
-                                        let banSuccessful = false;
-                                        try {
-                                            // BLOQUEAR CUENTA y destuir sesiones activas para anular la intrusión detectada
-                                            // Make sure we await this properly AND catch any errors separately so it doesn't abort.
-                                            await updateDoc(userRef, {
-                                                status: 'banned',
-                                                current_session_token: null,
-                                                last_ip_device: null
-                                            });
-                                            banSuccessful = true;
-                                        } catch (error) {
-                                            console.error("Error al banear usuario por sesión múltiple:", error);
-                                        }
-
-                                        // Only alert AFTER the network request to ban has completed or explicitly failed.
-                                        alert("¡INTRUSIÓN! Se ha detectado un inicio de sesión simultáneo en otro dispositivo. Por seguridad del ecosistema, tu cuenta ha sido BLOQUEADA automáticamente. Contacta al Admin.");
-
-                                        // Now it is safe to tear down the local auth state.
-                                        await signOut(auth);
-                                        localStorage.removeItem('sessionToken');
-                                        window.location.href = redirectUrl;
-
-                                        if (!isAuthResolved) {
-                                            reject("Múltiples sesiones bloqueadas");
-                                            isAuthResolved = true;
-                                        }
-                                        return;
-                                    } else {
-                                        // Es Admin, se permite múltiples sesiones o al menos NO los baneamos.
-                                        console.log("Sesión simultánea detectada en cuenta Admin. Baneo omitido por privilegios.");
-                                        // Podemos actualizar su token local al más nuevo para que no los eche.
-                                        localStorage.setItem('sessionToken', userData.current_session_token);
-                                    }
-                                }
-                            }
-
-                            if (justLoggedIn) {
-                                localStorage.removeItem('justLoggedIn');
-                            }
-
-                            // Solo actualizamos la IP y Token cuando la promesa original se está resolviendo la 1ra vez
+                            // ── PRIMERA VEZ: establecer sesión ────────────────────────────────
                             if (!isAuthResolved) {
+                                let sessionToken = localStorage.getItem('sessionToken');
+                                const justLoggedIn = localStorage.getItem('justLoggedIn');
+
+                                // Si acabamos de hacer login, ya tenemos un token nuevo en localStorage
+                                // Solo necesitamos escribirlo a Firestore
+                                if (!sessionToken) {
+                                    sessionToken = Math.random().toString(36).substring(2, 15);
+                                    localStorage.setItem('sessionToken', sessionToken);
+                                }
+
+                                // Recopilar info del dispositivo
                                 let deviceInfo = "Navegador Web";
                                 if (/android/i.test(navigator.userAgent)) deviceInfo = "Android Móvil";
                                 if (/iPad|iPhone|iPod/.test(navigator.userAgent)) deviceInfo = "iPhone/iPad";
@@ -122,27 +83,64 @@ export function checkAuth(requireAuth = true, redirectUrl = 'login.html') {
 
                                 const logData = `IP: ${realIp} | ${deviceInfo} - ${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`;
 
-                                let sessionToken = currentLocalSessionToken;
-                                if (!sessionToken) {
-                                    sessionToken = Math.random().toString(36).substring(2, 15);
-                                    localStorage.setItem('sessionToken', sessionToken);
+                                // Escribir token a Firestore (siempre al inicio de sesión)
+                                try {
+                                    await updateDoc(userRef, {
+                                        current_session_token: sessionToken,
+                                        last_ip_device: logData,
+                                        last_login: new Date()
+                                    });
+                                } catch (e) {
+                                    console.warn("Error tracking session", e);
                                 }
 
-                                // Evitar loops de snapshot
-                                if (userData.current_session_token !== sessionToken || userData.last_ip_device !== logData) {
-                                    try {
-                                        await updateDoc(userRef, {
-                                            current_session_token: sessionToken,
-                                            last_ip_device: logData,
-                                            last_login: new Date()
-                                        });
-                                    } catch (e) {
-                                        console.warn("Error tracking session", e);
-                                    }
-                                }
+                                if (justLoggedIn) localStorage.removeItem('justLoggedIn');
 
                                 resolve({ user, userData });
                                 isAuthResolved = true;
+                                return;
+                            }
+
+                            // ── ACTUALIZACIONES EN TIEMPO REAL (después del primer resolve) ──
+                            // Detectar si alguien más tomó la sesión
+                            const currentLocalSessionToken = localStorage.getItem('sessionToken');
+
+                            if (
+                                userData.current_session_token &&
+                                currentLocalSessionToken &&
+                                userData.current_session_token !== currentLocalSessionToken
+                            ) {
+                                // Token en Firestore cambió — otro dispositivo inició sesión
+                                if (userData.role !== 'admin') {
+                                    try {
+                                        await updateDoc(userRef, {
+                                            status: 'banned',
+                                            current_session_token: null,
+                                            last_ip_device: null
+                                        });
+                                    } catch (error) {
+                                        console.error("Error al banear usuario por sesión múltiple:", error);
+                                    }
+
+                                    alert("⚠️ SESIÓN DUPLICADA: Se detectó un inicio de sesión en otro dispositivo. Por seguridad, tu cuenta ha sido BLOQUEADA. Contacta al Admin.");
+
+                                    await signOut(auth);
+                                    localStorage.removeItem('sessionToken');
+                                    window.location.href = redirectUrl;
+                                    return;
+                                } else {
+                                    // Admin: no baneamos, solo sincronizamos
+                                    console.log("Sesión simultánea en Admin — sincronizando token.");
+                                    localStorage.setItem('sessionToken', userData.current_session_token);
+                                }
+                            }
+
+                            // Token en Firestore fue borrado (null) — sesión destruida desde admin
+                            if (!userData.current_session_token && currentLocalSessionToken) {
+                                alert("Tu sesión fue cerrada por el administrador.");
+                                await signOut(auth);
+                                localStorage.removeItem('sessionToken');
+                                window.location.href = redirectUrl;
                             }
 
                         } else {
@@ -180,8 +178,6 @@ export async function handleLogout() {
     try {
         const user = auth.currentUser;
         if (user) {
-            // Nullify the session securely so the admin panel shows "Sin conexión"
-            // and the previous session token allows immediate logins elsewhere
             const userRef = doc(db, "users", user.uid);
             await updateDoc(userRef, {
                 current_session_token: null,
