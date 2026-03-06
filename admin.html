@@ -268,14 +268,14 @@
     </main>
 
     <!-- Modal Editar Accesos -->
-    <div id="productModal" class="hidden fixed z-50 inset-0 overflow-y-auto ts-modal-overlay"
+    <div id="productModal" class="hidden fixed z-50 inset-0 bg-black/60 ts-modal-overlay flex items-center justify-center"
         aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:p-0">
+        <div class="flex items-center justify-center min-h-screen px-4 py-6 text-center sm:p-6">
             <div class="fixed inset-0 bg-black bg-opacity-80 transition-opacity" aria-hidden="true"
                 onclick="closeModal()"></div>
 
             <div
-                class="inline-block align-bottom bg-turingDarkCard rounded-2xl border border-red-900 shadow-[0_0_30px_rgba(230,57,70,0.3)] text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                class="relative w-full max-w-lg bg-turingDarkCard rounded-2xl border border-red-900 shadow-[0_0_30px_rgba(230,57,70,0.3)] text-left overflow-hidden transform transition-all max-h-[88vh] flex flex-col">
                 <div class="px-6 pt-6 pb-4 sm:p-6 sm:pb-4 border-b border-gray-800">
                     <h3 class="text-xl leading-6 font-bold text-gray-900 dark:text-white ts-title mb-2"
                         id="modal-title">Gestión de Accesos
@@ -283,7 +283,7 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">Activando productos para: <span
                             id="modalUserName" class="text-turingRed font-bold"></span></p>
                 </div>
-                <div class="px-6 py-4 bg-black/30">
+                <div class="px-6 py-4 bg-black/30 overflow-y-auto flex-1">
                     <div id="productsChecklist" class="space-y-3">
                         <!-- Checkboxes generados dinamicamente -->
                     </div>
@@ -315,7 +315,9 @@
             { id: "GEM-003", name: "MasterDesigner Digital" },
             { id: "GEM-004", name: "Cuenta ChatGPT Plus" },
             { id: "GEM-005", name: "Curso Veo 3.1" },
-            { id: "GEM-006", name: "Tabla de Análisis de Productos" }
+            { id: "GEM-006", name: "Tabla de Análisis de Productos" },
+            { id: "GEM-007", name: "Calculadora de Precios" },
+            { id: "GEM-008", name: "Generador Link WhatsApp" }
         ];
 
         document.getElementById('logoutBtn').addEventListener('click', handleLogout);

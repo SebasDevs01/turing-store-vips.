@@ -190,7 +190,7 @@
     </script>
 </head>
 
-<body class="antialiased flex flex-col">
+<body class="antialiased flex flex-col min-h-screen">
 
     <!-- ── Header (identical to dashboard) ── -->
     <header class="bg-black/50 backdrop-blur-md border-b border-red-900/50 sticky top-0 z-50">
@@ -233,7 +233,7 @@
   </header>
 
     <!-- ── Content ── -->
-    <main class="max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 pb-20 flex-1">
+    <main class="max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 flex-1">
 
         <!-- Page heading -->
         <div class="mb-8">
@@ -446,8 +446,9 @@
             <i class="fa-solid fa-rotate-left"></i> Reiniciar tabla
         </button>
 
-        <!-- Footer -->
-        <footer class="border-t border-gray-800/50 mt-8 py-6 px-4">
+    </main>
+
+    <footer class="border-t border-gray-800/50 py-4 px-4">
         <div class="max-w-7xl mx-auto text-center text-xs text-gray-500 space-y-1">
             <p>
                 <span class="text-turingRed font-bold uppercase tracking-widest">Turing Store</span>
@@ -455,8 +456,11 @@
             </p>
             <p>© 2026 Turing Store · Todos los derechos reservados · Acceso restringido</p>
         </div>
-    </footer>
     </main>
+
+    </footer>
+
+
 
     <script>
         // Theme Toggle

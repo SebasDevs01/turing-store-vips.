@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Link de WhatsApp – Turing Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { turingRed: '#E63946' },
+                    fontFamily: { orbitron: ['Orbitron', 'sans-serif'], montserrat: ['Montserrat', 'sans-serif'] }
+                }
+            }
+        };
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(230, 57, 70, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(204, 0, 0, 0.05) 0%, transparent 40%);
+        }
+
+        .dark body {
+            background-color: #050505 !important;
+            color: #ffffff;
+        }
+
+        .dark {
+            background-color: #050505;
+        }
+
+        .ts-title {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            color: #111827;
+        }
+
+        .dark .ts-title {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(230, 57, 70, 0.6);
+        }
+
+        .ts-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .dark .ts-card {
+            background: #0f0f0f;
+            border: 1px solid rgba(230, 57, 70, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        html:not(.dark) .text-white {
+            color: #111827 !important;
+        }
+
+        html:not(.dark) header .text-white {
+            color: #111827 !important;
+        }
+
+        html:not(.dark) .bg-black\/50 {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        html:not(.dark) .border-red-900\/50 {
+            border-color: rgba(230, 57, 70, 0.2) !important;
+        }
+
+        .wa-input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            border: 1.5px solid rgba(230, 57, 70, 0.3);
+            outline: none;
+            transition: .15s;
+            font-family: 'Montserrat', sans-serif;
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .dark .wa-input {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-color: rgba(230, 57, 70, 0.3);
+        }
+
+        .wa-input:focus {
+            border-color: #E63946;
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+        }
+
+        textarea.wa-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .ts-btn-primary {
+            background: #E63946;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 11px 22px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+        }
+
+        .ts-btn-primary:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+        }
+
+        .ts-btn-sec {
+            background: transparent;
+            border: 1.5px solid #E63946;
+            color: #E63946;
+            border-radius: 10px;
+            padding: 11px 22px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+        }
+
+        .ts-btn-sec:hover {
+            background: #E63946;
+            color: #fff;
+        }
+
+        .wa-green {
+            color: #25D366;
+        }
+
+        .link-box {
+            border: 1.5px dashed rgba(230, 57, 70, 0.4);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 0.85rem;
+            word-break: break-all;
+            font-family: monospace;
+            background: rgba(230, 57, 70, 0.04);
+        }
+
+        .preview-bubble {
+            background: #25D366;
+            color: #fff;
+            border-radius: 18px 18px 18px 4px;
+            padding: 12px 16px;
+            display: inline-block;
+            max-width: 85%;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- ── Header (standard Turing Store product page) ── -->
+    <header class="bg-black/50 backdrop-blur-md border-b border-red-900/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 cursor-pointer group flex-shrink-0"
+                onclick="window.location.href='dashboard.html'">
+                <img src="assets/image.png" alt="Turing Logo"
+                    class="logo-img filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)] dark:hidden transition-transform duration-300 group-hover:scale-110"
+                    onerror="this.style.display='none'">
+                <img src="assets/Logoblanco.png" alt="Turing Logo"
+                    class="logo-img filter drop-shadow-[0_0_10px_rgba(230,57,70,0.8)] hidden dark:block transition-transform duration-300 group-hover:scale-110"
+                    onerror="this.style.display='none'">
+                <div>
+                    <h1
+                        class="text-base font-bold tracking-widest ts-title text-white uppercase group-hover:text-turingRed transition-colors duration-300">
+                        Turing Store</h1>
+                    <p class="text-xs text-turingRed font-semibold uppercase tracking-wider">Generador WhatsApp</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="window.location.href='dashboard.html'"
+                    class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-gray-700 hover:border-turingRed text-gray-800 dark:text-white text-xs font-semibold transition-all">
+                    <i class="fas fa-arrow-left text-turingRed text-xs"></i>
+                    <span class="hidden sm:inline">Dashboard</span>
+                </button>
+                <button id="themeToggle"
+                    class="w-9 h-9 flex items-center justify-center bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-gray-700 hover:text-turingRed rounded-lg transition-all text-gray-600 dark:text-gray-400">
+                    <i class="fa-solid fa-moon dark:hidden text-sm"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-yellow-500 text-sm"></i>
+                </button>
+                <button onclick="logout()"
+                    class="w-9 h-9 flex items-center justify-center bg-gray-100 dark:bg-[#111] border border-gray-300 dark:border-gray-700 hover:text-turingRed rounded-lg transition-all text-gray-600 dark:text-gray-400"
+                    title="Cerrar Sesión">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── Main ── -->
+    <main class="max-w-3xl mx-auto w-full px-4 sm:px-6 py-8 flex-1">
+
+        <div class="mb-8 text-center">
+            <h2 class="ts-title text-3xl font-black uppercase text-turingRed mb-2">
+                <i class="fab fa-whatsapp wa-green mr-2"></i>Generador de Link WhatsApp
+            </h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Crea links directos de WhatsApp con mensaje pre-cargado
+                para tus campañas.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Form -->
+            <div class="ts-card p-5 space-y-4">
+                <h3 class="font-bold text-turingRed uppercase tracking-wide text-sm">Configuración del link</h3>
+
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-gray-700 dark:text-gray-300">País</label>
+                    <select id="countryCode" class="wa-input">
+                        <option value="57">🇨🇴 Colombia (+57)</option>
+                        <option value="52">🇲🇽 México (+52)</option>
+                        <option value="34">🇪🇸 España (+34)</option>
+                        <option value="54">🇦🇷 Argentina (+54)</option>
+                        <option value="56">🇨🇱 Chile (+56)</option>
+                        <option value="51">🇵🇪 Perú (+51)</option>
+                        <option value="58">🇻🇪 Venezuela (+58)</option>
+                        <option value="593">🇪🇨 Ecuador (+593)</option>
+                        <option value="591">🇧🇴 Bolivia (+591)</option>
+                        <option value="598">🇺🇾 Uruguay (+598)</option>
+                        <option value="595">🇵🇾 Paraguay (+595)</option>
+                        <option value="1">🇺🇸 EEUU / Canadá (+1)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-gray-700 dark:text-gray-300">Número de teléfono
+                        <span class="text-gray-400 font-normal">(sin código de país, sin espacios)</span></label>
+                    <input type="tel" id="phoneNumber" placeholder="3001234567" class="wa-input">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-gray-700 dark:text-gray-300">Mensaje pre-cargado
+                        <span class="text-gray-400 font-normal">(opcional)</span></label>
+                    <textarea id="waMessage" class="wa-input"
+                        placeholder="Hola, vi tu producto y me interesa..."></textarea>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <button class="ts-btn-primary" onclick="generarLink()">
+                        <i class="fas fa-link mr-2"></i> Generar Link
+                    </button>
+                    <button class="ts-btn-sec" onclick="resetForm()">
+                        <i class="fas fa-rotate-left mr-2"></i> Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="ts-card p-5 space-y-4" id="resultCard">
+                <h3 class="font-bold text-turingRed uppercase tracking-wide text-sm">Resultado</h3>
+
+                <div id="resultEmpty" class="text-center py-8 text-gray-400">
+                    <i class="fab fa-whatsapp text-4xl wa-green mb-2 block"></i>
+                    <p class="text-sm">Completa el formulario y presiona <strong>Generar Link</strong></p>
+                </div>
+
+                <div id="resultContent" class="hidden space-y-4">
+                    <!-- Link generado -->
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Link generado:</p>
+                        <div class="link-box dark:text-green-400 text-green-700" id="generatedLink">—</div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="flex flex-col gap-2">
+                        <button onclick="copiarLink()" class="ts-btn-primary">
+                            <i class="fas fa-copy mr-2"></i> Copiar Link
+                        </button>
+                        <a id="abrirBtn" href="#" target="_blank" rel="noopener" class="ts-btn-sec text-center block">
+                            <i class="fab fa-whatsapp mr-2 wa-green"></i> Abrir en WhatsApp
+                        </a>
+                    </div>
+
+                    <!-- Preview del mensaje -->
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2">Preview del mensaje:</p>
+                        <div class="bg-[#e5ddd5] dark:bg-[#1a1a1a] rounded-xl p-4">
+                            <div class="preview-bubble" id="previewMsg">—</div>
+                        </div>
+                    </div>
+
+                    <div id="copyMsg" class="text-center text-xs text-green-500 font-semibold hidden">
+                        ✅ ¡Link copiado al portapapeles!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="ts-card p-5 mt-6">
+            <h3 class="font-bold text-turingRed uppercase tracking-wide text-sm mb-3">💡 Tips para tus campañas</h3>
+            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2 list-none">
+                <li><i class="fas fa-check text-turingRed mr-2"></i>Usa este link en tus anuncios de Meta como CTA
+                    directo a WhatsApp.</li>
+                <li><i class="fas fa-check text-turingRed mr-2"></i>El mensaje pre-cargado reduce la fricción del
+                    cliente — no necesita escribir nada.</li>
+                <li><i class="fas fa-check text-turingRed mr-2"></i>Integra el link en tu landing page con un botón
+                    verde de WhatsApp.</li>
+                <li><i class="fas fa-check text-turingRed mr-2"></i>Usa UTMs adicionales en el link si necesitas
+                    trackear la fuente de tráfico.</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- ── Footer (same as dashboard) ── -->
+    <footer class="border-t border-gray-800/50 mt-8 py-6 px-4">
+        <div class="max-w-7xl mx-auto text-center text-xs text-gray-500 space-y-1">
+            <p>
+                <span class="text-turingRed font-bold uppercase tracking-widest">Turing Store</span>
+                &nbsp;·&nbsp; Área exclusiva para miembros VIP
+            </p>
+            <p>© 2026 Turing Store · Todos los derechos reservados · Acceso restringido</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('isAdmin');
+            localStorage.removeItem('userProducts');
+            window.location.href = 'index.html';
+        }
+
+        let generatedUrl = '';
+
+        function generarLink() {
+            const country = document.getElementById('countryCode').value;
+            let phone = document.getElementById('phoneNumber').value.trim().replace(/\D/g, '');
+            const mensaje = document.getElementById('waMessage').value.trim();
+
+            if (!phone) {
+                alert('Por favor ingresa un número de teléfono.');
+                return;
+            }
+
+            const fullPhone = country + phone;
+            generatedUrl = mensaje
+                ? `https://wa.me/${fullPhone}?text=${encodeURIComponent(mensaje)}`
+                : `https://wa.me/${fullPhone}`;
+
+            document.getElementById('generatedLink').textContent = generatedUrl;
+            document.getElementById('abrirBtn').href = generatedUrl;
+            document.getElementById('previewMsg').textContent = mensaje || '(Sin mensaje pre-cargado)';
+
+            document.getElementById('resultEmpty').classList.add('hidden');
+            document.getElementById('resultContent').classList.remove('hidden');
+            document.getElementById('copyMsg').classList.add('hidden');
+        }
+
+        function copiarLink() {
+            if (!generatedUrl) return;
+            navigator.clipboard.writeText(generatedUrl).then(() => {
+                const msg = document.getElementById('copyMsg');
+                msg.classList.remove('hidden');
+                setTimeout(() => msg.classList.add('hidden'), 3000);
+            });
+        }
+
+        function resetForm() {
+            document.getElementById('phoneNumber').value = '';
+            document.getElementById('waMessage').value = '';
+            document.getElementById('resultEmpty').classList.remove('hidden');
+            document.getElementById('resultContent').classList.add('hidden');
+            generatedUrl = '';
+        }
+    </script>
+</body>
+
+</html>
